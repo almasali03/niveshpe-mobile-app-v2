@@ -1,0 +1,3794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Funds - NiveshPe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="funds-data.js"></script>
+    <style>
+        :root {
+          /* Color System */
+          --color-bg-primary: #F5F7FA;
+          --color-bg-secondary: #FFFFFF;
+          --color-card: #FFFFFF;
+          --color-surface: #F8F9FA;
+          --color-border: #E5E7EB;
+          
+          /* Brand Colors */
+          --color-blue: #2563EB;
+          --color-blue-dark: #1D4ED8;
+          --color-blue-light: #3B82F6;
+          --color-green: #10B981;
+          --color-green-light: #34D399;
+          --color-green-dark: #059669;
+          --color-orange: #F59E0B;
+          
+          /* Text Colors */
+          --color-text-primary: #1F2937;
+          --color-text-secondary: #6B7280;
+          --color-text-muted: #9CA3AF;
+          --color-text-white: #FFFFFF;
+          
+          /* Enhanced Gradients */
+          --gradient-hero: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
+          --gradient-header: linear-gradient(180deg, rgba(37, 99, 235, 0.05) 0%, rgba(16, 185, 129, 0.03) 100%);
+          --gradient-nav: linear-gradient(0deg, rgba(37, 99, 235, 0.05) 0%, rgba(16, 185, 129, 0.03) 100%);
+          --gradient-success: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+          --gradient-footer: linear-gradient(180deg, rgba(245, 247, 250, 0) 0%, rgba(225, 231, 239, 0.3) 100%);
+          
+          /* Typography */
+          --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+          
+          /* Shadows */
+          --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+          --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+          --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+          --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+          
+          /* Border Radius */
+          --radius-sm: 8px;
+          --radius-md: 12px;
+          --radius-lg: 16px;
+          --radius-xl: 20px;
+          --radius-2xl: 24px;
+          --radius-full: 9999px;
+
+          /* Fine-tuned Spacing System */
+          --space-xs: 8px;
+          --space-sm: 12px;
+          --space-md: 16px;
+          --space-lg: 20px;
+          --space-xl: 24px;
+          --space-2xl: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--color-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px 20px 40px;
+            overflow-x: auto;
+        }
+
+        /* iPhone Frame - Remove visual styling but keep dimensions */
+        .iphone-frame {
+            width: 380px;
+            height: 820px;
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+            position: relative;
+            margin: 0 auto;
+            flex-shrink: 0;
+        }
+
+        .iphone-frame::before {
+            display: none;
+        }
+
+        .iphone-frame::after {
+            display: none;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            border-radius: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .mobile-container {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .mobile-content {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: none;
+            transition: transform 0.3s ease;
+            padding-bottom: 100px; /* Account for sticky CTA height */
+        }
+
+        .mobile-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Enhanced Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: #F5F7FA;
+            font-size: 15px;
+            font-weight: 600;
+            height: 44px;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        /* Enhanced Header with Back Button */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: #F5F7FA;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            height: 70px;
+            box-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.12);
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .back-btn:active {
+            background: var(--color-blue);
+            color: white;
+            transform: scale(0.95);
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .header-spacer {
+            width: 40px;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: var(--space-lg);
+            padding-bottom: var(--space-lg);
+        }
+
+        /* Investment Type Tabs - Capsule Style */
+        .investment-tabs {
+            display: flex;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-xl);
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 5px 10px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--color-border);
+            background: var(--color-card);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tab-btn.active {
+            border-color: var(--color-blue);
+            color: var(--color-blue);
+            background: rgba(37, 99, 235, 0.1);
+            transform: scale(1.02);
+        }
+
+        /* SIP Frequency - Compact Pills */
+        .frequency-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .frequency-tabs {
+            display: flex;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-md);
+        }
+
+        .frequency-btn {
+            flex: 1;
+            padding: 5px 10px;
+            border-radius: var(--radius-full);
+            border: 1px solid var(--color-border);
+            background: var(--color-card);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .frequency-btn.active {
+            border-color: var(--color-blue);
+            color: var(--color-blue);
+            background: rgba(37, 99, 235, 0.1);
+            transform: scale(1.02);
+        }
+
+        /* Timing Display */
+        .timing-display {
+            margin-top: var(--space-sm);
+            animation: slideInUp 0.3s ease-out;
+        }
+
+        .timing-display-btn {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: auto;
+            margin: 0 auto;
+        }
+
+        .timing-display-btn:active {
+            transform: scale(0.98);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .timing-display-label {
+            font-weight: 400;
+            opacity: 0.7;
+        }
+
+        .timing-display-value {
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        /* Timing Selection Modal */
+        .timing-modal {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: flex-end;
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-out;
+            border-radius: 40px;
+            overflow: hidden;
+        }
+
+        .timing-modal.show {
+            display: flex;
+        }
+
+        .timing-modal-content {
+            background: var(--color-card);
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            padding: var(--space-md);
+            padding-bottom: calc(var(--space-lg) + 20px);
+            width: 100%;
+            max-height: 50vh;
+            animation: slideUpModal 0.3s ease-out;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-md);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 18px;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: var(--radius-sm);
+        }
+
+        .timing-options {
+            display: flex;
+            gap: var(--space-xs);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .timing-options.date-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: var(--space-xs);
+            max-width: 280px;
+            margin: 0 auto;
+        }
+
+        .timing-btn {
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--color-border);
+            background: var(--color-card);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .timing-btn.active {
+            border-color: var(--color-blue);
+            color: var(--color-blue);
+            background: rgba(37, 99, 235, 0.1);
+            transform: scale(1.02);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUpModal {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        /* Amount Input Section */
+        .amount-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .amount-input-container {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+        }
+
+        .amount-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-lg);
+            padding: var(--space-sm) 0;
+            position: relative;
+        }
+
+        .currency-symbol {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--color-text-primary);
+            position: absolute;
+            left: calc(50% - 120px);
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .amount-input-wrapper {
+            position: relative;
+            display: flex;
+            justify-content: center;
+        }
+
+        .amount-input {
+            font-size: 36px;
+            font-weight: 800;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: var(--color-text-primary);
+            width: 200px;
+            text-align: center;
+            padding-bottom: var(--space-md);
+            border-bottom: 3px solid var(--color-border);
+            transition: all 0.3s ease;
+        }
+
+        .amount-input:focus {
+            border-bottom-color: var(--color-blue);
+        }
+
+        .amount-input.focused {
+            transform: scale(1.02);
+        }
+
+        .amount-input::placeholder {
+            color: var(--color-text-muted);
+        }
+
+        /* Quick Amount Buttons */
+        .quick-amounts {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-xs);
+        }
+
+        .amount-btn {
+            padding: 14px 10px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+            background: var(--color-card);
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: var(--shadow-sm);
+            min-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .amount-btn.popular {
+            border-color: var(--color-blue);
+            background: rgba(37, 99, 235, 0.05);
+            color: var(--color-blue);
+            position: relative;
+        }
+
+        .amount-btn.popular::after {
+            content: 'Popular';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-blue);
+            color: white;
+            font-size: 9px;
+            font-weight: 600;
+            padding: 1px 6px;
+            border-radius: 3px;
+            opacity: 1;
+        }
+
+        .amount-btn:active {
+            transform: scale(0.96);
+            border-color: var(--color-blue);
+        }
+
+        /* Goal Selection */
+        .goal-section {
+            margin-bottom: var(--space-lg);
+        }
+
+        .section-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .section-label.small {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .goal-selection {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding-bottom: var(--space-xs);
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            margin-bottom: var(--space-sm);
+        }
+
+        .goal-selection::-webkit-scrollbar {
+            display: none;
+        }
+
+        .goal-card-compact {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 6px 10px;
+            height: 30px;
+            width: auto;
+            min-width: 70px;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        .goal-card-compact:active {
+            transform: scale(0.95);
+        }
+
+        .goal-card-compact.selected {
+            border-color: var(--color-blue);
+            background: rgba(37, 99, 235, 0.05);
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.15);
+        }
+
+        .goal-card-icon {
+            width: 20px;
+            height: 20px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-green);
+        }
+
+        .goal-card-compact.selected .goal-card-icon {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--color-blue);
+        }
+
+        .goal-card-name {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            line-height: 1;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .add-goal-card {
+            background: var(--color-surface);
+            border: 2px dashed var(--color-border);
+            border-radius: var(--radius-md);
+            padding: 6px 10px;
+            height: 30px;
+            width: auto;
+            min-width: 70px;
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .add-goal-card:active {
+            border-color: var(--color-green);
+            background: rgba(16, 185, 129, 0.05);
+            transform: scale(0.95);
+        }
+
+        .add-goal-card-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--color-green);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .add-goal-card-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-green);
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        .goal-scroll-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .goal-scroll-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .goal-scroll-dot.active {
+            background: var(--color-green);
+            width: 20px;
+            border-radius: 4px;
+        }
+
+        .goal-card-amount {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-green);
+            margin-top: 4px;
+        }
+
+        .goal-card-compact.selected .goal-card-amount {
+            color: var(--color-blue);
+        }
+
+        /* Fund Selection */
+        .fund-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .fund-card {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .fund-card:active {
+            transform: scale(0.98);
+            border-color: var(--color-blue);
+            box-shadow: var(--shadow-md);
+        }
+
+        .fund-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-sm);
+        }
+
+        .fund-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-blue);
+            flex: 1;
+        }
+
+
+        /* Unified Investment Display Card */
+        .investment-display-card {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            border: 1px solid #BFDBFE;
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin: 16px 0;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .display-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            cursor: pointer;
+        }
+
+        .chevron-icon {
+            color: var(--color-text-secondary);
+            transition: transform 0.3s ease;
+            margin-left: 8px;
+        }
+
+        /* Collapsible content */
+        .display-content {
+            max-height: 1000px;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .investment-display-card.collapsed .display-content {
+            max-height: 0;
+        }
+
+        .investment-display-card.collapsed .chevron-icon {
+            transform: rotate(-90deg);
+        }
+
+        .investment-display-card.collapsed .display-header {
+            margin-bottom: 0;
+        }
+
+        .display-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .display-badge {
+            background: transparent;
+            color: var(--color-green);
+            padding: 0;
+            border-radius: 0;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .display-content {
+            margin-bottom: 0;
+        }
+
+        /* Allocation Grid Layouts */
+        .allocation-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .allocation-summary {
+            margin-bottom: 8px;
+        }
+
+        .allocation-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin: 0 0 4px 0;
+        }
+
+        .allocation-description {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin: 0;
+        }
+
+        /* Fund Capsules Section */
+        .funds-section-header {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            margin-bottom: 12px;
+            padding: 0 4px;
+        }
+
+        .fund-capsules-container {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 0 4px 8px 4px;
+        }
+
+        .fund-capsules-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .fund-capsule {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            border: 1px solid #BFDBFE;
+            border-radius: 12px;
+            padding: 12px 14px;
+            min-width: fit-content;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .fund-capsule:active {
+            background: var(--color-surface);
+            transform: scale(0.98);
+        }
+
+        .fund-name-text {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .capsule-percentage {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--color-blue);
+        }
+
+        /* Scroll Indicator */
+        .capsules-scroll-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 12px;
+        }
+
+        .capsule-scroll-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #D1D5DB;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .capsule-scroll-dot.active {
+            background: var(--color-blue);
+        }
+
+        /* Single fund special styling */
+        .fund-pill-single {
+            background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%);
+            border: 2px solid var(--color-green);
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .fund-pill-single .fund-name-text {
+            font-weight: 700;
+            color: var(--color-green);
+        }
+
+        .fund-pill-single .capsule-percentage {
+            color: var(--color-green);
+            font-weight: 700;
+        }
+
+        /* Customization Link */
+        .customize-link-container {
+            margin-top: 12px;
+            margin-bottom: 0;
+            text-align: center;
+        }
+
+        .customize-link {
+            background: transparent;
+            border: none;
+            color: var(--color-blue);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 8px 12px 4px 12px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            line-height: 1.4;
+        }
+
+        .customize-link:hover {
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .customize-link:active {
+            transform: scale(0.98);
+        }
+
+        .customize-link svg {
+            opacity: 0.7;
+            width: 16px;
+            height: 16px;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .empty-content {
+            margin-bottom: 20px;
+        }
+
+        .empty-icon {
+            margin-bottom: 16px;
+        }
+
+        .empty-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin: 0 0 8px 0;
+        }
+
+        .empty-description {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin: 0;
+        }
+
+        .selection-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            background: white;
+            border: 2px solid #E5E7EB;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover {
+            border-color: var(--color-blue);
+            background: #F8FAFC;
+        }
+
+        .option-btn:active {
+            transform: scale(0.98);
+        }
+
+
+        /* Legacy basket card for compatibility */
+        .basket-card {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            border: 1px solid #BFDBFE;
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .basket-header {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .basket-header-left {
+            flex: 1;
+            display: none;  /* Hide basket title and description */
+        }
+
+        .basket-header-right {
+            display: none;  /* Hide returns - now shown in funds section header */
+        }
+
+        /* Show basket title as heading when coming from create-goal */
+        .basket-card-with-goal .basket-header {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .basket-card-with-goal .basket-header-left {
+            display: block;
+        }
+
+        .basket-card-with-goal .basket-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 0;
+        }
+
+        .basket-card-with-goal .basket-description {
+            display: none;
+        }
+
+        .basket-returns-label {
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .basket-returns-value {
+            font-size: 13px;
+            font-weight: 700;
+            color: #10B981;
+        }
+
+        .basket-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 4px;
+        }
+
+        .basket-description {
+            font-size: 12px;
+            color: var(--color-text-muted);
+            line-height: 1.4;
+        }
+
+        .basket-funds {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .basket-fund-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background: var(--color-surface);
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+        }
+
+        .fund-info {
+            flex: 1;
+        }
+
+        .fund-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 2px;
+        }
+
+        .fund-category {
+            font-size: 11px;
+            color: var(--color-text-muted);
+        }
+
+        .fund-allocation {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-blue);
+            margin-left: var(--space-sm);
+        }
+
+        .returns-green {
+            color: var(--color-green);
+            font-weight: 600;
+        }
+
+        .change-indicator {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: var(--color-blue);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* CTA Button */
+        .cta-section {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 16px 20px 24px 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .cta-btn {
+            width: 100%;
+            padding: 18px 24px;
+            border-radius: var(--radius-lg);
+            border: none;
+            background: var(--gradient-success);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .cta-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Projection Card */
+        .projection-card {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.03) 0%, rgba(52, 211, 153, 0.02) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.15);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Compact version */
+        .projection-card.compact {
+            padding: var(--space-sm) var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .projection-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-success);
+        }
+
+        .projection-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: var(--space-sm);
+        }
+
+        .projection-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .time-selector {
+            display: flex;
+            gap: 4px;
+        }
+
+        .time-btn {
+            padding: 3px 7px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            background: var(--color-card);
+            font-size: 10px;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.7;
+        }
+
+        .time-btn.active {
+            border-color: var(--color-green);
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-green);
+            opacity: 1;
+            font-weight: 600;
+        }
+
+        .projection-main {
+            text-align: center;
+            margin-bottom: var(--space-sm);
+        }
+
+        .projection-period {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .projection-amount {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--color-green);
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
+        }
+
+        .projection-growth {
+            font-size: 12px;
+            color: var(--color-green);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        /* Compact styles for projection card */
+        .projection-main.compact {
+            margin: var(--space-xs) 0 0 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .projection-card.compact .projection-amount {
+            font-size: 22px;
+            margin-bottom: 0;
+        }
+
+        .projection-card.compact .projection-growth {
+            font-size: 11px;
+            justify-content: flex-end;
+        }
+
+        .projection-card.compact .projection-header {
+            margin-bottom: var(--space-xs);
+        }
+
+        .projection-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-sm);
+            margin-top: var(--space-sm);
+            padding-top: var(--space-sm);
+            border-top: 1px solid rgba(16, 185, 129, 0.2);
+        }
+
+        .detail-item {
+            text-align: center;
+        }
+
+        .detail-label {
+            font-size: 10px;
+            color: var(--color-text-muted);
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .detail-value.green {
+            color: var(--color-green);
+        }
+
+        /* Trust Markers & Projection Styles */
+        .trust-projection {
+            background: rgba(34, 197, 94, 0.1);
+            border: none;
+            border-radius: 16px;
+            padding: 16px 20px;
+            margin: var(--space-lg) 0 var(--space-md) 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .trust-projection .trending-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(34, 197, 94, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .trust-projection .trending-icon svg {
+            width: 18px;
+            height: 18px;
+            color: #22C55E;
+        }
+
+        .trust-projection .projection-content {
+            flex: 1;
+        }
+
+        .trust-projection .projection-main-row {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+
+        .trust-projection .projection-left {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .trust-projection .projection-amount {
+            font-size: 20px;
+            font-weight: 700;
+            color: #22C55E;
+            line-height: 1.2;
+        }
+
+        .trust-projection .projection-duration {
+            font-size: 13px;
+            font-weight: 500;
+            color: #6B7280;
+        }
+
+        .trust-projection .projection-return {
+            font-size: 12px;
+            color: #6B7280;
+            font-weight: 500;
+        }
+
+        .trust-projection .projection-disclaimer {
+            font-size: 10px;
+            color: #9CA3AF;
+            line-height: 1.4;
+        }
+
+        .trust-markers {
+            display: flex;
+            gap: var(--space-lg);
+            justify-content: space-around;
+            padding: 0 var(--space-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .trust-marker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            text-align: center;
+        }
+
+        .trust-marker .material-symbols-outlined {
+            font-size: 20px;
+            color: #10B981;
+        }
+
+        .trust-marker span:last-child {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            line-height: 1.2;
+        }
+
+        /* Simple Keyboard Focus - No Screen Movement */
+        .keyboard-active .amount-display.focused {
+            border-bottom-color: var(--color-blue);
+            transform: scale(1.02);
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .investment-tabs, .amount-section, .goal-section, .fund-section {
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        /* Progress Bar Fund Items (for create-goal flow) */
+        .basket-fund-item-progress {
+            margin-bottom: 8px;
+        }
+
+        .fund-progress-card {
+            position: relative;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            padding: 12px 14px;
+            overflow: hidden;
+            min-height: 54px;
+        }
+
+        .fund-progress-bg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background: #10B981;
+            opacity: 0.12;
+            border-radius: var(--radius-sm);
+            transition: width 0.5s ease;
+        }
+
+        .fund-progress-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .fund-progress-left {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .fund-progress-name {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            line-height: 1.3;
+        }
+
+        .fund-progress-category {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+        }
+
+        .fund-progress-right {
+            padding-left: 12px;
+        }
+
+        .fund-progress-percentage {
+            font-size: 14px;
+            font-weight: 700;
+            color: #3B82F6;
+        }
+
+        /* Basket Stats */
+        .basket-stats {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--color-border);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        /* Basket Stats Only (for create-goal flow - no border top) */
+        .basket-stats-only {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            padding: 8px 0;
+        }
+
+        .basket-stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .basket-stat-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .basket-stat-value {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        /* Fund Capsules Section (horizontal scrollable funds) */
+        .funds-capsules-section {
+            margin-top: 12px;
+        }
+
+        .funds-section-header {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .fund-capsules-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+            position: relative;
+            scroll-behavior: smooth;
+            padding-bottom: 4px;
+        }
+
+        .fund-capsules-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Scroll Indicator for Fund Capsules */
+        .capsules-scroll-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .capsule-scroll-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .capsule-scroll-dot.active {
+            background: #3B82F6;
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        /* Customization Link */
+        .customize-link-container {
+            margin-top: 12px;
+            text-align: center;
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        .customize-link {
+            background: transparent;
+            border: none;
+            color: var(--color-blue);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+        }
+
+        .customize-link:active {
+            background: rgba(37, 99, 235, 0.1);
+            transform: scale(0.98);
+        }
+
+        /* Overlay Backdrop & Modal */
+        .overlay-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .overlay-modal {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            animation: slideUp 0.3s ease-out;
+            overflow: hidden;
+        }
+
+        .drag-handle {
+            padding: 12px 0;
+            display: flex;
+            justify-content: center;
+            cursor: grab;
+        }
+
+        .drag-bar {
+            width: 40px;
+            height: 4px;
+            background: var(--color-border);
+            border-radius: 9999px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(0); }
+            to { transform: translateY(100%); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(37, 99, 235, 0.1);
+            border-top-color: var(--color-blue);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: var(--color-surface);
+            color: var(--color-text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close-btn:active {
+            background: var(--color-border);
+            transform: scale(0.95);
+        }
+
+        .modal-header-custom {
+            padding: 16px 20px 20px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .modal-title-custom {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 4px;
+        }
+
+        .modal-subtitle {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+
+        /* Customization Options */
+        .customization-options {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-card {
+            background: var(--color-card);
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 80px;
+        }
+
+        .option-card:active {
+            transform: scale(0.98);
+            border-color: var(--color-blue);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+        }
+
+        .option-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .option-content {
+            flex: 1;
+        }
+
+        .option-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 4px;
+        }
+
+        .option-description {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.4;
+        }
+
+        .option-arrow {
+            color: var(--color-text-muted);
+            flex-shrink: 0;
+        }
+
+        /* Basket & Fund List Containers */
+        .basket-list-container,
+        .fund-list-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            scrollbar-width: none;
+        }
+
+        .basket-list-container::-webkit-scrollbar,
+        .fund-list-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Basket Item Card */
+        .basket-item-card {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            border: 2px solid #BFDBFE;
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .basket-item-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        }
+
+        .basket-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .basket-item-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .basket-item-returns {
+            font-size: 14px;
+            font-weight: 700;
+            color: #10B981;
+        }
+
+        .basket-item-description {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .basket-item-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 11px;
+            color: var(--color-text-muted);
+        }
+
+        /* Fund Item Card */
+        .fund-item-card {
+            background: white;
+            border: 2px solid var(--color-border);
+            border-left: 4px solid var(--color-blue);
+            border-radius: var(--radius-md);
+            padding: 14px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .fund-item-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+        }
+
+        .fund-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 6px;
+        }
+
+        .fund-item-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            flex: 1;
+        }
+
+        .fund-item-category {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .fund-item-nav {
+            display: flex;
+            gap: 4px;
+            align-items: baseline;
+            font-size: 11px;
+            color: var(--color-text-muted);
+        }
+
+        .fund-item-nav-value {
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .fund-capsule {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            border: 1px solid #BFDBFE;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            white-space: nowrap;
+            flex-shrink: 0;
+            cursor: pointer;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .fund-capsule:active {
+            background: var(--color-surface);
+            transform: scale(0.98);
+        }
+
+        .fund-name-text {
+            flex: 1;
+            white-space: nowrap;
+            line-height: 1.4;
+        }
+
+        .capsule-percentage {
+            font-size: 13px;
+            font-weight: 700;
+            color: #3B82F6;
+            flex-shrink: 0;
+            margin-left: 8px;
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/iphone-toggle.css">
+</head>
+<body>
+    <!-- Frame Toggle Button -->
+    <button class="frame-toggle-btn" id="frameToggleBtn" onclick="toggleFrameMode()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
+        </svg>
+        <span id="frameToggleText">Normal View</span>
+    </button>
+
+
+    <div class="iphone-frame">
+        <!-- iPhone Notch (Dynamic Island style) -->
+        <div class="iphone-notch"></div>
+
+
+        <div class="iphone-screen">
+            <div class="mobile-container">
+                <div class="mobile-content">
+                    <!-- Status Bar -->
+                    <div class="status-bar">
+                        <div>9:41</div>
+                        <div class="status-icons">
+                            <span>•••</span>
+                            <span>📶</span>
+                            <span>🔋</span>
+                        </div>
+                    </div>
+
+                    <!-- Header with Back Button -->
+                    <div class="header">
+                        <button class="back-btn" onclick="window.location.href='index.html'">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+                            </svg>
+                        </button>
+                        <div class="header-title">Add Funds</div>
+                        <div class="header-spacer"></div>
+                    </div>
+
+                    <!-- Main Content -->
+                    <div class="main-content">
+                        <!-- Investment Type Tabs -->
+                        <div class="investment-tabs">
+                            <button class="tab-btn active" data-type="sip">SIP</button>
+                            <button class="tab-btn" data-type="onetime">One-Time</button>
+                        </div>
+
+                        <!-- SIP Frequency -->
+                        <div class="frequency-section" id="sipFrequency">
+                            <!-- Timing Display -->
+                            <div class="timing-display" id="timingDisplay" style="display: none;">
+                                <button class="timing-display-btn" id="timingDisplayBtn">
+                                    <span class="timing-display-label">SIP on</span>
+                                    <span class="timing-display-value" id="timingValue">Monday</span>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="opacity: 0.5">
+                                        <path d="M7 10l5 5 5-5z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Amount Input -->
+                        <div class="amount-section">
+                            <div class="amount-input-container" id="amountContainer">
+                                <div class="amount-display">
+                                    <span class="currency-symbol">₹</span>
+                                    <div class="amount-input-wrapper">
+                                        <input type="tel" class="amount-input" id="amountInput" placeholder="5000" value="5000" max="1000000">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Goal Selection -->
+                        <div class="goal-section" id="goalSection">
+                            <div class="goal-selection" id="goalScroll">
+                                <!-- Goal 1: NiveshPe Wealth (Default Selected) -->
+                                <div class="goal-card-compact selected" data-goal="NiveshPe Wealth" data-tenure="5">
+                                    <div class="goal-card-name">NiveshPe Wealth</div>
+                                </div>
+
+                                <!-- Goal 2: Bike Fund -->
+                                <div class="goal-card-compact" data-goal="Bike Fund" data-tenure="2">
+                                    <div class="goal-card-name">Bike Fund</div>
+                                </div>
+
+                                <!-- Add Goal Card -->
+                                <div class="add-goal-card">
+                                    <div class="add-goal-card-icon">
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="add-goal-card-text">Add Goal</div>
+                                </div>
+                            </div>
+                            <div class="goal-scroll-indicators">
+                                <div class="goal-scroll-dot active"></div>
+                                <div class="goal-scroll-dot"></div>
+                                <div class="goal-scroll-dot"></div>
+                            </div>
+                        </div>
+
+                        <!-- Returns Projection -->
+                        <div class="trust-projection" id="trustProjectionCard">
+                            <div class="trending-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                                </svg>
+                            </div>
+                            <div class="projection-content">
+                                <div class="projection-main-row">
+                                    <div class="projection-left">
+                                        <span class="projection-amount" id="trustProjectionAmount">₹3,58,967</span>
+                                        <span class="projection-duration"> in 10 years</span>
+                                    </div>
+                                    <span class="projection-return" id="trustProjectionReturn">18.20% p.a.</span>
+                                </div>
+                                <div class="projection-disclaimer">*Returns are based on past 3-year performance.</div>
+                            </div>
+                        </div>
+
+                        <!-- Fund Selection / Basket Recommendation -->
+                        <div class="fund-section" id="fundSection">
+                            <div class="investment-display-card collapsed" id="investmentDisplayCard">
+                                <!-- Header: Always shown with click functionality -->
+                                <div class="display-header" onclick="toggleFundContent()">
+                                    <div class="display-title" id="displayTitle">Choose Investment</div>
+                                    <div class="display-badge" id="displayBadge" style="display: none;">
+                                        <!-- Dynamic: Returns percentage or fund category -->
+                                    </div>
+                                    <svg class="chevron-icon" id="chevronIcon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M7 10l5 5 5-5z"/>
+                                    </svg>
+                                </div>
+                                
+                                <!-- Main Content: Adapts to show funds/baskets/selection -->
+                                <div class="display-content" id="displayContent">
+                                    <!-- Dynamic content area -->
+                                    <div class="allocation-grid empty-state">
+                                        <div class="empty-content">
+                                            <svg class="empty-icon" width="48" height="48" viewBox="0 0 24 24" fill="#3B82F6">
+                                                <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                                            </svg>
+                                            <h4 class="empty-title">Choose Your Investment</h4>
+                                            <p class="empty-description">Select from expert-curated baskets or individual funds</p>
+                                        </div>
+                                        
+                                        <div class="selection-options">
+                                            <button class="option-btn" onclick="openBasketSelection()">
+                                                <span>Browse Baskets</span>
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                                                </svg>
+                                            </button>
+                                            <button class="option-btn" onclick="openFundSelection()">
+                                                <span>Pick Individual Fund</span>
+                                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <!-- Trust Markers -->
+                        <div class="trust-markers">
+                            <div class="trust-marker">
+                                <span class="material-symbols-outlined">lock_open</span>
+                                <span>Withdraw anytime</span>
+                            </div>
+                            <div class="trust-marker">
+                                <span class="material-symbols-outlined">verified</span>
+                                <span>SEBI regulated</span>
+                            </div>
+                            <div class="trust-marker">
+                                <span class="material-symbols-outlined">security</span>
+                                <span>100% secure</span>
+                            </div>
+                        </div>
+
+                        <!-- CTA Button -->
+                        <div class="cta-section">
+                            <button class="cta-btn" id="ctaBtn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                                Setup Monthly SIP
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Timing Selection Modal -->
+            <div class="timing-modal" id="timingModal">
+                <div class="timing-modal-content">
+                    <div class="modal-header">
+                        <div class="modal-title" id="modalTitle">Select Day</div>
+                        <button class="modal-close" onclick="closeTimingModal()">✕</button>
+                    </div>
+                    
+                    <!-- Day Selection -->
+                    <div class="day-selection" id="daySelection" style="display: none;">
+                        <div class="timing-options">
+                            <button class="timing-btn active" data-day="monday">Monday</button>
+                            <button class="timing-btn" data-day="tuesday">Tuesday</button>
+                            <button class="timing-btn" data-day="wednesday">Wednesday</button>
+                            <button class="timing-btn" data-day="thursday">Thursday</button>
+                            <button class="timing-btn" data-day="friday">Friday</button>
+                            <button class="timing-btn" data-day="saturday">Saturday</button>
+                            <button class="timing-btn" data-day="sunday">Sunday</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Date Selection -->
+                    <div class="date-selection" id="dateSelection" style="display: none;">
+                        <div class="timing-options date-grid">
+                            <button class="timing-btn" data-date="1">1</button>
+                            <button class="timing-btn" data-date="2">2</button>
+                            <button class="timing-btn" data-date="3">3</button>
+                            <button class="timing-btn" data-date="4">4</button>
+                            <button class="timing-btn active" data-date="5">5</button>
+                            <button class="timing-btn" data-date="6">6</button>
+                            <button class="timing-btn" data-date="7">7</button>
+                            <button class="timing-btn" data-date="8">8</button>
+                            <button class="timing-btn" data-date="9">9</button>
+                            <button class="timing-btn" data-date="10">10</button>
+                            <button class="timing-btn" data-date="11">11</button>
+                            <button class="timing-btn" data-date="12">12</button>
+                            <button class="timing-btn" data-date="13">13</button>
+                            <button class="timing-btn" data-date="14">14</button>
+                            <button class="timing-btn" data-date="15">15</button>
+                            <button class="timing-btn" data-date="16">16</button>
+                            <button class="timing-btn" data-date="17">17</button>
+                            <button class="timing-btn" data-date="18">18</button>
+                            <button class="timing-btn" data-date="19">19</button>
+                            <button class="timing-btn" data-date="20">20</button>
+                            <button class="timing-btn" data-date="21">21</button>
+                            <button class="timing-btn" data-date="22">22</button>
+                            <button class="timing-btn" data-date="23">23</button>
+                            <button class="timing-btn" data-date="24">24</button>
+                            <button class="timing-btn" data-date="25">25</button>
+                            <button class="timing-btn" data-date="26">26</button>
+                            <button class="timing-btn" data-date="27">27</button>
+                            <button class="timing-btn" data-date="28">28</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customization Overlay -->
+            <div class="overlay-backdrop" id="customizationBackdrop" style="display: none;">
+                <div class="overlay-modal" id="customizationModal">
+                    <!-- Drag Handle -->
+                    <div class="drag-handle">
+                        <div class="drag-bar"></div>
+                    </div>
+
+                    <!-- Close Button -->
+                    <button class="modal-close-btn" onclick="closeCustomizationOverlay()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                        </svg>
+                    </button>
+
+                    <!-- Modal Header -->
+                    <div class="modal-header-custom">
+                        <h3 class="modal-title-custom">Customize Your Investment</h3>
+                        <p class="modal-subtitle">Choose how you want to invest</p>
+                    </div>
+
+                    <!-- Selection Options -->
+                    <div class="customization-options">
+                        <div class="option-card" onclick="openBasketSelection()">
+                            <div class="option-icon" style="background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%); color: #3B82F6;">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                                </svg>
+                            </div>
+                            <div class="option-content">
+                                <h4 class="option-title">Choose from NiveshPe Baskets</h4>
+                                <p class="option-description">Select from 15 expertly curated fund portfolios</p>
+                            </div>
+                            <div class="option-arrow">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="option-card" onclick="openFundSelection()">
+                            <div class="option-icon" style="background: linear-gradient(135deg, #F0FDF4 0%, #DCFCE7 100%); color: #10B981;">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                            </div>
+                            <div class="option-content">
+                                <h4 class="option-title">Choose Individual Fund</h4>
+                                <p class="option-description">Pick a single fund with 100% allocation</p>
+                            </div>
+                            <div class="option-arrow">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Basket Selection Overlay -->
+            <div class="overlay-backdrop" id="basketSelectionBackdrop" style="display: none;">
+                <div class="overlay-modal" id="basketSelectionModal">
+                    <!-- Drag Handle -->
+                    <div class="drag-handle">
+                        <div class="drag-bar"></div>
+                    </div>
+
+                    <!-- Close Button -->
+                    <button class="modal-close-btn" onclick="closeBasketSelection()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                        </svg>
+                    </button>
+
+                    <!-- Modal Header -->
+                    <div class="modal-header-custom">
+                        <h3 class="modal-title-custom">Choose a Basket</h3>
+                        <p class="modal-subtitle">Select from pre-built portfolios</p>
+                    </div>
+
+                    <!-- Basket List -->
+                    <div class="basket-list-container" id="basketListContainer">
+                        <!-- Baskets will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fund Selection Overlay -->
+            <div class="overlay-backdrop" id="fundSelectionBackdrop" style="display: none;">
+                <div class="overlay-modal" id="fundSelectionModal">
+                    <!-- Drag Handle -->
+                    <div class="drag-handle">
+                        <div class="drag-bar"></div>
+                    </div>
+
+                    <!-- Close Button -->
+                    <button class="modal-close-btn" onclick="closeFundSelection()">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                        </svg>
+                    </button>
+
+                    <!-- Modal Header -->
+                    <div class="modal-header-custom">
+                        <h3 class="modal-title-custom">Choose a Fund</h3>
+                        <p class="modal-subtitle">100% allocation to selected fund</p>
+                    </div>
+
+                    <!-- Fund List -->
+                    <div class="fund-list-container" id="fundListContainer">
+                        <!-- Funds will be populated dynamically -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+            <div class="loading-spinner"></div>
+        </div>
+
+        <!-- iPhone Home Indicator -->
+        <div class="iphone-home-indicator"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const amountInput = document.getElementById('amountInput');
+            const ctaBtn = document.getElementById('ctaBtn');
+            const projectionAmount = document.getElementById('projectionAmount');
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const amountBtns = document.querySelectorAll('.amount-btn');
+            const goalCards = document.querySelectorAll('.goal-card-compact');
+            const sipFrequency = document.getElementById('sipFrequency');
+
+            let currentType = 'sip';
+            let currentFrequency = 'monthly';
+            let currentAmount = 5000;
+            let currentDay = 'monday';
+            let currentDate = 5;
+            let currentGoal = 'NiveshPe Wealth';  // Default to NiveshPe Wealth
+            let currentGoalTenure = 5;              // Default to 5+ years
+
+            // Load basket recommendation data
+            let claudeJsonData = null;
+            let hdfcFundsMapping = null;
+
+            // Customization state
+            let customizationActive = false;
+            let selectedCustomBasket = null;
+            let selectedCustomFund = null;
+
+            // Basket data for customization (15 NiveshPe baskets)
+            const BASKETS_DATA = {
+                'balanced-returns': {
+                    id: 'balanced-returns',
+                    name: 'Balanced Returns',
+                    description: 'Best for balanced risk-reward with steady returns',
+                    returns: '12-15% p.a.',
+                    holdingPeriod: '2-3 years',
+                    funds: [
+                        { name: 'HDFC Balanced Advantage Fund', allocation: 50, category: 'Hybrid' },
+                        { name: 'HDFC Hybrid Equity Fund', allocation: 30, category: 'Hybrid' },
+                        { name: 'HDFC Top 100 Fund', allocation: 10, category: 'Equity' },
+                        { name: 'HDFC Gold Fund', allocation: 10, category: 'Fund of Funds' }
+                    ]
+                },
+                'instant-withdrawal': {
+                    id: 'instant-withdrawal',
+                    name: 'Instant Withdrawal',
+                    description: 'Liquid funds for quick access to money',
+                    returns: '6-8% p.a.',
+                    holdingPeriod: '< 1 year',
+                    funds: [
+                        { name: 'HDFC Liquid Fund', allocation: 100, category: 'Debt' }
+                    ]
+                },
+                'long-term-wealth': {
+                    id: 'long-term-wealth',
+                    name: 'Long-Term Wealth Building',
+                    description: 'Growth-oriented basket for long-term wealth creation',
+                    returns: '15-18% p.a.',
+                    holdingPeriod: '5+ years',
+                    funds: [
+                        { name: 'HDFC Large and Mid Cap Fund', allocation: 75, category: 'Equity' },
+                        { name: 'HDFC Hybrid Equity Fund', allocation: 15, category: 'Hybrid' },
+                        { name: 'HDFC Gold Fund', allocation: 10, category: 'Fund of Funds' }
+                    ]
+                },
+                'tax-saver': {
+                    id: 'tax-saver',
+                    name: 'Tax Saver (ELSS)',
+                    description: 'Tax-saving equity funds under Section 80C',
+                    returns: '12-15% p.a.',
+                    holdingPeriod: '3+ years (Lock-in)',
+                    funds: [
+                        { name: 'HDFC Tax Saver Fund', allocation: 100, category: 'Equity' }
+                    ]
+                },
+                'safe-stable-fd': {
+                    id: 'safe-stable-fd',
+                    name: 'Safe & Stable (FD Alternative)',
+                    description: 'Conservative debt funds for stability',
+                    returns: '7-9% p.a.',
+                    holdingPeriod: '1-2 years',
+                    funds: [
+                        { name: 'HDFC Banking and PSU Debt Fund', allocation: 50, category: 'Debt' },
+                        { name: 'HDFC Short Term Debt Fund', allocation: 50, category: 'Debt' }
+                    ]
+                },
+                'mid-term-balanced': {
+                    id: 'mid-term-balanced',
+                    name: 'Mid-Term Balanced',
+                    description: 'Balanced portfolio for 2-4 year goals',
+                    returns: '10-12% p.a.',
+                    holdingPeriod: '2-4 years',
+                    funds: [
+                        { name: 'HDFC Balanced Advantage Fund', allocation: 60, category: 'Hybrid' },
+                        { name: 'HDFC Hybrid Debt Fund', allocation: 40, category: 'Hybrid' }
+                    ]
+                },
+                'short-holding': {
+                    id: 'short-holding',
+                    name: 'Short-Term Growth',
+                    description: 'Conservative growth for short holding periods',
+                    returns: '8-10% p.a.',
+                    holdingPeriod: '1-2 years',
+                    funds: [
+                        { name: 'HDFC Hybrid Debt Fund', allocation: 70, category: 'Hybrid' },
+                        { name: 'HDFC Balanced Advantage Fund', allocation: 30, category: 'Hybrid' }
+                    ]
+                },
+                'low-tenure-deposit': {
+                    id: 'low-tenure-deposit',
+                    name: 'Low-Tenure Deposit',
+                    description: 'Safe investment alternative to bank deposits',
+                    returns: '6-7% p.a.',
+                    holdingPeriod: '6-12 months',
+                    funds: [
+                        { name: 'HDFC Liquid Fund', allocation: 60, category: 'Debt' },
+                        { name: 'HDFC Banking and PSU Debt Fund', allocation: 40, category: 'Debt' }
+                    ]
+                },
+                'ideal-students': {
+                    id: 'ideal-students',
+                    name: 'Ideal for Students',
+                    description: 'Long-term growth portfolio for students',
+                    returns: '14-16% p.a.',
+                    holdingPeriod: '5+ years',
+                    funds: [
+                        { name: 'HDFC Multi Cap Fund', allocation: 50, category: 'Equity' },
+                        { name: 'HDFC Large and Mid Cap Fund', allocation: 30, category: 'Equity' },
+                        { name: 'HDFC Balanced Advantage Fund', allocation: 20, category: 'Hybrid' }
+                    ]
+                },
+                'ideal-housewives': {
+                    id: 'ideal-housewives',
+                    name: 'Ideal for Housewives',
+                    description: 'Balanced portfolio for homemakers',
+                    returns: '10-12% p.a.',
+                    holdingPeriod: '3-5 years',
+                    funds: [
+                        { name: 'HDFC Balanced Advantage Fund', allocation: 50, category: 'Hybrid' },
+                        { name: 'HDFC Hybrid Debt Fund', allocation: 30, category: 'Hybrid' },
+                        { name: 'HDFC Gold Fund', allocation: 20, category: 'Fund of Funds' }
+                    ]
+                },
+                'ideal-senior-citizens': {
+                    id: 'ideal-senior-citizens',
+                    name: 'Ideal for Senior Citizens',
+                    description: 'Conservative portfolio with regular income focus',
+                    returns: '7-9% p.a.',
+                    holdingPeriod: '2-4 years',
+                    funds: [
+                        { name: 'HDFC Banking and PSU Debt Fund', allocation: 60, category: 'Debt' },
+                        { name: 'HDFC Hybrid Debt Fund', allocation: 40, category: 'Hybrid' }
+                    ]
+                },
+                'ideal-salaried-people': {
+                    id: 'ideal-salaried-people',
+                    name: 'Ideal for Salaried People',
+                    description: 'Growth-focused portfolio for regular investors',
+                    returns: '12-15% p.a.',
+                    holdingPeriod: '4+ years',
+                    funds: [
+                        { name: 'HDFC Large and Mid Cap Fund', allocation: 40, category: 'Equity' },
+                        { name: 'HDFC Balanced Advantage Fund', allocation: 30, category: 'Hybrid' },
+                        { name: 'HDFC Multi Cap Fund', allocation: 20, category: 'Equity' },
+                        { name: 'HDFC Gold Fund', allocation: 10, category: 'Fund of Funds' }
+                    ]
+                },
+                'real-estate-fund': {
+                    id: 'real-estate-fund',
+                    name: 'Real Estate Fund',
+                    description: 'Diversified portfolio for real estate goals',
+                    returns: '11-14% p.a.',
+                    holdingPeriod: '5+ years',
+                    funds: [
+                        { name: 'HDFC Large and Mid Cap Fund', allocation: 60, category: 'Equity' },
+                        { name: 'HDFC Multi Cap Fund', allocation: 30, category: 'Equity' },
+                        { name: 'HDFC Gold Fund', allocation: 10, category: 'Fund of Funds' }
+                    ]
+                },
+                'family-goals-fund': {
+                    id: 'family-goals-fund',
+                    name: 'Family Goals Fund',
+                    description: 'Balanced portfolio for family financial goals',
+                    returns: '10-13% p.a.',
+                    holdingPeriod: '3-5 years',
+                    funds: [
+                        { name: 'HDFC Balanced Advantage Fund', allocation: 45, category: 'Hybrid' },
+                        { name: 'HDFC Large and Mid Cap Fund', allocation: 35, category: 'Equity' },
+                        { name: 'HDFC Hybrid Debt Fund', allocation: 20, category: 'Hybrid' }
+                    ]
+                },
+                'islamic-halal-ethical': {
+                    id: 'islamic-halal-ethical',
+                    name: 'Islamic Halal & Ethical',
+                    description: 'Shariah-compliant investment portfolio',
+                    returns: '11-14% p.a.',
+                    holdingPeriod: '4+ years',
+                    funds: [
+                        { name: 'HDFC Multi Cap Fund', allocation: 50, category: 'Equity' },
+                        { name: 'HDFC Large and Mid Cap Fund', allocation: 30, category: 'Equity' },
+                        { name: 'HDFC Gold Fund', allocation: 20, category: 'Fund of Funds' }
+                    ]
+                }
+            };
+
+            // Check if user came from create-goal page or basket-details page
+            // Priority 1: Check URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            let fromGoal = false;
+            let fromBasketDetails = false;
+            let basketData = null;
+
+            // Check for basket-details flow via URL parameter
+            let basketId = urlParams.get('id');
+            
+            // Also check for basketId parameter from mutual-funds page
+            if (!basketId) {
+                basketId = urlParams.get('basketId');
+            }
+            
+            if (basketId && BASKETS_DATA[basketId]) {
+                console.log('User came from basket selection with basket ID:', basketId);
+                fromBasketDetails = true;
+                const basketInfo = BASKETS_DATA[basketId];
+                basketData = {
+                    fromBasketDetails: true,
+                    basketName: basketInfo.name,
+                    description: basketInfo.description,
+                    funds: basketInfo.funds,
+                    returns: basketInfo.returns,
+                    holdingPeriod: basketInfo.holdingPeriod
+                };
+            }
+            
+            // Priority 2: Check localStorage (fallback for legacy flows)
+            const selectedBasket = localStorage.getItem('selectedBasket');
+            if (!fromBasketDetails && selectedBasket) {
+                try {
+                    basketData = JSON.parse(selectedBasket);
+                    fromGoal = basketData.fromGoal === true;
+                    fromBasketDetails = basketData.fromBasketDetails === true;
+
+                    if (fromGoal) {
+                        console.log('User came from create-goal page with basket:', basketData);
+
+                        // Set the current goal from basket data
+                        if (basketData.goalName) {
+                            currentGoal = basketData.goalName;
+                            currentGoalTenure = basketData.tenure || 3;
+                        }
+
+                        // Hide projection card when coming from create-goal
+                        const projectionCard = document.getElementById('projectionCard');
+                        if (projectionCard) projectionCard.style.display = 'none';
+
+                        // Keep goal section visible so user can see/change goal association
+
+                        // Display the selected basket immediately
+                        displaySelectedBasket(basketData);
+
+                        // Clear the localStorage after reading
+                        localStorage.removeItem('selectedBasket');
+                    }
+
+                    if (fromBasketDetails) {
+                        console.log('User came from basket-details page with basket:', basketData);
+
+                        // Set the current goal from basket data
+                        if (basketData.basketName) {
+                            currentGoal = basketData.basketName;
+                        }
+
+                        // Hide projection card when coming from basket-details
+                        const projectionCard = document.getElementById('projectionCard');
+                        if (projectionCard) projectionCard.style.display = 'none';
+
+                        // Keep goal section visible so user can see/change goal association
+
+                        // Display the selected basket immediately
+                        displaySelectedBasket(basketData);
+
+                        // Add class to basket card to show heading (same as create-goal flow)
+                        const basketCard = document.querySelector('.basket-card');
+                        if (basketCard) {
+                            basketCard.classList.add('basket-card-with-goal');
+                        }
+
+                        // Clear the localStorage after reading
+                        localStorage.removeItem('selectedBasket');
+                    }
+                } catch (e) {
+                    console.error('Error parsing selected basket:', e);
+                }
+            }
+
+            // Check for direct invest flow (using already declared urlParams)
+            const directInvest = urlParams.get('directInvest') === 'true';
+
+            if (directInvest && !fromGoal && !fromBasketDetails) {
+                console.log('Direct invest flow detected');
+
+                // Keep goal section visible for direct invest flow
+                // Basket will be loaded after data loads (in loadDataAndRecommendations function)
+            }
+
+            // Load fund from URL parameter
+            const fundSlug = urlParams.get('fund');
+            let selectedFund = null;
+
+            // Get fund data if slug is provided
+            if (fundSlug && typeof getFundData === 'function') {
+                selectedFund = getFundData(fundSlug);
+            }
+
+            // Update fund display if fund is selected
+            if (selectedFund) {
+                const fundTitle = document.querySelector('.fund-title');
+                if (fundTitle) {
+                    fundTitle.textContent = selectedFund.name;
+                }
+
+                // Display using unified renderer
+                renderUnifiedDisplay({
+                    source: 'fund',
+                    fund: {
+                        name: selectedFund.name,
+                        category: selectedFund.category || 'Mutual Fund'
+                    }
+                });
+
+                // The fund display is now handled by renderUnifiedDisplay above
+            }
+
+            // Load goal from localStorage (if coming from create-goal page)
+            const newGoalData = localStorage.getItem('newGoal');
+            if (newGoalData && !fromGoal) {  // Skip if already handled in fromGoal block
+                try {
+                    const goalData = JSON.parse(newGoalData);
+                    currentGoal = goalData.name;
+                    currentGoalTenure = goalData.tenure || 3; // Get tenure from goal data
+
+                    // Add the new goal to the goal selection if it doesn't exist
+                    const goalSelection = document.querySelector('.goal-selection');
+                    const existingGoals = Array.from(goalCards).map(card => {
+                        const nameEl = card.querySelector('.goal-card-name');
+                        return nameEl ? nameEl.textContent.trim() : '';
+                    }).filter(name => name !== '');
+
+                    if (!existingGoals.includes(goalData.name)) {
+                        // Create new goal card
+                        const newGoalCard = document.createElement('div');
+                        newGoalCard.className = 'goal-card-compact selected';
+                        newGoalCard.setAttribute('data-goal', goalData.name);
+                        newGoalCard.setAttribute('data-tenure', goalData.tenure || 3);
+
+                        // Get icon SVG based on goal category
+                        const iconSvg = getGoalIconSvg(goalData.category || 'emergency');
+
+                        newGoalCard.innerHTML = `
+                            <div class="goal-card-name">${goalData.name}</div>
+                        `;
+
+                        // Insert at the beginning (first position)
+                        goalSelection.insertBefore(newGoalCard, goalSelection.firstChild);
+
+                        // Add click handler to new card
+                        newGoalCard.addEventListener('click', function() {
+                            if (this.classList.contains('add-goal-card')) return;
+
+                            // Remove selected class from all cards
+                            document.querySelectorAll('.goal-card-compact').forEach(c => c.classList.remove('selected'));
+
+                            // Add selected class to clicked card
+                            this.classList.add('selected');
+
+                            // Update current goal name
+                            const nameEl = this.querySelector('.goal-card-name');
+                            currentGoal = nameEl ? nameEl.textContent.trim() : '';
+
+                            // Update current goal tenure from data attribute
+                            const tenure = this.getAttribute('data-tenure');
+                            currentGoalTenure = tenure ? parseInt(tenure, 10) : 3;
+
+                            // Trigger basket recommendation update
+                            displayBasketRecommendation();
+                        });
+
+                        // Add touch interaction
+                        newGoalCard.addEventListener('touchstart', function(e) {
+                            this.style.transition = 'transform 0.1s ease';
+                            this.style.transform = 'scale(0.95)';
+                        });
+                        newGoalCard.addEventListener('touchend', function(e) {
+                            setTimeout(() => {
+                                this.style.transform = '';
+                            }, 150);
+                        });
+
+                        // Remove selection from existing goals
+                        goalCards.forEach(c => c.classList.remove('selected'));
+                    } else {
+                        // Select existing goal if it matches and move to first position
+                        goalCards.forEach(card => {
+                            const nameEl = card.querySelector('.goal-card-name');
+                            const cardName = nameEl ? nameEl.textContent.trim() : '';
+                            if (cardName === goalData.name) {
+                                goalCards.forEach(c => c.classList.remove('selected'));
+                                card.classList.add('selected');
+
+                                // Move selected goal to first position
+                                goalSelection.insertBefore(card, goalSelection.firstChild);
+                            }
+                        });
+                    }
+
+                    // Clear the localStorage after reading
+                    localStorage.removeItem('newGoal');
+                } catch (e) {
+                    console.error('Error parsing goal data:', e);
+                }
+            }
+
+            // Display basket recommendations (data is now hard-coded, no fetch needed)
+            function loadDataAndRecommendations() {
+                try {
+                    console.log('Data already loaded (hard-coded)');
+
+                    // Calculate and display recommendations (skip for fromGoal, fromBasketDetails, and directInvest)
+                    if (!fromGoal && !fromBasketDetails && !directInvest) {
+                        console.log('Displaying recommendations for tenure:', currentGoalTenure);
+                        displayBasketRecommendation();
+                    }
+
+                    // Display Balanced Returns Basket for direct invest flow
+                    if (directInvest && !fromGoal && !fromBasketDetails) {
+                        console.log('Loading Balanced Returns Basket for direct invest...');
+
+                        // Get Balanced Returns basket from BASKETS_DATA
+                        const balancedReturnsData = BASKETS_DATA['balanced-returns'];
+                        const balancedReturnsBasket = {
+                            basketName: balancedReturnsData.name,
+                            description: balancedReturnsData.description,
+                            returns: balancedReturnsData.returns,
+                            holdingPeriod: balancedReturnsData.holdingPeriod,
+                            funds: balancedReturnsData.funds
+                        };
+
+                        console.log('Balanced Returns Basket funds:', balancedReturnsBasket.funds);
+
+                        // Display the basket
+                        displaySelectedBasket(balancedReturnsBasket);
+
+                        // Add class to basket card to show heading (same as create-goal flow)
+                        const basketCard = document.querySelector('.basket-card');
+                        if (basketCard) {
+                            basketCard.classList.add('basket-card-with-goal');
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error loading data:', error);
+                    console.error('Error stack:', error.stack);
+                    // Display error in unified display
+                    renderUnifiedDisplay({
+                        source: 'error',
+                        basketName: 'Unable to Load',
+                        description: 'Error: ' + error.message,
+                        funds: []
+                    });
+                }
+            }
+
+            // Map tenure to time range
+            function getTenureRange(tenure) {
+                if (tenure < 1) return '<1 Year';
+                if (tenure >= 1 && tenure < 2) return '1-2 Years';
+                if (tenure >= 2 && tenure < 4) return '2-4 Years';
+                return '4+ Years';
+            }
+
+            // Find HDFC fund for a given category
+            function findHdfcFund(fundRankingCategory) {
+                // Simply return the mapped fund from our pre-built mapping
+                return hdfcFundsMapping[fundRankingCategory] || null;
+            }
+
+            // Display basket recommendation
+            function displayBasketRecommendation() {
+                if (!claudeJsonData) return;
+
+                // Get tenure range
+                const tenureRange = getTenureRange(currentGoalTenure);
+
+                // Get basket ID from recommendation matrix (Medium Risk)
+                const basketId = claudeJsonData.FundRecommendationMatrix['Medium Risk'][tenureRange];
+
+                // Get basket details from CoreBaskets
+                const basket = claudeJsonData.CoreBaskets[basketId];
+
+                if (!basket) {
+                    console.error('Basket not found:', basketId);
+                    return;
+                }
+
+                // Use unified display for basket recommendation
+
+                // Build funds array from basket schemes
+                const funds = [];
+                basket.schemes.forEach(scheme => {
+                    const fund = findHdfcFund(scheme.FundRankingCategory);
+                    if (fund) {
+                        funds.push({
+                            name: fund.name,
+                            allocation: scheme.ratio,
+                            category: fund.category
+                        });
+                    }
+                });
+
+                // Display using unified renderer
+                renderUnifiedDisplay({
+                    source: 'recommendation',
+                    basketName: 'Recommended Portfolio',
+                    description: basket.description,
+                    funds: funds,
+                    returns: getApproximateReturns(basket.schemes)
+                });
+
+
+            }
+
+            // Unified rendering function for all scenarios
+            function renderUnifiedDisplay(context) {
+                const titleEl = document.getElementById('displayTitle');
+                const badgeEl = document.getElementById('displayBadge');
+                const contentEl = document.getElementById('displayContent');
+                
+                // Reset badge visibility
+                badgeEl.style.display = 'block';
+                
+                // Always associate with current goal (or allow goal assignment)
+                const associatedGoal = context.goalName || currentGoal || null;
+                
+                if (context.source === 'goal' && context.funds) {
+                    // Goal-based basket
+                    titleEl.textContent = `${associatedGoal} Basket`;
+                    badgeEl.textContent = context.returns || '12-15% p.a.';
+                    contentEl.innerHTML = renderBasketTemplate(context.basketName, context.description, context.funds, associatedGoal);
+                } else if (context.source === 'basket' && context.funds) {
+                    // Pre-selected basket
+                    titleEl.textContent = context.basketName || 'Selected Basket';
+                    badgeEl.textContent = context.returns || '12-15% p.a.';
+                    contentEl.innerHTML = renderBasketTemplate(context.basketName, context.description, context.funds, associatedGoal);
+                } else if (context.source === 'fund' && context.fund) {
+                    // Single fund
+                    titleEl.textContent = associatedGoal ? `${associatedGoal} Fund` : context.fund.name;
+                    badgeEl.textContent = context.fund.category || 'Equity';
+                    contentEl.innerHTML = renderSingleFundTemplate(context.fund, associatedGoal);
+                } else if (context.basketName && context.funds) {
+                    // Fallback for basket data
+                    titleEl.textContent = context.basketName || 'Selected Investment';
+                    badgeEl.textContent = context.returns || '12-15% p.a.';
+                    contentEl.innerHTML = renderBasketTemplate(context.basketName, context.description, context.funds, associatedGoal);
+                } else {
+                    // Empty state (direct invest) - still show expected returns
+                    titleEl.textContent = 'Choose Investment';
+                    badgeEl.textContent = '12-15% p.a.';
+                    badgeEl.style.display = 'block';
+                    contentEl.innerHTML = renderEmptyStateTemplate();
+                }
+                
+                
+                // Update goal context if needed
+                updateGoalContext(associatedGoal);
+                
+                // Add scroll functionality for fund capsules
+                setTimeout(() => {
+                    setupCapsuleScrolling();
+                }, 100);
+            }
+            
+            // Update goal context display
+            function updateGoalContext(goalName) {
+                if (!goalName) return;
+                
+                // Update the currently selected goal card if one exists
+                const goalCards = document.querySelectorAll('.goal-card-compact');
+                goalCards.forEach(card => {
+                    card.classList.remove('selected');
+                    const nameEl = card.querySelector('.goal-card-name');
+                    if (nameEl && nameEl.textContent.trim() === goalName) {
+                        card.classList.add('selected');
+                    }
+                });
+            }
+
+            // Setup capsule scrolling functionality
+            function setupCapsuleScrolling() {
+                const container = document.getElementById('fundCapsulesContainer');
+                const dots = document.querySelectorAll('.capsule-scroll-dot');
+                
+                if (!container || !dots.length) return;
+                
+                // Add scroll event listener
+                container.addEventListener('scroll', () => {
+                    const scrollLeft = container.scrollLeft;
+                    const scrollWidth = container.scrollWidth - container.clientWidth;
+                    const scrollPercent = scrollLeft / scrollWidth;
+                    const activeIndex = Math.round(scrollPercent * (dots.length - 1));
+                    
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === activeIndex);
+                    });
+                });
+                
+                // Make dots clickable
+                dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        const scrollWidth = container.scrollWidth - container.clientWidth;
+                        const targetScroll = (scrollWidth / (dots.length - 1)) * index;
+                        container.scrollTo({ left: targetScroll, behavior: 'smooth' });
+                    });
+                });
+            }
+
+            // Template for basket display (multiple funds)
+            function renderBasketTemplate(basketName, description, funds, goalName = null) {
+                const numFunds = funds.length;
+                const showScrollIndicator = numFunds > 3;
+                const numDots = Math.min(Math.ceil(numFunds / 3), 3);
+                
+                return `
+                    <div class="funds-capsules-section">
+                        <div class="funds-section-header">Funds in this basket</div>
+                        <div class="fund-capsules-container" id="fundCapsulesContainer">
+                            ${funds.map(fund => `
+                                <div class="fund-capsule">
+                                    <span class="fund-name-text">${fund.name}</span>
+                                    <span class="capsule-percentage">${fund.allocation}%</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        ${showScrollIndicator ? `
+                            <div class="capsules-scroll-indicator" id="capsulesScrollIndicator">
+                                ${Array.from({ length: numDots }, (_, i) =>
+                                    `<div class="capsule-scroll-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></div>`
+                                ).join('')}
+                            </div>
+                        ` : ''}
+                        <!-- Customization Link -->
+                        <!-- <div class="customize-link-container">
+                            <button class="customize-link" onclick="openCustomizationOverlay()">
+                                <span>Or choose your own funds</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                                </svg>
+                            </button>
+                        </div> -->
+                    </div>
+                `;
+            }
+
+            // Template for single fund display
+            function renderSingleFundTemplate(fund, goalName = null) {
+                return `
+                    <div class="funds-capsules-section">
+                        <div class="funds-section-header">Selected Fund</div>
+                        <div class="fund-capsules-container">
+                            <div class="fund-capsule fund-pill-single">
+                                <span class="fund-name-text">${fund.name}</span>
+                                <span class="capsule-percentage">100%</span>
+                            </div>
+                        </div>
+                        <!-- Customization Link -->
+                        <div class="customize-link-container">
+                            <button class="customize-link" onclick="openFundSelection()">
+                                <span>Choose another fund</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Template for empty state
+            function renderEmptyStateTemplate() {
+                return `
+                    <div class="allocation-grid empty-state">
+                        <div class="empty-content">
+                            <svg class="empty-icon" width="48" height="48" viewBox="0 0 24 24" fill="#3B82F6">
+                                <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+                            </svg>
+                            <h4 class="empty-title">Choose Your Investment</h4>
+                            <p class="empty-description">Select from expert-curated baskets or individual funds</p>
+                        </div>
+                        
+                        <div class="selection-options">
+                            <button class="option-btn" onclick="openBasketSelection()">
+                                <span>Browse Baskets</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                                </svg>
+                            </button>
+                            <button class="option-btn" onclick="openFundSelection()">
+                                <span>Pick Individual Fund</span>
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Legacy function for compatibility
+            function displaySelectedBasket(data) {
+                // Use the new unified renderer
+                renderUnifiedDisplay({
+                    source: data.fromGoal ? 'goal' : (data.fromBasketDetails ? 'basket' : 'other'),
+                    basketName: data.basketName,
+                    description: data.description,
+                    funds: data.funds,
+                    returns: data.returns,
+                    goalName: data.goalName
+                });
+
+            }
+
+            // Initialize data loading (skip if coming from create-goal or basket-details)
+            if (!fromGoal && !fromBasketDetails) {
+                loadDataAndRecommendations();
+            }
+
+            // Time period selection
+            let currentYears = 5;
+            const timeBtns = document.querySelectorAll('.time-btn');
+            const projectionGrowth = document.getElementById('projectionGrowth');
+
+            timeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    timeBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentYears = parseInt(this.dataset.years);
+                    updateProjection();
+                });
+            });
+
+            // Simple keyboard focus handling
+            amountInput.addEventListener('focus', function() {
+                this.classList.add('focused');
+            });
+
+            amountInput.addEventListener('blur', function() {
+                setTimeout(() => {
+                    this.classList.remove('focused');
+                }, 300);
+            });
+
+            // Investment type tabs
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    currentType = this.dataset.type;
+                    
+                    // Set default amount based on type
+                    if (currentType === 'sip') {
+                        currentAmount = 100;
+                        sipFrequency.style.display = 'block';
+                        updateTimingDisplay();
+                        updateCTA();
+                    } else {
+                        currentAmount = 5000;
+                        sipFrequency.style.display = 'none';
+                        ctaBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg> Invest Now';
+                    }
+                    
+                    // Update amount input field
+                    amountInput.value = currentAmount;
+                    
+                    // Quick amount buttons removed for cleaner UI
+                    // updateQuickAmounts();
+                    
+                    updateProjection();
+                    updateTrustProjection();
+                });
+            });
+
+            // Frequency buttons
+            // Timing display button
+            const timingDisplayBtn = document.getElementById('timingDisplayBtn');
+            if (timingDisplayBtn) {
+                timingDisplayBtn.addEventListener('click', function() {
+                    openTimingModal(currentFrequency);
+                });
+            }
+
+            // Day selection buttons (weekly) - Commented out as weekly option is disabled
+            /*document.addEventListener('click', function(e) {
+                if (e.target.matches('[data-day]')) {
+                    document.querySelectorAll('[data-day]').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentDay = e.target.dataset.day;
+                    updateTimingDisplay();
+                    setTimeout(() => closeTimingModal(), 300);
+                }
+            });*/
+
+            // Date selection buttons (monthly)
+            document.addEventListener('click', function(e) {
+                if (e.target.matches('[data-date]')) {
+                    document.querySelectorAll('[data-date]').forEach(b => b.classList.remove('active'));
+                    e.target.classList.add('active');
+                    currentDate = parseInt(e.target.dataset.date);
+                    updateTimingDisplay();
+                    setTimeout(() => closeTimingModal(), 300);
+                }
+            });
+
+            // Amount input changes with 10 lac limit
+            amountInput.addEventListener('input', function() {
+                let value = parseInt(this.value) || 0;
+                
+                // Enforce 10 lac maximum limit
+                if (value > 1000000) {
+                    value = 1000000;
+                    this.value = value;
+                }
+                
+                currentAmount = value;
+                updateProjection();
+                updateTrustProjection();
+            });
+
+            // Goal selection with scroll indicators
+            const goalScroll = document.getElementById('goalScroll');
+            const goalScrollDots = document.querySelectorAll('.goal-scroll-dot');
+
+            // Add click functionality to goal scroll dots
+            goalScrollDots.forEach((dot, index) => {
+                dot.addEventListener('click', function() {
+                    const scrollAmount = (goalScroll.scrollWidth - goalScroll.clientWidth) * (index / (goalScrollDots.length - 1));
+                    goalScroll.scrollTo({
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Update active dot based on scroll position
+            goalScroll.addEventListener('scroll', function() {
+                const scrollLeft = this.scrollLeft;
+                const maxScrollLeft = this.scrollWidth - this.clientWidth;
+
+                if (maxScrollLeft > 0) {
+                    const scrollPercentage = scrollLeft / maxScrollLeft;
+
+                    goalScrollDots.forEach((dot) => {
+                        dot.classList.remove('active');
+                    });
+
+                    // Calculate which section we're in (0, 1, or 2)
+                    const activeIndex = Math.min(Math.round(scrollPercentage * (goalScrollDots.length - 1)), goalScrollDots.length - 1);
+
+                    if (goalScrollDots[activeIndex]) {
+                        goalScrollDots[activeIndex].classList.add('active');
+                    }
+                }
+            });
+
+            // Helper function to get goal icon SVG
+            function getGoalIconSvg(category) {
+                const icons = {
+                    'emergency': '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18c-4.52-1.16-7.75-5.15-7.75-9.75V8.3l7.75-3.87 7.75 3.87v1.95c0 4.6-3.23 8.59-7.75 9.75z"/></svg>',
+                    'vacation': '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14 6l-3.75 5 2.85 3.8-1.6 1.2C9.81 13.75 7 10 7 10l-6 8h22L14 6z"/></svg>',
+                    'home': '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>',
+                    'education': '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>',
+                    'retirement': '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13.127 14.56l1.43-1.43 6.44 6.443L19.57 21zm4.293-5.73l2.86-2.86c-3.95-3.95-10.35-3.96-14.3-.02 3.93-1.3 8.31-.25 11.44 2.88zM5.95 5.98c-3.94 3.95-3.93 10.35.02 14.3l2.86-2.86C5.7 14.29 4.65 9.91 5.95 5.98zm.02-.02l-.01.01c-.38.39-.74.79-1.09 1.22l1.07 1.07c.27-.29.55-.56.84-.82l-.81-.48z"/></svg>',
+                    'car': '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/></svg>',
+                    'bike': '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM5 12c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 8.5c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5zm5.8-10l2.4-2.4.8.8c1.3 1.3 3 2.1 5.1 2.1V9c-1.5 0-2.7-.6-3.6-1.5l-1.9-1.9c-.5-.4-1-.6-1.6-.6s-1.1.2-1.4.6L7.8 8.4c-.4.4-.6.9-.6 1.4 0 .6.2 1.1.6 1.4L11 14v5h2v-6.2l-2.2-2.3zM19 12c-2.8 0-5 2.2-5 5s2.2 5 5 5 5-2.2 5-5-2.2-5-5-5zm0 8.5c-1.9 0-3.5-1.6-3.5-3.5s1.6-3.5 3.5-3.5 3.5 1.6 3.5 3.5-1.6 3.5-3.5 3.5z"/></svg>',
+                    'custom': '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>',
+                    'default': '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z"/></svg>'
+                };
+                return icons[category] || icons['default'];
+            }
+
+            // Goal selection
+            goalCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    if (this.classList.contains('add-goal-card')) {
+                        // Navigate to create-goal page
+                        window.location.href = 'create-goal.html';
+                        return;
+                    }
+
+                    // Remove selected class from all cards
+                    document.querySelectorAll('.goal-card-compact').forEach(c => c.classList.remove('selected'));
+
+                    // Add selected class to clicked card
+                    this.classList.add('selected');
+
+                    // Update current goal name
+                    const nameEl = this.querySelector('.goal-card-name');
+                    currentGoal = nameEl ? nameEl.textContent.trim() : '';
+
+                    // Update current goal tenure from data attribute
+                    const tenure = this.getAttribute('data-tenure');
+                    currentGoalTenure = tenure ? parseInt(tenure, 10) : 3;
+
+                    // Trigger basket recommendation update
+                    displayBasketRecommendation();
+                });
+            });
+
+            // Add goal card click handler
+            const addGoalCard = document.querySelector('.add-goal-card');
+            if (addGoalCard) {
+                addGoalCard.addEventListener('click', function() {
+                    window.location.href = 'create-goal.html';
+                });
+            }
+
+            // Update quick amount buttons based on investment type and frequency
+            function updateQuickAmounts() {
+                const quickAmountsContainer = document.getElementById('quickAmounts');
+                let amountConfig;
+                
+                if (currentType === 'sip') {
+                    /*else if (currentFrequency === 'weekly') {
+                        amountConfig = [
+                            { amount: 300, popular: false },
+                            { amount: 500, popular: true },
+                            { amount: 1000, popular: false },
+                            { amount: 2000, popular: false }
+                        ];
+                    } else*/ if (currentFrequency === 'monthly') {
+                        amountConfig = [
+                            { amount: 2000, popular: false },
+                            { amount: 5000, popular: true },
+                            { amount: 7000, popular: false },
+                            { amount: 10000, popular: false }
+                        ];
+                    }
+                } else {
+                    amountConfig = [
+                        { amount: 2000, popular: false },
+                        { amount: 5000, popular: true },
+                        { amount: 7000, popular: false },
+                        { amount: 10000, popular: false }
+                    ];
+                }
+                
+                quickAmountsContainer.innerHTML = amountConfig.map(config => 
+                    `<button class="amount-btn ${config.popular ? 'popular' : ''}" data-amount="${config.amount}">${config.amount}</button>`
+                ).join('');
+                
+                // Reattach event listeners to new buttons
+                const newAmountBtns = document.querySelectorAll('.amount-btn');
+                newAmountBtns.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        let amount = parseInt(this.dataset.amount);
+                        
+                        // Enforce 10 lac maximum limit
+                        if (amount > 1000000) {
+                            amount = 1000000;
+                        }
+                        
+                        currentAmount = amount;
+                        amountInput.value = amount;
+                        updateProjection();
+                        
+                        // Update button states
+                        newAmountBtns.forEach(b => b.classList.remove('selected'));
+                        this.classList.add('selected');
+                    });
+                    
+                    // Mobile touch interaction
+                    btn.addEventListener('touchstart', function(e) {
+                        this.style.transition = 'transform 0.1s ease';
+                        this.style.transform = 'scale(0.95)';
+                    });
+                    
+                    btn.addEventListener('touchend', function(e) {
+                        this.style.transform = '';
+                    });
+                });
+            }
+
+            // Open timing selection modal
+            function openTimingModal(type) {
+                const modal = document.getElementById('timingModal');
+                const modalTitle = document.getElementById('modalTitle');
+                const daySelection = document.getElementById('daySelection');
+                const dateSelection = document.getElementById('dateSelection');
+                
+                /*if (type === 'weekly') {
+                    modalTitle.textContent = 'Select Day of Week';
+                    daySelection.style.display = 'block';
+                    dateSelection.style.display = 'none';
+                } else*/ if (type === 'monthly') {
+                    modalTitle.textContent = 'Select Date of Month';
+                    daySelection.style.display = 'none';
+                    dateSelection.style.display = 'block';
+                }
+                
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Close timing selection modal
+            function closeTimingModal() {
+                const modal = document.getElementById('timingModal');
+                modal.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+
+            // Make modal functions globally accessible
+            window.closeTimingModal = closeTimingModal;
+            window.openTimingModal = openTimingModal;
+            window.currentFrequency = currentFrequency;
+
+            // Update timing display
+            function updateTimingDisplay() {
+                const timingDisplay = document.getElementById('timingDisplay');
+                const timingValue = document.getElementById('timingValue');
+                const timingLabel = document.querySelector('.timing-display-label');
+                
+                if (currentFrequency === 'monthly') {
+                    timingDisplay.style.display = 'block';
+                    const suffix = currentDate === 1 || currentDate === 21 ? 'st' :
+                                  currentDate === 2 || currentDate === 22 ? 'nd' :
+                                  currentDate === 3 || currentDate === 23 ? 'rd' : 'th';
+                    timingLabel.textContent = 'SIP on';
+                    timingValue.textContent = currentDate + suffix + ' of every month';
+                }
+            }
+
+            // Update CTA button text
+            function updateCTA() {
+                const icon = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>';
+                if (currentType === 'sip') {
+                    const frequency = currentFrequency.charAt(0).toUpperCase() + currentFrequency.slice(1);
+                    ctaBtn.innerHTML = `${icon} Setup ${frequency} SIP`;
+                } else {
+                    ctaBtn.innerHTML = `${icon} Invest Now`;
+                }
+            }
+
+            // Update projection with enhanced calculations
+            function updateProjection() {
+                if (currentAmount <= 0) return;
+                
+                const annualReturn = 0.15; // 15% annual return
+                let totalInvestment, futureValue;
+                
+                if (currentType === 'sip') {
+                    let investmentsPerYear;
+                    /*if (currentFrequency === 'weekly') {
+                        investmentsPerYear = 52;
+                    } else*/ {
+                        investmentsPerYear = 12;
+                    }
+                    
+                    totalInvestment = currentAmount * investmentsPerYear * currentYears;
+                    
+                    // SIP future value calculation with 15% return
+                    const periodicRate = Math.pow(1 + annualReturn, 1/investmentsPerYear) - 1;
+                    const totalPeriods = investmentsPerYear * currentYears;
+                    futureValue = currentAmount * (((Math.pow(1 + periodicRate, totalPeriods)) - 1) / periodicRate) * (1 + periodicRate);
+                } else {
+                    // One-time investment
+                    totalInvestment = currentAmount;
+                    futureValue = currentAmount * Math.pow(1 + annualReturn, currentYears);
+                }
+                
+                const growth = futureValue - totalInvestment;
+                const growthPercentage = ((growth / totalInvestment) * 100);
+
+                // Update display for compact card (if elements exist)
+                // projectionPeriod removed - no longer showing "After X years..."
+                if (projectionAmount) {
+                    projectionAmount.textContent = `₹ ${Math.round(futureValue).toLocaleString('en-IN')}`;
+                }
+                if (projectionGrowth) {
+                    projectionGrowth.innerHTML = `
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z"/>
+                        </svg>
+                        +₹${Math.round(growth).toLocaleString('en-IN')} (${growthPercentage.toFixed(1)}%)
+                    `;
+                }
+                // totalInvested removed - no longer showing total invested in compact view
+            }
+
+            // Fund selection action
+            window.changeFund = function() {
+                alert('Navigate to fund selection page');
+                // Add your navigation logic here
+            };
+
+            // CTA button action
+            ctaBtn.addEventListener('click', function() {
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                    // Navigate to UPI autopay setup for SIP, direct investment for one-time
+                    if (currentType === 'sip') {
+                        // Pass amount, frequency, type, and goal as URL parameters
+                        const params = new URLSearchParams({
+                            amount: currentAmount,
+                            frequency: currentFrequency,
+                            type: currentType,
+                            goal: currentGoal,
+                            customBasket: selectedCustomBasket || '',
+                            customFund: selectedCustomFund || ''
+                        });
+                        window.location.href = 'upi-autopay.html?' + params.toString();
+                    } else {
+                        alert(`One-time Investment - Amount: ₹${currentAmount}`);
+                        // In real app: window.location.href = 'payment-gateway.html';
+                    }
+                }, 150);
+            });
+
+            // Mobile touch interactions
+            document.querySelectorAll('.goal-card-compact, .frequency-btn, .tab-btn, .timing-btn').forEach(btn => {
+                btn.addEventListener('touchstart', function(e) {
+                    this.style.transition = 'transform 0.1s ease';
+                    this.style.transform = 'scale(0.95)';
+                });
+
+                btn.addEventListener('touchend', function(e) {
+                    setTimeout(() => {
+                        this.style.transform = '';
+                        this.style.transition = 'all 0.2s ease';
+                    }, 100);
+                });
+            });
+
+            // Modal background click to close
+            document.getElementById('timingModal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeTimingModal();
+                }
+            });
+
+            // Initialize amount input
+            amountInput.value = currentAmount;
+            // updateQuickAmounts(); // Removed for cleaner UI
+            updateTimingDisplay();
+            updateCTA();
+
+            // Initialize projection
+            updateProjection();
+            // Initialize trust projection
+            updateTrustProjection();
+        });
+
+        // ==================== TRUST PROJECTION CALCULATION ====================
+
+        function updateTrustProjection() {
+            const amount = parseInt(document.getElementById('amountInput').value) || 5000;
+            const frequency = document.querySelector('.frequency-btn.active')?.dataset.frequency || 'monthly';
+
+            let annualReturn = 0.125;
+            let displayPercentage = "12.5";
+
+            if (window.basketData && window.basketData.returns) {
+                const returnMatch = window.basketData.returns.match(/(\d+(?:\.\d+)?)/);
+                if (returnMatch) {
+                    annualReturn = parseFloat(returnMatch[1]) / 100;
+                    displayPercentage = returnMatch[1];
+                }
+            }
+
+            const duration = 10;
+            let futureValue;
+
+            if (currentType === 'sip') {
+                const investmentsPerYear = 12;
+                const r = Math.pow(1 + annualReturn, 1/investmentsPerYear) - 1;
+                const n = investmentsPerYear * duration;
+                futureValue = amount * (((Math.pow(1 + r, n)) - 1) / r) * (1 + r);
+            } else {
+                futureValue = amount * Math.pow(1 + annualReturn, duration);
+            }
+
+            document.getElementById('trustProjectionAmount').textContent =
+                '₹' + Math.round(futureValue).toLocaleString('en-IN');
+            document.getElementById('trustProjectionReturn').textContent =
+                `${displayPercentage}% p.a.`;
+        }
+
+        // ==================== SIMPLE FUND SECTION TOGGLE ====================
+        
+        function toggleFundContent() {
+            const card = document.getElementById('investmentDisplayCard');
+            card.classList.toggle('collapsed');
+        }
+
+        // ==================== CUSTOMIZATION OVERLAY FUNCTIONS ====================
+
+        // Open main customization overlay
+        function openCustomizationOverlay() {
+            const backdrop = document.getElementById('customizationBackdrop');
+            backdrop.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close main customization overlay
+        function closeCustomizationOverlay() {
+            const backdrop = document.getElementById('customizationBackdrop');
+            const modal = document.getElementById('customizationModal');
+
+            backdrop.style.animation = 'fadeOut 0.3s ease-out';
+            modal.style.animation = 'slideDown 0.3s ease-out';
+
+            setTimeout(() => {
+                backdrop.style.display = 'none';
+                backdrop.style.animation = '';
+                modal.style.animation = '';
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        // Open basket selection overlay - redirect to mutual-funds page (For You tab)
+        function openBasketSelection() {
+            // Show loader
+            const loader = document.getElementById('loadingOverlay');
+            loader.style.display = 'flex';
+
+            // Redirect after brief delay
+            setTimeout(() => {
+                window.location.href = 'mutual-funds.html#recommended';
+            }, 400);
+        }
+
+        // Close basket selection overlay
+        function closeBasketSelection() {
+            const backdrop = document.getElementById('basketSelectionBackdrop');
+            const modal = document.getElementById('basketSelectionModal');
+
+            backdrop.style.animation = 'fadeOut 0.3s ease-out';
+            modal.style.animation = 'slideDown 0.3s ease-out';
+
+            setTimeout(() => {
+                backdrop.style.display = 'none';
+                backdrop.style.animation = '';
+                modal.style.animation = '';
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        // Open fund selection overlay - redirect to mutual-funds page (All Funds tab)
+        function openFundSelection() {
+            // Show loader
+            const loader = document.getElementById('loadingOverlay');
+            loader.style.display = 'flex';
+
+            // Redirect after brief delay
+            setTimeout(() => {
+                window.location.href = 'mutual-funds.html#all-funds';
+            }, 400);
+        }
+
+        // Close fund selection overlay
+        function closeFundSelection() {
+            const backdrop = document.getElementById('fundSelectionBackdrop');
+            const modal = document.getElementById('fundSelectionModal');
+
+            backdrop.style.animation = 'fadeOut 0.3s ease-out';
+            modal.style.animation = 'slideDown 0.3s ease-out';
+
+            setTimeout(() => {
+                backdrop.style.display = 'none';
+                backdrop.style.animation = '';
+                modal.style.animation = '';
+                document.body.style.overflow = '';
+            }, 300);
+        }
+
+        // ==================== DATA POPULATION FUNCTIONS ====================
+
+        // Populate basket list
+        function populateBasketList() {
+            const container = document.getElementById('basketListContainer');
+
+            let html = '';
+            Object.values(BASKETS_DATA).forEach(basket => {
+                html += `
+                    <div class="basket-item-card" onclick="selectBasket('${basket.id}')">
+                        <div class="basket-item-header">
+                            <div class="basket-item-title">${basket.name}</div>
+                            <div class="basket-item-returns">${basket.returns}</div>
+                        </div>
+                        <div class="basket-item-description">${basket.description}</div>
+                        <div class="basket-item-meta">
+                            <span>📊 ${basket.funds.length} Fund${basket.funds.length > 1 ? 's' : ''}</span>
+                            <span>⏱️ ${basket.holdingPeriod}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Populate fund list from HDFC mapping
+        function populateFundList() {
+            const container = document.getElementById('fundListContainer');
+
+            if (!hdfcFundsMapping) {
+                container.innerHTML = '<p style="text-align: center; padding: 20px;">Loading funds...</p>';
+                return;
+            }
+
+            let html = '';
+            Object.entries(hdfcFundsMapping).forEach(([category, fund]) => {
+                const categoryName = category.replace(/_/g, ' ');
+                const borderColor = fund.category === 'Equity' ? '#2563EB' :
+                                   fund.category === 'Debt' ? '#10B981' : '#8B5CF6';
+
+                html += `
+                    <div class="fund-item-card" style="border-left-color: ${borderColor};"
+                         onclick="selectFund('${category}')">
+                        <div class="fund-item-header">
+                            <div class="fund-item-name">${fund.name}</div>
+                        </div>
+                        <div class="fund-item-category">${fund.category} • ${categoryName}</div>
+                        <div class="fund-item-nav">
+                            <span>NAV:</span>
+                            <span class="fund-item-nav-value">₹${fund.navAmount}</span>
+                            <span>• ${fund.navDate}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // ==================== SELECTION HANDLER FUNCTIONS ====================
+
+        // Handle basket selection
+        function selectBasket(basketId) {
+            selectedCustomBasket = basketId;
+            selectedCustomFund = null;
+            customizationActive = true;
+
+            closeBasketSelection();
+
+            setTimeout(() => {
+                loadBasketDetailsAndUpdate(basketId);
+            }, 300);
+        }
+
+        // Handle fund selection
+        function selectFund(fundCategory) {
+            selectedCustomFund = fundCategory;
+            selectedCustomBasket = null;
+            customizationActive = true;
+
+            closeFundSelection();
+
+            setTimeout(() => {
+                updateDisplayWithSingleFund(fundCategory);
+            }, 300);
+        }
+
+        // Load basket details and update display
+        function loadBasketDetailsAndUpdate(basketId) {
+            const basketInfo = BASKETS_DATA[basketId];
+
+            if (!basketInfo) {
+                console.error(`Basket ${basketId} not found`);
+                return;
+            }
+
+            // Create basket data object matching create-goal format
+            const basketData = {
+                basketName: basketInfo.name,
+                description: basketInfo.description,
+                returns: basketInfo.returns,
+                tenure: basketInfo.holdingPeriod,
+                funds: basketInfo.funds,
+                fromGoal: false
+            };
+
+            // Update basket display using existing function
+            displaySelectedBasket(basketData);
+
+            // Update customization link text
+            updateCustomizationLinkText('Basket: ' + basketInfo.name);
+        }
+
+        // Update display with single fund (100% allocation)
+        function updateDisplayWithSingleFund(fundCategory) {
+            const fund = hdfcFundsMapping[fundCategory];
+
+            if (!fund) {
+                console.error(`Fund ${fundCategory} not found`);
+                return;
+            }
+
+            // Create basket data with single fund at 100%
+            const basketData = {
+                basketName: fund.name,
+                description: '100% allocation to single fund',
+                returns: 'Varies by fund performance',
+                tenure: 'Flexible',
+                funds: [
+                    { name: fund.name, allocation: 100, category: fund.category }
+                ],
+                fromGoal: false
+            };
+
+            // Update basket display
+            displaySelectedBasket(basketData);
+
+            // Update customization link text
+            updateCustomizationLinkText('Fund: ' + fund.name);
+        }
+
+        // Update customization link text after selection
+        function updateCustomizationLinkText(selectionText) {
+            const link = document.getElementById('customizeLink');
+            if (link) {
+                link.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="opacity: 0.7;">
+                        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                    </svg>
+                    <span>${selectionText}</span>
+                    <span style="font-size: 12px; opacity: 0.7;">• Click to change</span>
+                `;
+            }
+        }
+    </script>
+    <script src="assets/js/iphone-toggle.js"></script>
+</body>
+</html>

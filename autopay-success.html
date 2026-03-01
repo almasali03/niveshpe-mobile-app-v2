@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoPay Setup Successful - NiveshPe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+          /* Color System */
+          --color-bg-primary: #F5F7FA;
+          --color-bg-secondary: #FFFFFF;
+          --color-card: #FFFFFF;
+          --color-surface: #F8F9FA;
+          --color-border: #E5E7EB;
+          
+          /* Brand Colors */
+          --color-blue: #2563EB;
+          --color-blue-dark: #1D4ED8;
+          --color-blue-light: #3B82F6;
+          --color-green: #10B981;
+          --color-green-light: #34D399;
+          --color-green-dark: #059669;
+          --color-orange: #F59E0B;
+          
+          /* Text Colors */
+          --color-text-primary: #1F2937;
+          --color-text-secondary: #6B7280;
+          --color-text-muted: #9CA3AF;
+          --color-text-white: #FFFFFF;
+          
+          /* Enhanced Gradients */
+          --gradient-success: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+          --gradient-hero: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
+          
+          /* Typography */
+          --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+          
+          /* Shadows */
+          --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+          --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+          --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+          --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+          
+          /* Border Radius */
+          --radius-sm: 8px;
+          --radius-md: 12px;
+          --radius-lg: 16px;
+          --radius-xl: 20px;
+          --radius-2xl: 24px;
+          --radius-full: 9999px;
+
+          /* Spacing System */
+          --space-xs: 8px;
+          --space-sm: 12px;
+          --space-md: 16px;
+          --space-lg: 20px;
+          --space-xl: 24px;
+          --space-2xl: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--color-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px 20px 40px;
+            overflow-x: auto;
+        }
+
+        /* iPhone Frame - Remove visual styling but keep dimensions */
+        .iphone-frame {
+            width: 380px;
+            height: 820px;
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+            position: relative;
+            margin: 0 auto;
+            flex-shrink: 0;
+        }
+
+        .iphone-frame::before {
+            display: none;
+        }
+
+        .iphone-frame::after {
+            display: none;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            border-radius: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .mobile-container {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .mobile-content {
+            flex: 1;
+            overflow: hidden;
+            scrollbar-width: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: #F5F7FA;
+            font-size: 15px;
+            font-weight: 600;
+            height: 44px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        /* Header with Back Button */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: #F5F7FA;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            height: 70px;
+            box-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.12);
+            z-index: 10;
+            position: relative;
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .back-btn:active {
+            background: var(--color-blue);
+            color: white;
+            transform: scale(0.95);
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .header-spacer {
+            width: 40px;
+        }
+
+        /* Success Content */
+        .success-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-md) var(--space-lg) var(--space-lg);
+            text-align: center;
+            position: relative;
+            min-height: 0;
+        }
+
+        /* Animated Success Icon */
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: var(--space-md);
+            position: relative;
+            animation: bounceIn 0.8s ease-out;
+            flex-shrink: 0;
+        }
+
+        .success-circle {
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.3);
+            position: relative;
+            overflow: visible;
+            z-index: 2;
+        }
+
+        .success-circle::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            animation: shine 2s ease-in-out infinite;
+        }
+
+        .checkmark {
+            color: white;
+            font-size: 32px;
+            font-weight: 800;
+            z-index: 3;
+            animation: checkmarkDraw 0.8s ease-out 0.3s both;
+            position: relative;
+        }
+
+
+        /* Success Message */
+        .success-message {
+            flex-shrink: 0;
+            margin-bottom: var(--space-sm);
+        }
+
+        .success-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--color-text-primary);
+            margin-bottom: 4px;
+            animation: slideInUp 0.6s ease-out 0.5s both;
+            text-align: center;
+        }
+
+        .success-subtitle {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin-bottom: 0;
+            animation: slideInUp 0.6s ease-out 0.7s both;
+        }
+
+        /* Success Details Card */
+        .success-details {
+            width: 100%;
+            max-width: 320px;
+            background: var(--color-card);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: var(--space-md);
+            animation: slideInUp 0.6s ease-out 0.9s both;
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            flex-shrink: 0;
+        }
+
+        .details-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-sm);
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .details-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+            padding: 2px 0;
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+            padding-top: 6px;
+            border-top: 1px solid var(--color-border);
+            font-weight: 600;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-size: 12px;
+            color: var(--color-text-primary);
+            font-weight: 600;
+        }
+
+        .detail-value.highlight {
+            color: var(--color-green);
+            font-size: 14px;
+        }
+
+        /* Status Tag */
+        .status-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 2px 8px;
+            background: var(--gradient-success);
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            border-radius: var(--radius-full);
+            box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            width: 100%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            animation: slideInUp 0.6s ease-out 1.1s both;
+            flex-shrink: 0;
+        }
+
+        .primary-btn {
+            width: 100%;
+            padding: 14px 20px;
+            border-radius: var(--radius-md);
+            border: none;
+            background: var(--gradient-success);
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .primary-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 3px 10px rgba(16, 185, 129, 0.4);
+        }
+
+        .secondary-btn {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--color-border);
+            background: var(--color-card);
+            color: var(--color-text-primary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .secondary-btn:active {
+            transform: scale(0.96);
+            border-color: var(--color-blue);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        /* Industry Standard Confetti */
+        .confetti {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 1000;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .confetti-rect {
+            background: #4ecdc4;
+        }
+
+        .confetti-circle {
+            background: #45b7d1;
+            border-radius: 50%;
+        }
+
+        .confetti-triangle {
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 10px solid #96ceb4;
+            background: none;
+        }
+
+        .confetti-square {
+            background: #feca57;
+        }
+
+        .confetti-diamond {
+            background: #ff9ff3;
+            transform: rotate(45deg);
+        }
+
+        .confetti-star {
+            background: #ff6b6b;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+
+        @keyframes confettiFall {
+            0% {
+                opacity: 1;
+                transform: translateY(-20px) translateX(0) rotate(0deg);
+            }
+            25% {
+                opacity: 1;
+                transform: translateY(25vh) translateX(calc(var(--drift, 0px) * 0.25)) rotate(90deg);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateY(50vh) translateX(calc(var(--drift, 0px) * 0.5)) rotate(180deg);
+            }
+            75% {
+                opacity: 0.4;
+                transform: translateY(75vh) translateX(calc(var(--drift, 0px) * 0.75)) rotate(270deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) translateX(var(--drift, 0px)) rotate(360deg);
+            }
+        }
+
+        /* Animations */
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes checkmarkDraw {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* Ripple Wave Animation */
+        .ripple-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .ripple {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+
+        .ripple-1 {
+            border: 3px solid rgba(16, 185, 129, 0.6);
+            animation: rippleWave 3s ease-out infinite;
+        }
+
+        .ripple-2 {
+            border: 2px solid rgba(52, 211, 153, 0.4);
+            animation: rippleWave 3s ease-out infinite 0.6s;
+        }
+
+        .ripple-3 {
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            animation: rippleWave 3s ease-out infinite 1.2s;
+        }
+
+        .ripple-4 {
+            border: 1px solid rgba(52, 211, 153, 0.2);
+            animation: rippleWave 3s ease-out infinite 1.8s;
+        }
+
+        @keyframes rippleWave {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(2.5);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+    </style>
+    <link rel="stylesheet" href="assets/css/iphone-toggle.css">
+</head>
+<body>
+    <!-- Frame Toggle Button -->
+    <button class="frame-toggle-btn" id="frameToggleBtn" onclick="toggleFrameMode()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
+        </svg>
+        <span id="frameToggleText">Normal View</span>
+    </button>
+
+
+    <div class="iphone-frame">
+        <!-- iPhone Notch (Dynamic Island style) -->
+        <div class="iphone-notch"></div>
+
+
+        <div class="iphone-screen">
+            <div class="mobile-container">
+                <div class="mobile-content">
+                    <!-- Status Bar -->
+                    <div class="status-bar">
+                        <div>9:41</div>
+                        <div class="status-icons">
+                            <span>•••</span>
+                            <span>📶</span>
+                            <span>🔋</span>
+                        </div>
+                    </div>
+
+                    <!-- Header without Back Button -->
+                    <div class="header">
+                        <div class="header-spacer"></div>
+                        <div class="header-title">AutoPay Setup Complete!</div>
+                        <div class="header-spacer"></div>
+                    </div>
+
+                    <!-- Success Content -->
+                    <div class="success-content">
+                        <!-- Industry Standard Confetti -->
+                        <div class="confetti" id="confetti-container"></div>
+
+                        <!-- Success Icon with Ripple Animation -->
+                        <div class="success-icon">
+                            <div class="ripple-container">
+                                <div class="ripple ripple-1"></div>
+                                <div class="ripple ripple-2"></div>
+                                <div class="ripple ripple-3"></div>
+                                <div class="ripple ripple-4"></div>
+                            </div>
+                            <div class="success-circle">
+                                <div class="checkmark">✓</div>
+                            </div>
+                        </div>
+
+                        <!-- Success Message -->
+                        <div class="success-message">
+                            <h1 class="success-title">SIP Done!</h1>
+                            <p class="success-subtitle">Your AutoPay SIP has been successfully set up</p>
+                        </div>
+
+                        <!-- Success Details -->
+                        <div class="success-details">
+                            <div class="details-header">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-green);">
+                                    <path d="M9 12l2 2 4-4"/>
+                                </svg>
+                                <h3 class="details-title">SIP Details</h3>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <span class="detail-label">SIP Amount</span>
+                                <span class="detail-value highlight" id="amount">₹100</span>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <span class="detail-label">Frequency</span>
+                                <span class="detail-value" id="frequency">Daily</span>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <span class="detail-label">Fund</span>
+                                <span class="detail-value">SBI Hybrid Mutual Funds</span>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <span class="detail-label">Pot</span>
+                                <span class="detail-value" id="selectedPot">Emergency Funds</span>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <span class="detail-label">First Charge</span>
+                                <span class="detail-value" id="firstCharge">Tomorrow</span>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <span class="detail-label">UPI Method</span>
+                                <span class="detail-value" id="upiMethod">PhonePe</span>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <span class="detail-label">Status</span>
+                                <span class="detail-value">
+                                    <span class="status-tag">✓ Active</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="action-buttons">
+                            <button class="primary-btn" onclick="createNewSIP()">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                                </svg>
+                                Create New SIP
+                            </button>
+                            
+                            <button class="secondary-btn" onclick="goHome()">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                                </svg>
+                                Back to Home
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- iPhone Home Indicator -->
+        <div class="iphone-home-indicator"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get parameters from URL or use defaults
+            const urlParams = new URLSearchParams(window.location.search);
+            const amount = urlParams.get('amount') || '100';
+            const frequency = urlParams.get('frequency') || 'daily';
+            const upiMethod = urlParams.get('method') || 'PhonePe';
+            const selectedPot = urlParams.get('pot') || 'Emergency Funds';
+            
+            // Update content with actual data
+            document.getElementById('amount').textContent = `₹${amount}`;
+            
+            const frequencyMap = {
+                'daily': 'Daily',
+                'weekly': 'Weekly',
+                'monthly': 'Monthly'
+            };
+            document.getElementById('frequency').textContent = frequencyMap[frequency] || 'Daily';
+            
+            // Calculate first charge date
+            const today = new Date();
+            let firstChargeDate = new Date(today);
+            if (frequency === 'daily') {
+                firstChargeDate.setDate(today.getDate() + 1);
+            } else if (frequency === 'weekly') {
+                firstChargeDate.setDate(today.getDate() + 7);
+            } else if (frequency === 'monthly') {
+                firstChargeDate.setMonth(today.getMonth() + 1);
+            }
+            
+            const formatDate = (date) => {
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+            };
+            
+            document.getElementById('firstCharge').textContent = formatDate(firstChargeDate);
+            document.getElementById('upiMethod').textContent = upiMethod;
+            document.getElementById('selectedPot').textContent = selectedPot;
+            
+            // Add celebration haptic feedback
+            if (navigator.vibrate) {
+                navigator.vibrate([100, 50, 100, 50, 200]);
+            }
+            
+            // Play success sound (if available)
+            if (typeof Audio !== 'undefined') {
+                // In a real app, you'd have a success sound file
+                // const successSound = new Audio('assets/success.mp3');
+                // successSound.play().catch(e => console.log('Audio play failed'));
+            }
+            
+            // Add industry-standard confetti every time page loads
+            // Trigger confetti after initial animations
+            setTimeout(() => {
+                createConfetti();
+            }, 800);
+            
+            // Additional bursts for celebration
+            setTimeout(() => createConfetti(), 1200);
+            setTimeout(() => createConfetti(), 1800);
+        });
+
+        function createConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#feca57', '#ff9ff3'];
+            const shapes = ['confetti-rect', 'confetti-circle', 'confetti-triangle', 'confetti-square', 'confetti-diamond', 'confetti-star'];
+            
+            // Create 50 confetti pieces for industry-standard effect
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = `confetti-piece ${shapes[Math.floor(Math.random() * shapes.length)]}`;
+                
+                // Set random color for non-triangle shapes
+                if (!confetti.classList.contains('confetti-triangle') && !confetti.classList.contains('confetti-star')) {
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                }
+                
+                // Random size variation (8-15px)
+                const size = Math.random() * 7 + 8;
+                confetti.style.width = size + 'px';
+                confetti.style.height = size + 'px';
+                
+                // Random starting position
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.top = '-20px';
+                
+                // Random animation duration (2-4 seconds)
+                const duration = Math.random() * 2 + 2;
+                confetti.style.animation = `confettiFall ${duration}s linear forwards`;
+                
+                // Random delay (0-0.5 seconds)
+                confetti.style.animationDelay = Math.random() * 0.5 + 's';
+                
+                // Add horizontal drift
+                const drift = (Math.random() - 0.5) * 200;
+                confetti.style.setProperty('--drift', drift + 'px');
+                
+                container.appendChild(confetti);
+                
+                // Remove confetti piece after animation
+                setTimeout(() => {
+                    if (confetti.parentNode) {
+                        confetti.remove();
+                    }
+                }, (duration + 0.5) * 1000);
+            }
+        }
+
+        function createNewSIP() {
+            // Add button press animation
+            const btn = event.currentTarget;
+            btn.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                btn.style.transform = '';
+                window.location.href = 'add-funds.html';
+            }, 150);
+        }
+
+        function goHome() {
+            // Add button press animation
+            const btn = event.currentTarget;
+            btn.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                btn.style.transform = '';
+                window.location.href = 'index.html';
+            }, 150);
+        }
+
+        // Add touch interactions for all buttons
+        document.querySelectorAll('.primary-btn, .secondary-btn, .back-btn').forEach(btn => {
+            btn.addEventListener('touchstart', function(e) {
+                this.style.transition = 'transform 0.1s ease';
+                this.style.transform = 'scale(0.95)';
+            });
+            
+            btn.addEventListener('touchend', function(e) {
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.transition = 'all 0.2s ease';
+                }, 100);
+            });
+        });
+    </script>
+    <script src="assets/js/iphone-toggle.js"></script>
+</body>
+</html>

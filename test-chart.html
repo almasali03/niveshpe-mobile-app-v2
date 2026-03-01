@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chart Test</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+    <h1>Chart Test</h1>
+    <div style="width: 600px; height: 300px; background: #f0f0f0; padding: 20px;">
+        <canvas id="myChart"></canvas>
+    </div>
+    <div id="status"></div>
+    <script>
+        window.addEventListener('DOMContentLoaded', function() {
+            const status = document.getElementById('status');
+            status.innerHTML = '<p>Chart available? ' + (typeof Chart !== 'undefined') + '</p>';
+            
+            if (typeof Chart !== 'undefined') {
+                try {
+                    const ctx = document.getElementById('myChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: ['1Y', '3Y', '5Y', '7Y', '10Y'],
+                            datasets: [{
+                                label: 'Test',
+                                data: [1000, 3000, 5000, 7000, 10000],
+                                borderColor: '#10B981',
+                                borderWidth: 3,
+                                tension: 0.4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
+                    });
+                    status.innerHTML += '<p style="color: green;">Chart created successfully!</p>';
+                } catch(e) {
+                    status.innerHTML += '<p style="color: red;">Error: ' + e.message + '</p>';
+                }
+            } else {
+                status.innerHTML += '<p style="color: red;">Chart.js not loaded!</p>';
+            }
+        });
+    </script>
+</body>
+</html>

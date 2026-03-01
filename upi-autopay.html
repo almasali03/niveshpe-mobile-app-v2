@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup UPI AutoPay - NiveshPe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/iphone-toggle.css">
+
+    <style>
+        :root {
+          /* Color System */
+          --color-bg-primary: #F5F7FA;
+          --color-bg-secondary: #FFFFFF;
+          --color-card: #FFFFFF;
+          --color-surface: #F8F9FA;
+          --color-border: #E5E7EB;
+          
+          /* Brand Colors */
+          --color-blue: #2563EB;
+          --color-blue-dark: #1D4ED8;
+          --color-blue-light: #3B82F6;
+          --color-green: #10B981;
+          --color-green-light: #34D399;
+          --color-green-dark: #059669;
+          --color-orange: #F59E0B;
+          
+          /* Text Colors */
+          --color-text-primary: #1F2937;
+          --color-text-secondary: #6B7280;
+          --color-text-muted: #9CA3AF;
+          --color-text-white: #FFFFFF;
+          
+          /* Typography */
+          --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+          
+          /* Shadows */
+          --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+          --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+          --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+          --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+          
+          /* Border Radius */
+          --radius-sm: 8px;
+          --radius-md: 12px;
+          --radius-lg: 16px;
+          --radius-xl: 20px;
+          --radius-2xl: 24px;
+          --radius-full: 9999px;
+
+          /* Spacing System */
+          --space-xs: 8px;
+          --space-sm: 12px;
+          --space-md: 16px;
+          --space-lg: 20px;
+          --space-xl: 24px;
+          --space-2xl: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--color-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px 20px 40px;
+            overflow-x: auto;
+        }
+
+        /* iPhone Frame - Remove visual styling but keep dimensions */
+        .iphone-frame {
+            width: 380px;
+            height: 820px;
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+            position: relative;
+            margin: 0 auto;
+            flex-shrink: 0;
+        }
+
+        .iphone-frame::before {
+            display: none;
+        }
+
+        .iphone-frame::after {
+            display: none;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            border-radius: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .mobile-container {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .mobile-content {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .mobile-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: #F5F7FA;
+            font-size: 15px;
+            font-weight: 600;
+            height: 44px;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        /* Header with Back Button */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: #F5F7FA;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            height: 70px;
+            box-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.12);
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .back-btn:active {
+            background: var(--color-blue);
+            color: white;
+            transform: scale(0.95);
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .header-spacer {
+            width: 40px;
+        }
+
+        /* Hero Section - Horizontal Strip */
+        .hero-section {
+            background: var(--color-blue);
+            height: 70px;
+            padding: 0 var(--space-lg);
+            margin: 0;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            width: 100%;
+        }
+
+        .company-logo {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .hero-info {
+            flex: 1;
+        }
+
+        .hero-title {
+            font-size: 12px;
+            font-weight: 400;
+            margin-bottom: 2px;
+            opacity: 0.9;
+            line-height: 1.2;
+        }
+
+        .hero-company {
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Content Field - Below Strip */
+        .content-field {
+            background: var(--color-bg-primary);
+            padding: 8px var(--space-lg) var(--space-md);
+        }
+
+        /* Payment Details - No Container */
+        .content-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 0 4px;
+        }
+
+        .detail-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        .detail-label {
+            font-weight: 500;
+            color: var(--color-text-secondary);
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .detail-highlight {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
+            padding: 4px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .amount-main {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .amount-frequency {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            font-weight: 400;
+        }
+
+        .detail-note {
+            font-size: 10px;
+            color: var(--color-text-muted);
+            font-style: italic;
+            text-align: center;
+            margin-top: 4px;
+            padding-top: 6px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        /* Payment Method Section */
+        .payment-section {
+            padding: 12px var(--space-lg) 8px;
+            background: #f8f9fa;
+        }
+
+        .upi-subtitle {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-blue);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .payment-method {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-height: 48px;
+        }
+
+        .payment-method:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .payment-method:active {
+            transform: scale(0.98);
+        }
+
+        .payment-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .payment-icon img,
+        .payment-icon svg {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .payment-info {
+            flex: 1;
+        }
+
+        .payment-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+        }
+
+        .payment-arrow {
+            color: var(--color-text-muted);
+            transform: rotate(0deg);
+            transition: transform 0.2s ease;
+        }
+
+        .payment-method:hover .payment-arrow {
+            transform: translateX(4px);
+        }
+
+        /* Or Divider */
+        .or-divider {
+            display: flex;
+            align-items: center;
+            margin: 6px 0 4px;
+            gap: var(--space-md);
+        }
+
+        .or-line {
+            flex: 1;
+            height: 1px;
+            background: var(--color-border);
+        }
+
+        .or-text {
+            background: #f8f9fa;
+            padding: 0 var(--space-sm);
+            color: var(--color-text-secondary);
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* UPI ID Input */
+        .upi-input-section {
+            background: var(--color-card);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            min-height: 48px;
+        }
+
+        .upi-input-section:hover {
+            border-color: var(--color-blue);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .upi-input-icon {
+            width: 28px;
+            height: 28px;
+            background: var(--color-blue);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .upi-input-info {
+            flex: 1;
+        }
+
+        .upi-input-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+        }
+
+        /* Custom Payment App Icons */
+        .phonepe-icon {
+            background: linear-gradient(135deg, #5F2C98 0%, #8B4DBC 100%);
+        }
+
+        .gpay-icon {
+            background: #fff;
+            border: 1px solid #e5e7eb;
+        }
+
+        .paytm-icon {
+            background: linear-gradient(135deg, #00BAF2 0%, #0079CC 100%);
+        }
+
+        .bhim-icon {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7941D 100%);
+        }
+
+        /* Animations */
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-section,
+        .payment-methods,
+        .upi-input-section {
+            animation: slideInUp 0.5s ease-out;
+        }
+
+        .payment-method:nth-child(1) { animation-delay: 0.1s; }
+        .payment-method:nth-child(2) { animation-delay: 0.2s; }
+        .payment-method:nth-child(3) { animation-delay: 0.3s; }
+        .payment-method:nth-child(4) { animation-delay: 0.4s; }
+    </style>
+</head>
+<body>
+    <!-- Frame Toggle Button -->
+    <button class="frame-toggle-btn" id="frameToggleBtn" onclick="toggleFrameMode()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
+        </svg>
+        <span id="frameToggleText">Normal View</span>
+    </button>
+
+    <div class="app-container">
+        <div class="iphone-frame">
+        <!-- iPhone Notch (Dynamic Island style) -->
+        <div class="iphone-notch"></div>
+
+            <div class="iphone-screen">
+            <div class="mobile-container">
+                <div class="mobile-content">
+                    <!-- Status Bar -->
+                    <div class="status-bar">
+                        <div>9:41</div>
+                        <div class="status-icons">
+                            <span>•••</span>
+                            <span>📶</span>
+                            <span>🔋</span>
+                        </div>
+                    </div>
+
+                    <!-- Header with Back Button -->
+                    <div class="header">
+                        <button class="back-btn" onclick="window.location.href='add-funds.html'">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+                            </svg>
+                        </button>
+                        <div class="header-title">Setup UPI AutoPay</div>
+                        <div class="header-spacer"></div>
+                    </div>
+
+                    <!-- Hero Section - 80px Strip -->
+                    <div class="hero-section">
+                        <div class="hero-content">
+                            <div class="company-logo">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                </svg>
+                            </div>
+                            <div class="hero-info">
+                                <div class="hero-title">Set up Recurring Payments to</div>
+                                <div class="hero-company">Futurewell Fintech Private Limited</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Method Section -->
+                    <div class="payment-section">
+                        <div class="upi-subtitle">
+                            <svg width="16" height="24" viewBox="0 0 307 500" fill="currentColor">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M144.034 1.752C137.569 5.013 137.391 5.78999 131.716 55.4C128.848 80.48 126.275 100.992 126 100.982C125.725 100.972 114.512 83.399 101.083 61.93C87.6532 40.461 75.4012 21.833 73.8572 20.533C70.2042 17.459 65.8592 16.562 61.5362 17.988C58.0392 19.142 53.5962 23.496 52.6002 26.745C52.3052 27.71 49.8182 48.075 47.0752 72C41.1602 123.594 9.8462 395.213 3.5772 449.31C-1.2018 490.539 -1.1918 491.526 4.0592 496.557C6.7442 499.129 7.86919 499.5 12.9852 499.5C17.8442 499.5 19.2972 499.075 21.5332 497C23.4852 495.188 86.4072 422.189 88.6932 419.083C89.7602 417.634 89.4172 422.265 86.7382 445.488C83.7712 471.203 83.7602 471.514 85.6202 474.957C89.2432 481.664 95.8392 484.346 102.769 481.931C105.059 481.132 130.653 451.919 203.668 366.764C257.476 304.011 302.587 251.162 303.917 249.324C305.603 246.991 306.333 244.645 306.333 241.564C306.333 237.586 304.697 234.534 289.86 210.824C280.8 196.346 248.477 144.675 218.032 96C187.587 47.325 161.738 6.445 160.589 5.155C155.933 -0.0719995 150.048 -1.282 144.034 1.752ZM150.568 21.12C150.253 22.979 147.484 46.464 144.415 73.31L138.834 122.119L175.626 180.81C195.861 213.089 214.573 243.059 217.209 247.41C222.044 255.392 222.828 258.691 221.02 263.446C220.482 264.864 194.622 295.704 163.555 331.98L107.069 397.937L103.181 431.218C101.042 449.523 99.4172 464.652 99.5682 464.839C99.7202 465.025 142.897 414.948 195.517 353.556C262.612 275.276 291.007 241.462 290.581 240.35C290.246 239.477 286.542 233.304 282.349 226.632C278.156 219.959 247.274 170.625 213.721 117C180.169 63.375 152.362 19.104 151.928 18.62C151.494 18.136 150.882 19.261 150.568 21.12ZM66.0002 35.681C66.0002 36.276 54.5132 136.373 40.4732 258.12C26.4332 379.866 15.0702 480.055 15.2232 480.762C15.3752 481.468 58.4752 431.849 111 370.497C163.525 309.145 206.417 258.599 206.316 258.172C206.071 257.139 68.0742 36.769 66.9082 35.55C66.3382 34.954 66.0002 35.003 66.0002 35.681Z"/>
+                            </svg>
+                            UPI
+                        </div>
+
+                        <div class="payment-methods">
+                            <!-- PhonePe -->
+                            <div class="payment-method" onclick="selectPaymentMethod('phonepe')">
+                                <div class="payment-icon" style="background: white; padding: 2px;">
+                                    <img src="./assets/phonepe-icon.svg" alt="PhonePe" style="width: 100%; height: 100%; object-fit: contain;">
+                                </div>
+                                <div class="payment-info">
+                                    <div class="payment-name">PhonePe</div>
+                                </div>
+                                <div class="payment-arrow">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Google Pay -->
+                            <div class="payment-method" onclick="selectPaymentMethod('gpay')">
+                                <div class="payment-icon" style="background: white; padding: 2px;">
+                                    <img src="./assets/google-pay-icon.svg" alt="Google Pay" style="width: 100%; height: 100%; object-fit: contain;">
+                                </div>
+                                <div class="payment-info">
+                                    <div class="payment-name">Google Pay</div>
+                                </div>
+                                <div class="payment-arrow">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- Paytm -->
+                            <div class="payment-method" onclick="selectPaymentMethod('paytm')">
+                                <div class="payment-icon" style="background: white; padding: 2px;">
+                                    <img src="./assets/paytm-icon.svg" alt="Paytm" style="width: 100%; height: 100%; object-fit: contain;">
+                                </div>
+                                <div class="payment-info">
+                                    <div class="payment-name">Paytm</div>
+                                </div>
+                                <div class="payment-arrow">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <!-- BHIM -->
+                            <div class="payment-method" onclick="selectPaymentMethod('bhim')">
+                                <div class="payment-icon" style="background: white; padding: 2px;">
+                                    <img src="./assets/bhim-icon.svg" alt="BHIM" style="width: 100%; height: 100%; object-fit: contain;">
+                                </div>
+                                <div class="payment-info">
+                                    <div class="payment-name">BHIM</div>
+                                </div>
+                                <div class="payment-arrow">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="or-divider">
+                            <div class="or-line"></div>
+                            <div class="or-text">OR</div>
+                            <div class="or-line"></div>
+                        </div>
+
+                        <!-- UPI ID Input -->
+                        <div class="upi-input-section" onclick="enterUPIID()">
+                            <div class="upi-input-icon">
+                                <svg width="16" height="20" viewBox="0 0 307 500" fill="currentColor">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M144.034 1.752C137.569 5.013 137.391 5.78999 131.716 55.4C128.848 80.48 126.275 100.992 126 100.982C125.725 100.972 114.512 83.399 101.083 61.93C87.6532 40.461 75.4012 21.833 73.8572 20.533C70.2042 17.459 65.8592 16.562 61.5362 17.988C58.0392 19.142 53.5962 23.496 52.6002 26.745C52.3052 27.71 49.8182 48.075 47.0752 72C41.1602 123.594 9.8462 395.213 3.5772 449.31C-1.2018 490.539 -1.1918 491.526 4.0592 496.557C6.7442 499.129 7.86919 499.5 12.9852 499.5C17.8442 499.5 19.2972 499.075 21.5332 497C23.4852 495.188 86.4072 422.189 88.6932 419.083C89.7602 417.634 89.4172 422.265 86.7382 445.488C83.7712 471.203 83.7602 471.514 85.6202 474.957C89.2432 481.664 95.8392 484.346 102.769 481.931C105.059 481.132 130.653 451.919 203.668 366.764C257.476 304.011 302.587 251.162 303.917 249.324C305.603 246.991 306.333 244.645 306.333 241.564C306.333 237.586 304.697 234.534 289.86 210.824C280.8 196.346 248.477 144.675 218.032 96C187.587 47.325 161.738 6.445 160.589 5.155C155.933 -0.0719995 150.048 -1.282 144.034 1.752ZM150.568 21.12C150.253 22.979 147.484 46.464 144.415 73.31L138.834 122.119L175.626 180.81C195.861 213.089 214.573 243.059 217.209 247.41C222.044 255.392 222.828 258.691 221.02 263.446C220.482 264.864 194.622 295.704 163.555 331.98L107.069 397.937L103.181 431.218C101.042 449.523 99.4172 464.652 99.5682 464.839C99.7202 465.025 142.897 414.948 195.517 353.556C262.612 275.276 291.007 241.462 290.581 240.35C290.246 239.477 286.542 233.304 282.349 226.632C278.156 219.959 247.274 170.625 213.721 117C180.169 63.375 152.362 19.104 151.928 18.62C151.494 18.136 150.882 19.261 150.568 21.12ZM66.0002 35.681C66.0002 36.276 54.5132 136.373 40.4732 258.12C26.4332 379.866 15.0702 480.055 15.2232 480.762C15.3752 481.468 58.4752 431.849 111 370.497C163.525 309.145 206.417 258.599 206.316 258.172C206.071 257.139 68.0742 36.769 66.9082 35.55C66.3382 34.954 66.0002 35.003 66.0002 35.681Z"/>
+                                </svg>
+                            </div>
+                            <div class="upi-input-info">
+                                <div class="upi-input-title">Enter UPI ID</div>
+                            </div>
+                            <div class="payment-arrow">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Field - Payment Details -->
+                    <div class="content-field" style="padding-top: 0;">
+                        <div class="content-details">
+                            <!-- Amount Highlight -->
+                            <div class="detail-highlight">
+                                <span class="amount-main" data-amount>₹100</span>
+                                <span class="amount-frequency" data-frequency>Debited every day</span>
+                            </div>
+                            
+                            <!-- Duration Group -->
+                            <div class="detail-group">
+                                <div class="detail-row">
+                                    <span class="detail-label">Start Date</span>
+                                    <span class="detail-value" data-date="start">Today</span>
+                                </div>
+                                <div class="detail-row">
+                                    <span class="detail-label">End Date</span>
+                                    <span class="detail-value" data-date="end">31 Dec 2050</span>
+                                </div>
+                            </div>
+                            
+                            <!-- First Charge Group -->
+                            <div class="detail-group">
+                                <div class="detail-row">
+                                    <span class="detail-label">First Charge</span>
+                                    <span class="detail-value" data-date="first-charge">Tomorrow</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Note -->
+                            <div class="detail-note" data-note>
+                                ₹100 will be charged immediately upon setup
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- iPhone Home Indicator -->
+        <div class="iphone-home-indicator"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get parameters from URL or set defaults
+            const urlParams = new URLSearchParams(window.location.search);
+            const amount = urlParams.get('amount') || '100';
+            const frequency = urlParams.get('frequency') || 'daily';
+            const type = urlParams.get('type') || 'sip';
+            
+            // Calculate dates
+            const today = new Date();
+            const startDate = today; // Start date is today
+            
+            // Calculate first charge date based on frequency
+            let firstChargeDate = new Date(today);
+            if (frequency === 'daily') {
+                firstChargeDate.setDate(today.getDate() + 1); // Next day
+            } else if (frequency === 'weekly') {
+                firstChargeDate.setDate(today.getDate() + 7); // Next week
+            } else if (frequency === 'monthly') {
+                firstChargeDate.setMonth(today.getMonth() + 1); // Next month same date
+            }
+            
+            // Format dates
+            const formatDate = (date) => {
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
+            };
+            
+            // Update the content dynamically
+            // Update amount
+            const amountElement = document.querySelector('[data-amount]');
+            if (amountElement) {
+                amountElement.textContent = `₹${amount}`;
+            }
+            
+            // Update frequency text
+            const frequencyElement = document.querySelector('[data-frequency]');
+            if (frequencyElement) {
+                let frequencyText = 'Debited every day';
+                if (frequency === 'weekly') {
+                    frequencyText = 'Debited every week';
+                } else if (frequency === 'monthly') {
+                    frequencyText = 'Debited every month';
+                }
+                frequencyElement.textContent = frequencyText;
+            }
+            
+            // Update dates
+            const startDateElement = document.querySelector('[data-date="start"]');
+            if (startDateElement) {
+                startDateElement.textContent = formatDate(startDate);
+            }
+            
+            const firstChargeElement = document.querySelector('[data-date="first-charge"]');
+            if (firstChargeElement) {
+                firstChargeElement.textContent = formatDate(firstChargeDate);
+            }
+            
+            // Calculate end date (25 years from start)
+            const endDate = new Date(today);
+            endDate.setFullYear(today.getFullYear() + 25);
+            const endDateElement = document.querySelector('[data-date="end"]');
+            if (endDateElement) {
+                endDateElement.textContent = formatDate(endDate);
+            }
+            
+            // Update immediate charge note
+            const noteElement = document.querySelector('[data-note]');
+            if (noteElement) {
+                noteElement.textContent = `₹${amount} will be charged immediately upon setup`;
+            }
+            
+            // Add mobile touch interactions
+            document.querySelectorAll('.payment-method, .upi-input-section, .back-btn').forEach(btn => {
+                btn.addEventListener('touchstart', function(e) {
+                    this.style.transition = 'transform 0.1s ease';
+                    this.style.transform = 'scale(0.96)';
+                });
+                
+                btn.addEventListener('touchend', function(e) {
+                    setTimeout(() => {
+                        this.style.transform = '';
+                        this.style.transition = 'all 0.2s ease';
+                    }, 100);
+                });
+            });
+        });
+
+        function selectPaymentMethod(method) {
+            // Add haptic feedback
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+            
+            // Reset all payment methods first
+            document.querySelectorAll('.payment-method').forEach(pm => {
+                pm.style.borderColor = '';
+                pm.style.background = '';
+            });
+            
+            // Show selection animation
+            const selectedMethod = event.currentTarget;
+            selectedMethod.style.borderColor = '#2563EB';
+            selectedMethod.style.background = 'rgba(37, 99, 235, 0.05)';
+            
+            setTimeout(() => {
+                // Get current URL parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const amount = urlParams.get('amount') || '100';
+                const frequency = urlParams.get('frequency') || 'daily';
+                const type = urlParams.get('type') || 'sip';
+                const pot = urlParams.get('pot') || 'Emergency Funds';
+                
+                // Navigate to success page with all parameters
+                const successParams = new URLSearchParams({
+                    amount: amount,
+                    frequency: frequency,
+                    type: type,
+                    pot: pot,
+                    method: method.charAt(0).toUpperCase() + method.slice(1)
+                });
+                
+                window.location.href = 'autopay-success.html?' + successParams.toString();
+            }, 800); // Longer delay for better user experience
+        }
+
+        function enterUPIID() {
+            // Add haptic feedback
+            if (navigator.vibrate) {
+                navigator.vibrate(50);
+            }
+            
+            // Reset all payment methods first
+            document.querySelectorAll('.payment-method').forEach(pm => {
+                pm.style.borderColor = '';
+                pm.style.background = '';
+            });
+            
+            // Show selection animation
+            const upiSection = event.currentTarget;
+            upiSection.style.borderColor = '#2563EB';
+            upiSection.style.background = 'rgba(37, 99, 235, 0.05)';
+            
+            setTimeout(() => {
+                // Get current URL parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const amount = urlParams.get('amount') || '100';
+                const frequency = urlParams.get('frequency') || 'daily';
+                const type = urlParams.get('type') || 'sip';
+                const pot = urlParams.get('pot') || 'Emergency Funds';
+                
+                // Navigate to success page with UPI ID as method
+                const successParams = new URLSearchParams({
+                    amount: amount,
+                    frequency: frequency,
+                    type: type,
+                    pot: pot,
+                    method: 'UPI ID'
+                });
+                
+                window.location.href = 'autopay-success.html?' + successParams.toString();
+            }, 800); // Longer delay for better user experience
+        }
+    </script>
+    <script src="assets/js/iphone-toggle.js"></script>
+</body>
+</html>

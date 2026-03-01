@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goal Details - NiveshPe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <style>
+        :root {
+            --color-bg-primary: #F5F7FA;
+            --color-card: #FFFFFF;
+            --color-surface: #F8F9FA;
+            --color-border: #E5E7EB;
+            --color-blue: #2563EB;
+            --color-blue-dark: #1D4ED8;
+            --color-blue-light: #60A5FA;
+            --color-green: #10B981;
+            --color-orange: #F59E0B;
+            --color-text-primary: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-text-muted: #9CA3AF;
+            --gradient-blue: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            --gradient-success: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+            --gradient-purple: linear-gradient(135deg, #14B8A6 0%, #0D9488 100%);
+            --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --space-xs: 8px;
+            --space-sm: 12px;
+            --space-md: 16px;
+            --space-lg: 20px;
+            --space-xl: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--color-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .iphone-frame {
+            width: 380px;
+            height: 820px;
+            background: transparent;
+            position: relative;
+            margin: 0 auto;
+            flex-shrink: 0;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: white;
+            font-size: 15px;
+            font-weight: 600;
+            height: 44px;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 6px;
+        }
+
+        /* Header */
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: white;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: var(--color-surface);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:active {
+            background: var(--color-border);
+            transform: scale(0.95);
+        }
+
+        .goal-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            flex: 1;
+            text-align: center;
+        }
+
+        /* Scrollable Content */
+        .goal-content {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: none;
+            padding-bottom: 80px;
+        }
+
+        .goal-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hero Card */
+        .hero-card {
+            padding: var(--space-lg) var(--space-md);
+            margin: 0;
+            text-align: center;
+        }
+
+        .goal-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--space-md);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .goal-icon {
+            font-size: 48px;
+        }
+
+        .goal-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .goal-tagline {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+
+        /* Goal Amount Highlight Section */
+        .goal-amount-section {
+            margin: var(--space-lg) var(--space-md);
+            padding: var(--space-lg);
+            background: #F0FDF4;
+            border-radius: var(--radius-lg);
+            text-align: center;
+            border: 1px solid #BBF7D0;
+        }
+
+        .goal-amount-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .goal-amount-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--color-green);
+            line-height: 1.2;
+        }
+
+
+        /* Section */
+        .section {
+            margin: var(--space-md);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        /* Basket Card */
+        .basket-card {
+            background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+            border: 1px solid #BFDBFE;
+            border-radius: var(--radius-lg);
+            padding: 20px;
+        }
+
+        .basket-header {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .basket-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #60A5FA 0%, #3B82F6 100%);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .basket-info {
+            flex: 1;
+        }
+
+        .basket-name {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 4px;
+        }
+
+        .basket-description {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            line-height: 1.4;
+        }
+
+        .basket-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .basket-stat {
+            display: flex;
+            gap: 8px;
+            padding: 12px;
+            background: white;
+            border-radius: var(--radius-md);
+        }
+
+        .stat-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-info-label {
+            font-size: 11px;
+            color: var(--color-text-secondary);
+            margin-bottom: 2px;
+        }
+
+        .stat-info-value {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        /* Fund Allocation */
+        .fund-allocation-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .allocation-item {
+            width: 100%;
+        }
+
+        .allocation-card {
+            position: relative;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
+            overflow: hidden;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .allocation-card:active {
+            transform: scale(0.98);
+            background: var(--color-border);
+        }
+
+        .allocation-card-bg {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            background: var(--color-green);
+            opacity: 0.15;
+            border-radius: var(--radius-sm);
+            transition: width 0.5s ease;
+        }
+
+        .allocation-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .allocation-left {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+        }
+
+        .fund-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        /* Fund Icon for Allocation Cards */
+        .allocation-fund-icon {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            border-radius: 4px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .allocation-right {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .percentage {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--color-blue);
+        }
+
+        .allocation-chevron {
+            font-size: 16px;
+            color: var(--color-text-muted);
+            line-height: 1;
+        }
+
+        /* Floating CTA */
+        .floating-cta {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            width: 340px;
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: transparent;
+        }
+
+        .floating-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .floating-btn-primary {
+            background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+            color: white;
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
+            border: none;
+        }
+
+        .floating-btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .floating-btn-secondary {
+            background: white;
+            color: var(--color-blue);
+            border: 2px solid var(--color-blue);
+        }
+
+        .floating-btn-secondary:active {
+            transform: scale(0.98);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        /* Category-specific colors (from create-goal.html) */
+        .category-vacation .goal-icon-wrapper {
+            background: linear-gradient(135deg, #F1F8FE 0%, #E3F2FD 100%);
+        }
+        .category-vacation .goal-icon {
+            color: #42A5F5;
+        }
+
+        .category-home .goal-icon-wrapper {
+            background: linear-gradient(135deg, #F6FBF6 0%, #E8F5E9 100%);
+        }
+        .category-home .goal-icon {
+            color: #66BB6A;
+        }
+
+        .category-education .goal-icon-wrapper {
+            background: linear-gradient(135deg, #FAF7FB 0%, #F3E5F5 100%);
+        }
+        .category-education .goal-icon {
+            color: #AB47BC;
+        }
+
+        .category-retirement .goal-icon-wrapper {
+            background: linear-gradient(135deg, #FFFAF6 0%, #FFF3E0 100%);
+        }
+        .category-retirement .goal-icon {
+            color: #FFA726;
+        }
+
+        .category-car .goal-icon-wrapper {
+            background: linear-gradient(135deg, #F5FAFA 0%, #E0F2F1 100%);
+        }
+        .category-car .goal-icon {
+            color: #26A69A;
+        }
+
+        .category-emergency .goal-icon-wrapper {
+            background: linear-gradient(135deg, #FFF8F8 0%, #FFEBEE 100%);
+        }
+        .category-emergency .goal-icon {
+            color: #EF5350;
+        }
+
+        .category-custom .goal-icon-wrapper {
+            background: linear-gradient(135deg, #F7F8FB 0%, #E8EAF6 100%);
+        }
+        .category-custom .goal-icon {
+            color: #5C6BC0;
+        }
+
+        /* Transactions Section */
+        .transactions-container {
+            background: white;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+        }
+
+        .transaction-item {
+            padding: var(--space-md);
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-item:active {
+            background: var(--color-surface);
+        }
+
+        .transaction-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .transaction-icon.sip {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--color-green);
+        }
+
+        .transaction-icon.lumpsum {
+            background: rgba(37, 99, 235, 0.15);
+            color: var(--color-blue);
+        }
+
+        .transaction-icon.success {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--color-green);
+        }
+
+        .transaction-icon.in-process {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10B981;
+        }
+
+        .transaction-icon.failed {
+            background: rgba(239, 68, 68, 0.15);
+            color: #EF4444;
+        }
+
+        /* Icon colors by transaction type - override status colors */
+        .transaction-icon.withdrawal-icon {
+            background: rgba(239, 68, 68, 0.15) !important;
+            color: #EF4444 !important;
+        }
+
+        .transaction-icon.investment-icon {
+            background: rgba(16, 185, 129, 0.15) !important;
+            color: #10B981 !important;
+        }
+
+        .transaction-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .transaction-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            line-height: 1.3;
+        }
+
+        .transaction-subtitle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .transaction-date {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        .transaction-status {
+            font-size: 10px;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .transaction-status.success {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--color-green);
+        }
+
+        .transaction-status.in-process {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10B981;
+        }
+
+        .transaction-status.withdrawal-processing {
+            background: rgba(251, 191, 36, 0.15);
+            color: #F59E0B;
+        }
+
+        .transaction-status.failed {
+            background: rgba(239, 68, 68, 0.15);
+            color: #EF4444;
+        }
+
+        .transaction-amount {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-green);
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/iphone-toggle.css">
+</head>
+<body>
+    <!-- Frame Toggle Button -->
+    <button class="frame-toggle-btn" onclick="toggleFrameMode()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
+        </svg>
+        <span id="frameToggleText">Normal View</span>
+    </button>
+
+    <div class="iphone-frame">
+        <div class="iphone-notch"></div>
+        <div class="iphone-screen">
+            <!-- Status Bar -->
+            <div class="status-bar">
+                <div>9:41</div>
+                <div class="status-icons">
+                    <span>•••</span>
+                    <span>📶</span>
+                    <span>🔋</span>
+                </div>
+            </div>
+
+            <!-- Header -->
+            <div class="goal-header">
+                <button class="back-btn" onclick="window.history.back()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+                    </svg>
+                </button>
+                <div class="goal-title" id="goalTitle">Goal Details</div>
+            </div>
+
+            <!-- Scrollable Content -->
+            <div class="goal-content">
+                <!-- Hero Card -->
+                <div class="hero-card" id="heroCard">
+                    <div class="goal-name" id="goalName">My Goal</div>
+                    
+                    <!-- Total Goal Value Highlight -->
+                    <div class="goal-amount-section">
+                        <div class="goal-amount-label">Total Goal Value</div>
+                        <div class="goal-amount-value" id="goalAmount">₹1,100</div>
+                    </div>
+                </div>
+
+                <!-- Transactions Section -->
+                <div class="section">
+                    <h2 class="section-title">Transactions</h2>
+                    <div class="transactions-container" id="transactionsSection">
+                        <!-- Transaction items will be rendered here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Floating CTA Buttons -->
+            <div class="floating-cta">
+                <button class="floating-btn floating-btn-primary" onclick="addFunds()">Add Funds</button>
+            </div>
+        </div>
+        <div class="iphone-home-indicator"></div>
+    </div>
+
+    <script>
+
+        // Sample goal data with transactions
+        const sampleGoalData = {
+            "total_invested": 3100.0,
+            "transactions": [
+                {
+                    "transaction_id": "NP2512302333314VD7WU",
+                    "order_id": 378,
+                    "fund_name": "HDFC Balanced Advantage Fund",
+                    "amount": 500.0,
+                    "order_type": "SIP Installment",
+                    "created_at": "2026-01-04T18:51:52.712661+00:00",
+                    "status": "success"
+                },
+                {
+                    "transaction_id": "NP251230233331B08HWA",
+                    "order_id": 378,
+                    "fund_name": "ICICI Prudential Regular Gold Savings Fund (FOF)",
+                    "amount": 100.0,
+                    "order_type": "SIP Installment",
+                    "created_at": "2025-12-30T18:03:41.454041+00:00",
+                    "status": "in-process"
+                },
+                {
+                    "transaction_id": "NP251230233331L9XH2A",
+                    "order_id": 379,
+                    "fund_name": "SBI Bluechip Fund",
+                    "amount": 2000.0,
+                    "order_type": "Lumpsum Investment",
+                    "created_at": "2025-12-28T14:25:15.123456+00:00",
+                    "status": "success"
+                },
+                {
+                    "transaction_id": "NP2512302333314VD7WU",
+                    "order_id": 378,
+                    "fund_name": "HDFC Balanced Advantage Fund",
+                    "amount": 500.0,
+                    "order_type": "SIP Installment",
+                    "created_at": "2025-12-30T18:03:38.059534+00:00",
+                    "status": "success"
+                }
+            ]
+        };
+
+        // Load goal data from URL
+        function loadGoalData() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const goalName = urlParams.get('name') || 'My Goal';
+            const category = urlParams.get('category') || 'custom';
+            const tenure = Math.max(1, parseInt(urlParams.get('tenure')) || 5); // Ensure minimum 1 year
+            const goalAmount = urlParams.get('amount') || '10,00,000';
+
+            // Update header
+            document.getElementById('goalTitle').textContent = 'Goal Details';
+
+            // Update hero card
+            document.getElementById('goalName').textContent = goalName;
+            document.getElementById('heroCard').className = `hero-card category-${category}`;
+
+            // Update goal amount with total invested value
+            const totalInvested = sampleGoalData.total_invested.toLocaleString('en-IN');
+            document.getElementById('goalAmount').textContent = `₹${totalInvested}`;
+
+
+            // Render transactions
+            renderTransactions(sampleGoalData.transactions);
+
+            // Store goal data for "Add Funds" action
+            window.goalData = {
+                name: goalName,
+                category: category,
+                tenure: tenure,
+                goalAmount: goalAmount,
+                totalInvested: sampleGoalData.total_invested,
+                transactions: sampleGoalData.transactions
+            };
+        }
+
+        // Render transactions
+        function renderTransactions(transactions) {
+            const transactionsSection = document.getElementById('transactionsSection');
+            transactionsSection.innerHTML = '';
+
+            if (!transactions || transactions.length === 0) {
+                transactionsSection.innerHTML = `
+                    <div style="text-align: center; padding: 40px 20px; color: #6B7280;">
+                        <span class="material-symbols-outlined" style="font-size: 48px; color: #D1D5DB; margin-bottom: 16px;">account_balance_wallet</span>
+                        <p>No transactions yet</p>
+                        <p style="font-size: 14px; margin-top: 8px;">Start investing to see your transactions here</p>
+                    </div>
+                `;
+                return;
+            }
+
+            transactions.forEach((transaction) => {
+                const transactionItem = document.createElement('div');
+                transactionItem.className = 'transaction-item';
+
+                const date = new Date(transaction.created_at);
+                const formattedDate = date.toLocaleDateString('en-IN', { 
+                    month: 'short', 
+                    day: 'numeric', 
+                    year: 'numeric' 
+                }) + ' • ' + date.toLocaleTimeString('en-IN', { 
+                    hour: '2-digit', 
+                    minute: '2-digit', 
+                    hour12: true 
+                });
+
+                const orderType = transaction.order_type;
+                const isLumpsum = orderType.toLowerCase().includes('lumpsum') || orderType.toLowerCase().includes('one time');
+
+                // Use same icons as history page based on status
+                let statusIcon = '';
+                if (transaction.status === 'success') {
+                    statusIcon = 'trending_up'; // Success - both SIP and Lumpsum
+                } else if (transaction.status === 'in-process') {
+                    statusIcon = 'trending_up'; // Processing - now green trending up
+                } else if (transaction.status === 'failed') {
+                    // Use trending_up for investments, south for withdrawals
+                    statusIcon = isLumpsum || orderType.toLowerCase().includes('sip') ? 'trending_up' : 'south';
+                } else {
+                    statusIcon = 'trending_up'; // Default
+                }
+
+                // Determine status text and badge class based on transaction type and status
+                let statusText = '';
+                let statusBadgeClass = transaction.status;
+                
+                if (transaction.status === 'success') {
+                    statusText = 'Completed';
+                } else if (transaction.status === 'in-process') {
+                    // Check if this is a withdrawal
+                    const isWithdrawal = orderType.toLowerCase().includes('withdrawal');
+                    if (isWithdrawal) {
+                        statusText = 'Processing';
+                        statusBadgeClass = 'withdrawal-processing';
+                    } else {
+                        statusText = 'Order Registered';
+                    }
+                } else if (transaction.status === 'failed') {
+                    statusText = 'Failed';
+                } else {
+                    statusText = transaction.status;
+                }
+
+                // Determine icon color class based on transaction type
+                const isWithdrawal = orderType.toLowerCase().includes('withdrawal');
+                const iconColorClass = isWithdrawal ? 'withdrawal-icon' : 'investment-icon';
+
+                transactionItem.innerHTML = `
+                    <div class="transaction-icon ${transaction.status} ${iconColorClass}">
+                        <span class="material-symbols-outlined">${statusIcon}</span>
+                    </div>
+                    <div class="transaction-details">
+                        <div class="transaction-title">${orderType.replace(' Installment', '').replace(' Investment', '')}: ${transaction.fund_name}</div>
+                        <div class="transaction-subtitle">
+                            <span class="transaction-date">${formattedDate}</span>
+                            <span class="transaction-status ${statusBadgeClass}">${statusText}</span>
+                        </div>
+                    </div>
+                    <div class="transaction-amount">+₹${transaction.amount.toLocaleString('en-IN')}</div>
+                `;
+
+                // Add click handler for transaction details
+                transactionItem.onclick = () => openTransactionDetail(transaction);
+
+                transactionsSection.appendChild(transactionItem);
+            });
+        }
+
+        // Open transaction detail page
+        function openTransactionDetail(transaction) {
+            // For now, just log the transaction - can be enhanced to navigate to detail page
+            console.log('Opening transaction detail for:', transaction);
+            // Could navigate to transaction-detail.html with transaction data
+        }
+
+        // Add funds action
+        function addFunds() {
+            // Store goal info in localStorage for add-funds page
+            localStorage.setItem('goalData', JSON.stringify({
+                fromGoal: true,
+                goalName: window.goalData.name,
+                goalCategory: window.goalData.category,
+                goalAmount: window.goalData.goalAmount,
+                tenure: window.goalData.tenure,
+                totalInvested: window.goalData.totalInvested
+            }));
+
+            window.location.href = 'add-funds.html';
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            loadGoalData();
+        });
+    </script>
+    
+    <script src="assets/js/iphone-toggle.js"></script>
+</body>
+</html>

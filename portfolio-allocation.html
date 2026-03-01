@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Allocation - NiveshPe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Reuse base styles -->
+    <link rel="stylesheet" href="assets/css/my-funds.css">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <style>
+        /* Page-specific styles */
+        .allocation-page {
+            background: var(--color-background, #F8F9FA);
+            min-height: 100vh;
+        }
+
+        .allocation-content {
+            padding: var(--space-md, 16px);
+            padding-bottom: var(--space-xxl, 80px);
+        }
+
+        .back-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm, 12px);
+            padding: var(--space-md, 16px);
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-bottom: 1px solid var(--color-border, #E5E7EB);
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md, 12px);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm, 0 1px 3px rgba(0, 0, 0, 0.1));
+        }
+
+        .back-btn:active {
+            background: var(--color-blue, #2563EB);
+            transform: scale(0.95);
+        }
+
+        .back-btn:active svg {
+            color: white;
+        }
+
+        .back-btn svg {
+            width: 20px;
+            height: 20px;
+            color: var(--color-text-primary, #111827);
+        }
+
+        .page-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary, #111827);
+        }
+
+        .section-card {
+            background: white;
+            border-radius: var(--radius-lg, 16px);
+            padding: var(--space-lg, 20px);
+            margin-bottom: var(--space-md, 16px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary, #111827);
+            margin-bottom: var(--space-md, 16px);
+        }
+
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            padding: var(--space-lg, 20px) 0;
+        }
+
+        #allocationDonut {
+            max-width: 240px;
+            max-height: 300px;
+        }
+
+        .breakdown-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm, 12px);
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-sm, 12px);
+            background: var(--color-surface, #F3F4F6);
+            border-radius: var(--radius-md, 12px);
+        }
+
+        .breakdown-label {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs, 8px);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary, #111827);
+        }
+
+        .color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .breakdown-value {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+        }
+
+        .breakdown-percentage {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary, #111827);
+        }
+
+        .breakdown-amount {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--color-text-secondary, #6B7280);
+        }
+
+        .sector-item, .holding-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-sm, 12px) 0;
+            border-bottom: 1px solid var(--color-border, #E5E7EB);
+        }
+
+        .sector-item:last-child, .holding-item:last-child {
+            border-bottom: none;
+        }
+
+        .sector-name, .holding-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-primary, #111827);
+        }
+
+        .sector-percentage, .holding-percentage {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-secondary, #6B7280);
+        }
+
+        .holding-item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: var(--space-sm, 12px);
+            align-items: center;
+        }
+
+        .holding-rank {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--color-text-muted, #9CA3AF);
+            width: 24px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: var(--space-xl, 32px);
+            color: var(--color-text-muted, #9CA3AF);
+            font-size: 14px;
+        }
+
+        /* Accordion Styles */
+        .accordion {
+            background: white;
+            border-radius: var(--radius-md, 12px);
+            overflow: hidden;
+            margin-bottom: 8px;
+            border: 1px solid var(--color-border, #E5E7EB);
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .accordion-header:active {
+            background: var(--color-surface, #F3F4F6);
+        }
+
+        .accordion-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary, #111827);
+        }
+
+        .accordion-icon {
+            font-size: 18px;
+            color: var(--color-text-muted, #9CA3AF);
+            transition: transform 0.3s;
+        }
+
+        .accordion.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-body {
+            padding: 0 16px 16px 16px;
+            font-size: 13px;
+            color: var(--color-text-secondary, #6B7280);
+            line-height: 1.6;
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/iphone-toggle.css">
+</head>
+<body>
+    <!-- Frame Toggle Button -->
+    <button class="frame-toggle-btn" id="frameToggleBtn" onclick="toggleFrameMode()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
+        </svg>
+        <span id="frameToggleText">Normal View</span>
+    </button>
+
+
+    <div class="iphone-frame">
+        <!-- iPhone Notch (Dynamic Island style) -->
+        <div class="iphone-notch"></div>
+
+
+        <div class="iphone-screen">
+            <div class="mobile-container allocation-page">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <div>9:41</div>
+                    <div class="status-icons">
+                        <span>•••</span>
+                        <span>📶</span>
+                        <span>🔋</span>
+                    </div>
+                </div>
+
+                <!-- Back Header -->
+                <div class="back-header">
+                    <button class="back-btn" onclick="window.history.back()">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                        </svg>
+                    </button>
+                    <h1 class="page-title">Portfolio Allocation</h1>
+                </div>
+
+                <!-- Content -->
+                <div class="allocation-content">
+
+                    <!-- Donut Chart Section -->
+                    <div class="section-card">
+                        <h2 class="section-title">Asset Distribution</h2>
+                        <div class="chart-container">
+                            <canvas id="allocationDonut"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Asset Breakdown -->
+                    <div class="section-card">
+                        <h2 class="section-title">Asset Allocation</h2>
+                        <div class="breakdown-list">
+                            <div class="breakdown-item">
+                                <div class="breakdown-label">
+                                    <span class="color-dot" style="background: #2563EB;"></span>
+                                    Equity
+                                </div>
+                                <div class="breakdown-value">
+                                    <span class="breakdown-percentage">80%</span>
+                                    <span class="breakdown-amount">₹1,90,000</span>
+                                </div>
+                            </div>
+                            <div class="breakdown-item">
+                                <div class="breakdown-label">
+                                    <span class="color-dot" style="background: #10B981;"></span>
+                                    Debt
+                                </div>
+                                <div class="breakdown-value">
+                                    <span class="breakdown-percentage">15%</span>
+                                    <span class="breakdown-amount">₹35,625</span>
+                                </div>
+                            </div>
+                            <div class="breakdown-item">
+                                <div class="breakdown-label">
+                                    <span class="color-dot" style="background: #F59E0B;"></span>
+                                    Commodity
+                                </div>
+                                <div class="breakdown-value">
+                                    <span class="breakdown-percentage">0%</span>
+                                    <span class="breakdown-amount">₹0</span>
+                                </div>
+                            </div>
+                            <div class="breakdown-item">
+                                <div class="breakdown-label">
+                                    <span class="color-dot" style="background: #8B5CF6;"></span>
+                                    Others
+                                </div>
+                                <div class="breakdown-value">
+                                    <span class="breakdown-percentage">5%</span>
+                                    <span class="breakdown-amount">₹11,875</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Category Distribution -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-title">Category Distribution</div>
+                            <div class="accordion-icon">▼</div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <div class="breakdown-list">
+                                    <div class="sector-item">
+                                        <span class="sector-name">Mid Cap</span>
+                                        <span class="sector-percentage">40.0%</span>
+                                    </div>
+                                    <div class="sector-item">
+                                        <span class="sector-name">Small Cap</span>
+                                        <span class="sector-percentage">30.0%</span>
+                                    </div>
+                                    <div class="sector-item">
+                                        <span class="sector-name">Liquid Fund</span>
+                                        <span class="sector-percentage">15.0%</span>
+                                    </div>
+                                    <div class="sector-item">
+                                        <span class="sector-name">Balanced Advantage</span>
+                                        <span class="sector-percentage">15.0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sector Allocation (Equity Only) -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-title">Sector Allocation</div>
+                            <div class="accordion-icon">▼</div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <p style="font-size: 12px; color: #6B7280; margin-bottom: 16px;">Across all equity holdings</p>
+                                <div class="breakdown-list">
+                                    <div class="sector-item">
+                                        <span class="sector-name">Financial Services</span>
+                                        <span class="sector-percentage">22.5%</span>
+                                    </div>
+                                    <div class="sector-item">
+                                        <span class="sector-name">Industrials</span>
+                                        <span class="sector-percentage">18.2%</span>
+                                    </div>
+                                    <div class="sector-item">
+                                        <span class="sector-name">Information Technology</span>
+                                        <span class="sector-percentage">14.8%</span>
+                                    </div>
+                                    <div class="sector-item">
+                                        <span class="sector-name">Consumer Discretionary</span>
+                                        <span class="sector-percentage">13.5%</span>
+                                    </div>
+                                    <div class="sector-item">
+                                        <span class="sector-name">Energy</span>
+                                        <span class="sector-percentage">9.8%</span>
+                                    </div>
+                                    <div class="sector-item">
+                                        <span class="sector-name">Others</span>
+                                        <span class="sector-percentage">21.2%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Top Holdings -->
+                    <div class="accordion">
+                        <div class="accordion-header" onclick="toggleAccordion(this)">
+                            <div class="accordion-title">Top Holdings</div>
+                            <div class="accordion-icon">▼</div>
+                        </div>
+                        <div class="accordion-content">
+                            <div class="accordion-body">
+                                <p style="font-size: 12px; color: #6B7280; margin-bottom: 16px;">Across all equity funds</p>
+                                <div class="breakdown-list">
+                                    <div class="holding-item">
+                                        <span class="holding-rank">1</span>
+                                        <span class="holding-name">HDFC Bank Ltd</span>
+                                        <span class="holding-percentage">4.2%</span>
+                                    </div>
+                                    <div class="holding-item">
+                                        <span class="holding-rank">2</span>
+                                        <span class="holding-name">ICICI Bank Ltd</span>
+                                        <span class="holding-percentage">3.8%</span>
+                                    </div>
+                                    <div class="holding-item">
+                                        <span class="holding-rank">3</span>
+                                        <span class="holding-name">Infosys Ltd</span>
+                                        <span class="holding-percentage">3.5%</span>
+                                    </div>
+                                    <div class="holding-item">
+                                        <span class="holding-rank">4</span>
+                                        <span class="holding-name">Reliance Industries</span>
+                                        <span class="holding-percentage">3.2%</span>
+                                    </div>
+                                    <div class="holding-item">
+                                        <span class="holding-rank">5</span>
+                                        <span class="holding-name">TCS Ltd</span>
+                                        <span class="holding-percentage">2.9%</span>
+                                    </div>
+                                    <div class="holding-item">
+                                        <span class="holding-rank">6</span>
+                                        <span class="holding-name">Bajaj Finance</span>
+                                        <span class="holding-percentage">2.6%</span>
+                                    </div>
+                                    <div class="holding-item">
+                                        <span class="holding-rank">7</span>
+                                        <span class="holding-name">Asian Paints</span>
+                                        <span class="holding-percentage">2.4%</span>
+                                    </div>
+                                    <div class="holding-item">
+                                        <span class="holding-rank">8</span>
+                                        <span class="holding-name">Bharti Airtel</span>
+                                        <span class="holding-percentage">2.2%</span>
+                                    </div>
+                                    <div class="holding-item">
+                                        <span class="holding-rank">9</span>
+                                        <span class="holding-name">Maruti Suzuki</span>
+                                        <span class="holding-percentage">2.0%</span>
+                                    </div>
+                                    <div class="holding-item">
+                                        <span class="holding-rank">10</span>
+                                        <span class="holding-name">HUL Ltd</span>
+                                        <span class="holding-percentage">1.9%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone Home Indicator -->
+        <div class="iphone-home-indicator"></div>
+    </div>
+
+    <!-- Initialize Chart -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const ctx = document.getElementById('allocationDonut').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Equity', 'Debt', 'Commodity', 'Others'],
+                    datasets: [{
+                        data: [80, 15, 0, 5],
+                        backgroundColor: [
+                            '#2563EB',  // Equity - Blue
+                            '#10B981',  // Debt - Green
+                            '#F59E0B',  // Commodity - Orange
+                            '#8B5CF6'   // Others - Purple
+                        ],
+                        borderWidth: 3,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 12,
+                                font: {
+                                    family: 'Inter',
+                                    size: 11,
+                                    weight: '600'
+                                },
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                boxWidth: 10,
+                                boxHeight: 10,
+                                filter: function(legendItem, chartData) {
+                                    // Show all labels including 0% values
+                                    return true;
+                                }
+                            },
+                            maxWidth: 350
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            titleFont: {
+                                size: 13,
+                                weight: '600'
+                            },
+                            bodyFont: {
+                                size: 12
+                            },
+                            callbacks: {
+                                label: function(context) {
+                                    return context.label + ': ' + context.parsed + '%';
+                                }
+                            }
+                        }
+                    },
+                    cutout: '65%'
+                }
+            });
+        });
+
+        // Accordion toggle
+        function toggleAccordion(element) {
+            const accordion = element.parentElement;
+            const content = element.nextElementSibling;
+
+            // Toggle active class
+            accordion.classList.toggle('active');
+
+            // Expand/collapse content
+            if (accordion.classList.contains('active')) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+            } else {
+                content.style.maxHeight = '0';
+            }
+        }
+    </script>
+    <script src="assets/js/iphone-toggle.js"></script>
+</body>
+</html>

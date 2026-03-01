@@ -1,0 +1,2773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - NiveshPe</title>
+
+    <!-- Meta Tags for Social Sharing -->
+    <meta name="description" content="View your complete portfolio breakdown - allocation, performance, holdings and more on NiveshPe">
+    <meta name="keywords" content="portfolio, investment, mutual funds, NiveshPe">
+    <meta name="author" content="NiveshPe">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="assets/css/my-funds.css">
+    <link rel="stylesheet" href="assets/css/iphone-toggle.css">
+
+    <style>
+        :root {
+            --color-bg-primary: #F5F7FA;
+            --color-blue: #2563EB;
+            --color-blue-dark: #1D4ED8;
+            --color-blue-light: #DBEAFE;
+            --color-green: #10B981;
+            --color-green-light: #D1FAE5;
+            --color-red: #EF4444;
+            --color-orange: #F97316;
+            --color-orange-light: #FEF3C7;
+            --color-yellow: #F59E0B;
+            --color-text-primary: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-text-muted: #9CA3AF;
+            --color-border: #E5E7EB;
+            --color-surface: #F8F9FA;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        /* NiveshPro Banner */
+        .niveshpro-banner {
+            background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+            padding: 20px;
+            margin: 16px 16px 0;
+            border-radius: var(--radius-lg);
+            position: relative;
+        }
+
+        .banner-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+        }
+
+        .banner-content {
+            max-width: 70%;
+        }
+
+        .banner-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-orange);
+            margin-bottom: 8px;
+        }
+
+        .banner-title-large {
+            color: var(--color-text-primary);
+            font-size: 18px;
+        }
+
+        .banner-subtitle {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.4;
+        }
+
+        .banner-subtitle a {
+            color: var(--color-blue);
+            text-decoration: underline;
+        }
+
+        /* Current Value Card */
+        .current-value-card {
+            background: white;
+            padding: 24px 20px;
+            margin: 16px 16px 0;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .value-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .value-label {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .value-amount {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--color-text-primary);
+        }
+
+        .value-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .icon-btn .material-symbols-outlined {
+            font-size: 20px;
+            color: var(--color-text-secondary);
+        }
+
+        /* Metrics Table */
+        .metrics-table {
+            border-top: 1px solid var(--color-border);
+            padding-top: 16px;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+
+        .metric-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .metric-value.positive {
+            color: var(--color-green);
+        }
+
+        /* Amount visibility toggle */
+        .amount-value.hidden {
+            user-select: none;
+        }
+
+        /* Rebalancing Alert */
+        .rebalancing-alert {
+            background: var(--color-orange-light);
+            padding: 16px 20px;
+            margin: 16px 16px 0;
+            border-radius: var(--radius-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .alert-text {
+            font-size: 14px;
+            color: var(--color-orange);
+            font-weight: 500;
+            flex: 1;
+            padding-right: 12px;
+        }
+
+        .alert-text strong {
+            font-weight: 700;
+        }
+
+        .chevron-icon {
+            color: var(--color-orange);
+            font-size: 20px;
+        }
+
+        /* Fund Carousel */
+        .fund-carousel-section {
+            margin: 16px 0 0;
+            padding: 16px 0;
+            background: white;
+        }
+
+        .fund-carousel {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 0 16px 16px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .fund-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .fund-item {
+            flex-shrink: 0;
+            text-align: center;
+            width: 100px;
+            scroll-snap-align: start;
+        }
+
+        .fund-logo {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-md);
+            background: var(--color-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            border: 1px solid var(--color-border);
+        }
+
+        .fund-name {
+            font-size: 11px;
+            color: var(--color-text-secondary);
+            line-height: 1.3;
+        }
+
+        /* Active Funds Button */
+        .active-funds-btn {
+            background: var(--color-surface);
+            border: none;
+            padding: 16px 20px;
+            margin: 16px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            cursor: pointer;
+        }
+
+        /* Performance Section */
+        .performance-section {
+            background: white;
+            padding: 24px 0;
+            margin-top: 16px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px 16px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-icon {
+            font-size: 18px;
+            color: var(--color-text-muted);
+        }
+
+        .section-link {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            text-decoration: underline;
+        }
+
+        .performance-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 0 20px;
+        }
+
+        .performance-card {
+            padding: 16px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .performance-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .performance-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .performance-icon .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .performance-text h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .performance-text p {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+        }
+
+        .fund-count {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            background: rgba(0, 0, 0, 0.05);
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        /* Performance card variants */
+        .performance-card.in-form {
+            background: #D1FAE5;
+        }
+
+        .performance-card.in-form .performance-icon {
+            background: var(--color-green);
+            color: white;
+        }
+
+        .performance-card.on-track {
+            background: #ECFDF5;
+        }
+
+        .performance-card.on-track .performance-icon {
+            background: #6EE7B7;
+            color: var(--color-text-primary);
+        }
+
+        .performance-card.off-track {
+            background: #FEF3C7;
+        }
+
+        .performance-card.off-track .performance-icon {
+            background: var(--color-orange);
+            color: white;
+        }
+
+        .performance-card.out-of-form {
+            background: var(--color-surface);
+        }
+
+        .performance-card.out-of-form .performance-icon {
+            background: var(--color-text-muted);
+            color: white;
+        }
+
+        .performance-card.unrated {
+            background: #F3F4F6;
+        }
+
+        .performance-card.unrated .performance-icon {
+            background: white;
+            border: 2px solid var(--color-border);
+            color: var(--color-text-primary);
+        }
+
+        /* Insights Section */
+        .insights-section {
+            padding: 24px 20px;
+            margin-top: 16px;
+            background: white;
+        }
+
+        .insights-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .insights-title .nivesh {
+            color: var(--color-blue);
+        }
+
+        .insights-title .pro {
+            color: var(--color-green);
+        }
+
+        .insight-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .insight-card {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .insight-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--color-blue-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .insight-icon .material-symbols-outlined {
+            font-size: 20px;
+            color: var(--color-blue);
+        }
+
+        .insight-content {
+            flex: 1;
+        }
+
+        .insight-content h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .insight-content p {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+        }
+
+        /* Upgrade Banner */
+        .upgrade-banner {
+            background: var(--color-orange-light);
+            padding: 20px;
+            margin: 16px 16px 0;
+            border-radius: var(--radius-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .upgrade-content {
+            flex: 1;
+        }
+
+        .upgrade-content h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 6px;
+        }
+
+        .upgrade-content p {
+            font-size: 13px;
+            color: var(--color-orange);
+            line-height: 1.4;
+        }
+
+        /* Membership Question Card */
+        .membership-card {
+            background: white;
+            border: 1px solid var(--color-border);
+            padding: 16px 20px;
+            margin: 16px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .membership-card h3 {
+            font-size: 15px;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        /* Portfolio vs Market */
+        .portfolio-vs-market {
+            background: white;
+            padding: 24px 20px;
+            margin-top: 16px;
+        }
+
+        .comparison-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .comparison-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .comparison-subtitle {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            margin-top: 4px;
+        }
+
+        .comparison-cards {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .comparison-card {
+            flex: 1;
+            padding: 16px;
+            border-radius: var(--radius-md);
+        }
+
+        .comparison-card.portfolio {
+            background: var(--color-blue-light);
+        }
+
+        .comparison-card.market {
+            background: #FEF3C7;
+        }
+
+        .comparison-card h4 {
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .comparison-card.portfolio h4 {
+            color: var(--color-blue);
+        }
+
+        .comparison-card.market h4 {
+            color: var(--color-orange);
+        }
+
+        .comparison-card .percentage {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .comparison-card .amount {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+        }
+
+        /* Chart */
+        .chart-container {
+            height: 200px;
+            margin: 24px 0;
+            position: relative;
+        }
+
+        .simplified-chart {
+            width: 100%;
+            height: 100%;
+            background: var(--color-surface);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            position: relative;
+        }
+
+        /* Time Period Buttons */
+        .time-buttons {
+            display: flex;
+            gap: 8px;
+            background: var(--color-surface);
+            padding: 8px;
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+        }
+
+        .time-btn {
+            flex: 1;
+            padding: 8px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+        }
+
+        .time-btn.active {
+            background: white;
+            color: var(--color-text-primary);
+        }
+
+        .last-updated {
+            font-size: 12px;
+            color: var(--color-text-muted);
+            text-align: center;
+        }
+
+        /* Portfolio Breakdown */
+        .portfolio-breakdown {
+            background: white;
+            padding: 24px 0;
+            margin-top: 16px;
+        }
+
+        .breakdown-title {
+            font-size: 20px;
+            font-weight: 700;
+            padding: 0 20px 16px;
+        }
+
+        .breakdown-items {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .breakdown-item {
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .breakdown-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .breakdown-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .breakdown-icon .material-symbols-outlined {
+            font-size: 24px;
+            color: var(--color-text-secondary);
+        }
+
+        .breakdown-text {
+            flex: 1;
+        }
+
+        .breakdown-text h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .breakdown-text p {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+        }
+
+        .breakdown-chevron {
+            font-size: 24px;
+            color: var(--color-text-muted);
+            transition: transform 0.2s;
+        }
+
+        .breakdown-item.expanded .breakdown-chevron {
+            transform: rotate(180deg);
+        }
+
+        .breakdown-content {
+            display: none;
+            padding: 0 20px 20px;
+        }
+
+        .breakdown-item.expanded .breakdown-content {
+            display: block;
+        }
+
+        /* Allocation Content */
+        .allocation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .allocation-item {
+            text-align: center;
+            padding: 16px;
+            background: var(--color-surface);
+            border-radius: var(--radius-md);
+        }
+
+        .allocation-item h4 {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .allocation-item .percentage {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        /* Distribution Content */
+        .distribution-tabs {
+            display: flex;
+            gap: 8px;
+            background: var(--color-surface);
+            padding: 4px;
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+        }
+
+        .distribution-tab {
+            flex: 1;
+            padding: 8px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+        }
+
+        .distribution-tab.active {
+            background: white;
+            color: var(--color-text-primary);
+        }
+
+        .market-cap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .market-cap-bars {
+            display: flex;
+            gap: 4px;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .market-cap-bar {
+            background: var(--color-blue);
+        }
+
+        .market-cap-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .market-cap-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .market-cap-item::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-blue);
+            margin-right: 8px;
+        }
+
+        .sector-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sector-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sector-name {
+            font-size: 14px;
+            color: var(--color-blue);
+        }
+
+        .sector-percentage {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .view-all-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--color-surface);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            margin-top: 12px;
+            cursor: pointer;
+        }
+
+        /* Tabs System */
+        .tabs-container {
+            background: white;
+            border-top: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            border-radius: var(--radius-2xl) var(--radius-2xl) 0 0;
+            margin-top: -1px;
+        }
+
+        .tabs-nav {
+            display: flex;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 16px 0;
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            color: var(--color-blue);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--color-blue);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            min-height: 300px;
+            background: var(--color-bg-primary);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* SIP Summary Section */
+        .sip-summary-section {
+            background: white;
+            padding: 12px;
+            margin-bottom: 16px;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .sip-summary-header {
+            margin-bottom: 12px;
+        }
+
+        .sip-summary-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .sip-summary-grid-amounts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 16px;
+            padding: 8px 0 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .sip-summary-grid-counts {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            padding: 12px 0 4px 0;
+        }
+
+        .sip-summary-item {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sip-value {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--color-green);
+        }
+
+        .sip-label {
+            font-size: 11px;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Filter Container */
+        .filter-container {
+            margin-bottom: 16px;
+        }
+
+        .filter-chips {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .filter-chips::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-chip {
+            flex-shrink: 0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1.5px solid var(--color-border);
+            background: white;
+            color: var(--color-text-secondary);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-chip.active {
+            background: var(--color-blue);
+            border-color: var(--color-blue);
+            color: white;
+        }
+
+        /* SIP Cards */
+        .sip-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sip-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            border: 1px solid var(--color-border);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .sip-card:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .sip-status {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 8px;
+            height: 8px;
+            background: var(--color-green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+            }
+        }
+
+        .sip-card.skipped {
+            opacity: 0.85;
+            border-color: rgba(245, 158, 11, 0.2);
+            background: linear-gradient(to bottom, rgba(245, 158, 11, 0.02), white);
+        }
+
+        .sip-card.skipped .sip-status {
+            background: var(--color-orange);
+            animation: none;
+        }
+
+        .sip-amount {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 8px;
+        }
+
+        .sip-frequency {
+            font-size: 12px;
+            color: var(--color-text-muted);
+            margin-bottom: 12px;
+        }
+
+        .sip-next {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .sip-next svg {
+            width: 14px;
+            height: 14px;
+        }
+
+        .sip-funds {
+            padding-top: 12px;
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        .sip-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .sip-action-btn {
+            flex: 1;
+            padding: 8px 12px;
+            background: var(--color-surface);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .sip-action-btn:active {
+            background: var(--color-border);
+            transform: scale(0.95);
+        }
+
+        /* Modal System */
+        .modal-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal-container {
+            background: white;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            width: 100%;
+            max-width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .modal-container.modal-sm {
+            max-height: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border-bottom: 1px solid var(--color-border);
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin: 0;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+
+        .modal-content {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .modal-message {
+            font-size: 15px;
+            line-height: 1.5;
+            color: var(--color-text-secondary);
+            margin: 0;
+            text-align: center;
+        }
+
+        .modal-message.modal-warning {
+            color: var(--color-text-primary);
+        }
+
+        .modal-footer {
+            display: flex;
+            gap: 12px;
+            padding: 20px;
+            border-top: 1px solid var(--color-border);
+            position: sticky;
+            bottom: 0;
+            background: white;
+        }
+
+        .modal-btn-primary,
+        .modal-btn-secondary,
+        .modal-btn-warning,
+        .modal-btn-danger {
+            flex: 1;
+            padding: 14px;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .modal-btn-primary {
+            background: var(--color-blue);
+            color: white;
+        }
+
+        .modal-btn-secondary {
+            background: white;
+            color: var(--color-text-primary);
+            border: 1px solid var(--color-border);
+        }
+
+        .modal-btn-warning {
+            background: var(--color-orange);
+            color: white;
+        }
+
+        .modal-btn-danger {
+            background: var(--color-red);
+            color: white;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            color: var(--color-text-primary);
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-blue);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        /* OTP Verification Modal */
+        .otp-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1100;
+            display: none;
+        }
+
+        .otp-overlay.show {
+            display: flex;
+        }
+
+        .otp-overlay-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .otp-overlay-modal {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            padding: 0 0 20px 0;
+            animation: slideUp 0.3s ease;
+        }
+
+        .otp-drag-handle {
+            padding: 12px 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .otp-drag-bar {
+            width: 40px;
+            height: 4px;
+            background: var(--color-border);
+            border-radius: 2px;
+        }
+
+        .otp-modal-header {
+            padding: 20px;
+        }
+
+        .otp-modal-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 8px;
+        }
+
+        .otp-modal-subtitle {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+
+        .otp-content {
+            padding: 0 20px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .otp-input-section {
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        .otp-input-container {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .otp-input {
+            width: 50px;
+            height: 56px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+        }
+
+        .otp-input:focus {
+            outline: none;
+            border-color: var(--color-blue);
+        }
+
+        .otp-input.filled {
+            border-color: var(--color-blue);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        .otp-timer {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+        }
+
+        .otp-resend-link {
+            background: none;
+            border: none;
+            color: var(--color-blue);
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 13px;
+        }
+
+        .otp-continue-section {
+            padding: 20px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .otp-continue-btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--color-border);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        .otp-continue-btn.enabled {
+            background: var(--color-blue);
+            pointer-events: auto;
+        }
+
+        .otp-continue-btn.enabled:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <!-- Frame Toggle Button -->
+    <button class="frame-toggle-btn" id="frameToggleBtn" onclick="toggleFrameMode()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
+        </svg>
+        <span id="frameToggleText">Normal View</span>
+    </button>
+
+
+    <div class="app-container">
+        <div class="iphone-frame">
+        <!-- iPhone Notch (Dynamic Island style) -->
+        <div class="iphone-notch"></div>
+
+
+            <div class="iphone-screen">
+                <div class="mobile-container">
+                    <!-- Status Bar -->
+                <div class="status-bar">
+                    <div class="status-left">
+                        <span class="time">9:41</span>
+                    </div>
+                    <div class="status-right">
+                        <span class="battery">87%</span>
+                        <div class="signal-bars">
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                            <div class="bar"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Header -->
+                <div class="header">
+                    <div class="header-spacer"></div>
+                    <div class="header-title">Portfolio</div>
+                    <div class="header-actions">
+                        <button class="icon-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Scrollable Content -->
+                <div class="scroll-content">
+                    <!-- Tabs Section -->
+                    <div class="tabs-container">
+                        <div class="tabs-nav">
+                            <button class="tab-btn active" data-tab="transactions">Transactions</button>
+                            <button class="tab-btn" data-tab="sips">Active SIPs</button>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Transactions -->
+                    <div id="transactions-tab" class="tab-content active">
+                    <!-- NiveshPro Banner -->
+                    <div class="niveshpro-banner" id="niveshproBanner">
+                        <button class="banner-close" onclick="document.getElementById('niveshproBanner').style.display='none'">×</button>
+                        <div class="banner-content">
+                            <div class="banner-title">
+                                15,000+ members on<br>
+                                <span class="banner-title-large">NiveshPro</span>
+                            </div>
+                            <div class="banner-subtitle">
+                                Explore all the benefits you unlock with the NiveshPro membership <a href="#">here</a>.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Current Value Card -->
+                    <div class="current-value-card">
+                        <div class="value-header">
+                            <div>
+                                <div class="value-label">Current Value</div>
+                                <div class="value-amount"><span class="amount-value">₹10,13,302</span></div>
+                            </div>
+                            <div class="value-actions">
+                                <button class="icon-btn">
+                                    <span class="material-symbols-outlined">refresh</span>
+                                </button>
+                                <button class="icon-btn" id="toggleVisibility" onclick="toggleAmountVisibility()">
+                                    <span class="material-symbols-outlined" id="visibilityIcon">visibility</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="metrics-table">
+                            <div class="metric-row">
+                                <span class="metric-label">1D Returns</span>
+                                <span class="metric-value positive"><span class="amount-value">+₹5,142</span> <span class="percentage-value">(0.51%)</span></span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Returns</span>
+                                <span class="metric-value positive"><span class="amount-value">+₹2,77,573</span> <span class="percentage-value">(37.72%)</span></span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">Invested</span>
+                                <span class="metric-value"><span class="amount-value">₹7,35,728</span></span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">XIRR</span>
+                                <span class="metric-value"><span class="percentage-value">19.66%</span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rebalancing Alert -->
+                    <div class="rebalancing-alert">
+                        <div class="alert-text">
+                            Get a personalised Rebalancing Plan for your Portfolio in <strong>11 days</strong>
+                        </div>
+                        <span class="material-symbols-outlined chevron-icon">chevron_right</span>
+                    </div>
+
+                    <!-- Fund Carousel -->
+                    <div class="fund-carousel-section">
+                        <div class="fund-carousel">
+                            <div class="fund-item">
+                                <div class="fund-logo">DSP</div>
+                                <div class="fund-name">DSP ELSS Tax Saver Direct...</div>
+                            </div>
+                            <div class="fund-item">
+                                <div class="fund-logo">Mirae</div>
+                                <div class="fund-name">Mirae Asset Midcap Fun...</div>
+                            </div>
+                            <div class="fund-item">
+                                <div class="fund-logo">PPFAS</div>
+                                <div class="fund-name">Parag Parikh Flexi Cap Fu...</div>
+                            </div>
+                            <div class="fund-item">
+                                <div class="fund-logo">Invesco</div>
+                                <div class="fund-name">Invesco India Mid Cap Dir...</div>
+                            </div>
+                            <div class="fund-item">
+                                <div class="fund-logo">DSP</div>
+                                <div class="fund-name">DSP Small Cap Direct...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active Funds Button -->
+                    <button class="active-funds-btn">
+                        <span>22 active funds</span>
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </button>
+
+                    <!-- Performance Section -->
+                    <div class="performance-section">
+                        <div class="section-header">
+                            <div class="section-title">
+                                Performance
+                                <span class="material-symbols-outlined info-icon">info</span>
+                            </div>
+                            <a href="#" class="section-link">Changes last month</a>
+                        </div>
+
+                        <div class="performance-cards">
+                            <div class="performance-card in-form">
+                                <div class="performance-left">
+                                    <div class="performance-icon">
+                                        <span class="material-symbols-outlined">trending_up</span>
+                                    </div>
+                                    <div class="performance-text">
+                                        <h3>In-form <span class="fund-count">5</span></h3>
+                                        <p>Performing great</p>
+                                    </div>
+                                </div>
+                                <span class="material-symbols-outlined">chevron_right</span>
+                            </div>
+
+                            <div class="performance-card on-track">
+                                <div class="performance-left">
+                                    <div class="performance-icon">
+                                        <span class="material-symbols-outlined">north</span>
+                                    </div>
+                                    <div class="performance-text">
+                                        <h3>On-track <span class="fund-count">4</span></h3>
+                                        <p>Performing good</p>
+                                    </div>
+                                </div>
+                                <span class="material-symbols-outlined">chevron_right</span>
+                            </div>
+
+                            <div class="performance-card off-track">
+                                <div class="performance-left">
+                                    <div class="performance-icon">
+                                        <span class="material-symbols-outlined">south</span>
+                                    </div>
+                                    <div class="performance-text">
+                                        <h3>Off-track <span class="fund-count">6</span></h3>
+                                        <p>Don't invest further</p>
+                                    </div>
+                                </div>
+                                <span class="material-symbols-outlined">chevron_right</span>
+                            </div>
+
+                            <div class="performance-card out-of-form">
+                                <div class="performance-left">
+                                    <div class="performance-icon">
+                                        <span class="material-symbols-outlined">keyboard_double_arrow_down</span>
+                                    </div>
+                                    <div class="performance-text">
+                                        <h3>Out-of-form</h3>
+                                        <p>Exit now</p>
+                                    </div>
+                                </div>
+                                <span class="material-symbols-outlined">chevron_right</span>
+                            </div>
+
+                            <div class="performance-card unrated">
+                                <div class="performance-left">
+                                    <div class="performance-icon">
+                                        <span class="material-symbols-outlined">remove</span>
+                                    </div>
+                                    <div class="performance-text">
+                                        <h3>Unrated <span class="fund-count">7</span></h3>
+                                    </div>
+                                </div>
+                                <span class="material-symbols-outlined">chevron_right</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NiveshPro Insights -->
+                    <div class="insights-section">
+                        <h2 class="insights-title">
+                            <span class="nivesh">Nivesh</span><span class="pro">Pro</span> Insights
+                        </h2>
+
+                        <div class="insight-cards">
+                            <div class="insight-card">
+                                <div class="insight-icon">
+                                    <span class="material-symbols-outlined">trending_up</span>
+                                </div>
+                                <div class="insight-content">
+                                    <h4>Power Rebalance</h4>
+                                    <p>Know when and where to switch funds</p>
+                                </div>
+                                <span class="material-symbols-outlined">chevron_right</span>
+                            </div>
+
+                            <div class="insight-card">
+                                <div class="insight-icon">
+                                    <span class="material-symbols-outlined">warning</span>
+                                </div>
+                                <div class="insight-content">
+                                    <h4>Regular fund alert</h4>
+                                    <p>₹0 lost in extra commissions</p>
+                                </div>
+                                <span class="material-symbols-outlined">chevron_right</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upgrade to NiveshPro -->
+                    <div class="upgrade-banner">
+                        <div class="upgrade-content">
+                            <h3>Upgrade to NiveshPro</h3>
+                            <p>Unlock Power Rank, Power Rebalance, Elite Scores and much more...</p>
+                        </div>
+                        <span class="material-symbols-outlined chevron-icon">chevron_right</span>
+                    </div>
+
+                    <!-- Membership Question Card -->
+                    <div class="membership-card">
+                        <h3>Is the NiveshPro membership for you?</h3>
+                        <span class="material-symbols-outlined">chevron_right</span>
+                    </div>
+
+                    <!-- Portfolio vs Market -->
+                    <div class="portfolio-vs-market">
+                        <div class="comparison-header">
+                            <div>
+                                <h2 class="comparison-title">Portfolio vs Market</h2>
+                                <p class="comparison-subtitle">1W Absolute Returns</p>
+                            </div>
+                            <span class="material-symbols-outlined info-icon">help</span>
+                        </div>
+
+                        <div class="comparison-cards">
+                            <div class="comparison-card portfolio">
+                                <h4>My Portfolio</h4>
+                                <div class="percentage">0.31%</div>
+                                <div class="amount">₹10,08,159.69</div>
+                            </div>
+
+                            <div class="comparison-card market">
+                                <h4>NIFTY 50</h4>
+                                <div class="percentage">0.33%</div>
+                                <div class="amount">₹10,08,218.56</div>
+                            </div>
+                        </div>
+
+                        <div class="chart-container">
+                            <div class="simplified-chart">
+                                <!-- Simplified chart placeholder -->
+                                <svg width="100%" height="100%" viewBox="0 0 300 150">
+                                    <!-- Grid lines -->
+                                    <line x1="0" y1="30" x2="300" y2="30" stroke="#E5E7EB" stroke-width="1"/>
+                                    <line x1="0" y1="75" x2="300" y2="75" stroke="#E5E7EB" stroke-width="1"/>
+                                    <line x1="0" y1="120" x2="300" y2="120" stroke="#E5E7EB" stroke-width="1"/>
+
+                                    <!-- Blue line (Portfolio) -->
+                                    <polyline points="0,100 60,60 120,110 180,35 240,30 300,35"
+                                              fill="none" stroke="#2563EB" stroke-width="2"/>
+
+                                    <!-- Orange line (NIFTY 50) -->
+                                    <polyline points="0,110 60,80 120,125 180,45 240,40 300,45"
+                                              fill="none" stroke="#F97316" stroke-width="2"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="time-buttons">
+                            <button class="time-btn">1D</button>
+                            <button class="time-btn active">1W</button>
+                            <button class="time-btn">1M</button>
+                            <button class="time-btn">3M</button>
+                            <button class="time-btn">6M</button>
+                            <button class="time-btn">1Y</button>
+                        </div>
+
+                        <div class="last-updated">Last updated on 29 Oct 2025</div>
+                    </div>
+
+                    <!-- Portfolio Breakdown -->
+                    <div class="portfolio-breakdown">
+                        <h2 class="breakdown-title">Portfolio Breakdown</h2>
+
+                        <div class="breakdown-items">
+                            <!-- Allocation -->
+                            <div class="breakdown-item" id="allocationItem">
+                                <div class="breakdown-header" onclick="toggleBreakdown('allocationItem')">
+                                    <div class="breakdown-icon">
+                                        <span class="material-symbols-outlined">view_agenda</span>
+                                    </div>
+                                    <div class="breakdown-text">
+                                        <h3>Allocation</h3>
+                                        <p>Equity, Debt and others</p>
+                                    </div>
+                                    <span class="material-symbols-outlined breakdown-chevron">expand_more</span>
+                                </div>
+                                <div class="breakdown-content">
+                                    <div class="allocation-grid">
+                                        <div class="allocation-item">
+                                            <h4>Equity</h4>
+                                            <div class="percentage">88.74%</div>
+                                        </div>
+                                        <div class="allocation-item">
+                                            <h4>Debt</h4>
+                                            <div class="percentage">0.13%</div>
+                                        </div>
+                                        <div class="allocation-item">
+                                            <h4>Others</h4>
+                                            <div class="percentage">11.13%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Distribution -->
+                            <div class="breakdown-item" id="distributionItem">
+                                <div class="breakdown-header" onclick="toggleBreakdown('distributionItem')">
+                                    <div class="breakdown-icon">
+                                        <span class="material-symbols-outlined">pie_chart</span>
+                                    </div>
+                                    <div class="breakdown-text">
+                                        <h3>Distribution</h3>
+                                        <p>Sectors & Holdings</p>
+                                    </div>
+                                    <span class="material-symbols-outlined breakdown-chevron">expand_more</span>
+                                </div>
+                                <div class="breakdown-content">
+                                    <div class="distribution-tabs">
+                                        <button class="distribution-tab active">Sectors</button>
+                                        <button class="distribution-tab">Holdings</button>
+                                    </div>
+
+                                    <div class="market-cap-header">
+                                        <span style="font-size: 14px; font-weight: 600;">Distribution</span>
+                                        <span style="font-size: 13px; color: var(--color-blue);">Market Cap ⇅</span>
+                                    </div>
+
+                                    <div class="market-cap-bars">
+                                        <div class="market-cap-bar" style="flex: 39.19;"></div>
+                                        <div class="market-cap-bar" style="flex: 30.61;"></div>
+                                        <div class="market-cap-bar" style="flex: 30.2;"></div>
+                                    </div>
+
+                                    <div class="market-cap-list">
+                                        <div class="market-cap-item">
+                                            <span style="font-size: 14px;">Large Cap</span>
+                                            <span style="font-size: 14px; font-weight: 600;">39.19%</span>
+                                        </div>
+                                        <div class="market-cap-item">
+                                            <span style="font-size: 14px;">Small Cap</span>
+                                            <span style="font-size: 14px; font-weight: 600;">30.61%</span>
+                                        </div>
+                                        <div class="market-cap-item">
+                                            <span style="font-size: 14px;">Mid Cap</span>
+                                            <span style="font-size: 14px; font-weight: 600;">30.2%</span>
+                                        </div>
+                                    </div>
+
+                                    <div style="margin-top: 24px;">
+                                        <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 12px;">Sectors</h4>
+                                        <div class="sector-list">
+                                            <div class="sector-item">
+                                                <span class="sector-name">Financial Services</span>
+                                                <span class="sector-percentage">23.17%</span>
+                                            </div>
+                                            <div class="sector-item">
+                                                <span class="sector-name">Consumer Cyclical</span>
+                                                <span class="sector-percentage">13.86%</span>
+                                            </div>
+                                            <div class="sector-item">
+                                                <span class="sector-name">Healthcare</span>
+                                                <span class="sector-percentage">11.05%</span>
+                                            </div>
+                                            <div class="sector-item">
+                                                <span class="sector-name">Industrial</span>
+                                                <span class="sector-percentage">9.51%</span>
+                                            </div>
+                                            <div class="sector-item">
+                                                <span class="sector-name">Basic Materials</span>
+                                                <span class="sector-percentage">7.43%</span>
+                                            </div>
+                                        </div>
+                                        <button class="view-all-btn">View All (11)</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- History -->
+                            <div class="breakdown-item" id="historyItem">
+                                <div class="breakdown-header" onclick="toggleBreakdown('historyItem')">
+                                    <div class="breakdown-icon">
+                                        <span class="material-symbols-outlined">history</span>
+                                    </div>
+                                    <div class="breakdown-text">
+                                        <h3>History</h3>
+                                        <p>Investments & Withdrawals</p>
+                                    </div>
+                                    <span class="material-symbols-outlined breakdown-chevron">expand_more</span>
+                                </div>
+                                <div class="breakdown-content">
+                                    <div class="distribution-tabs">
+                                        <button class="distribution-tab active">Overview</button>
+                                        <button class="distribution-tab">Investments</button>
+                                        <button class="distribution-tab">Withdrawals</button>
+                                    </div>
+
+                                    <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 12px;">Portfolio Journey</h4>
+
+                                    <div class="allocation-grid">
+                                        <div class="allocation-item" style="background: var(--color-blue-light);">
+                                            <h4 style="color: var(--color-blue);">Total Value</h4>
+                                            <div class="percentage">₹10L</div>
+                                        </div>
+                                        <div class="allocation-item" style="background: var(--color-blue-light);">
+                                            <h4 style="color: var(--color-blue);">Invested</h4>
+                                            <div class="percentage">₹7.1L</div>
+                                        </div>
+                                        <div class="allocation-item" style="background: var(--color-green-light);">
+                                            <h4 style="color: var(--color-green);">Returns</h4>
+                                            <div class="percentage">+₹2.9L</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="chart-container" style="margin-top: 24px;">
+                                        <div class="simplified-chart">
+                                            <svg width="100%" height="100%" viewBox="0 0 300 150">
+                                                <!-- Grid -->
+                                                <line x1="0" y1="30" x2="300" y2="30" stroke="#E5E7EB" stroke-width="1"/>
+                                                <line x1="0" y1="75" x2="300" y2="75" stroke="#E5E7EB" stroke-width="1"/>
+                                                <line x1="0" y1="120" x2="300" y2="120" stroke="#E5E7EB" stroke-width="1"/>
+
+                                                <!-- Growth lines -->
+                                                <polyline points="0,140 50,135 100,125 150,90 200,40 250,20 300,15"
+                                                          fill="none" stroke="#2563EB" stroke-width="2"/>
+                                                <polyline points="0,145 50,140 100,130 150,95 200,50 250,35 300,30"
+                                                          fill="none" stroke="#93C5FD" stroke-width="1.5"/>
+                                            </svg>
+                                        </div>
+                                    </div>
+
+                                    <div class="time-buttons">
+                                        <button class="time-btn">3M</button>
+                                        <button class="time-btn">6M</button>
+                                        <button class="time-btn">1Y</button>
+                                        <button class="time-btn">3Y</button>
+                                        <button class="time-btn">5Y</button>
+                                        <button class="time-btn active">ALL</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Overlap Calculator -->
+                            <div class="breakdown-item" id="overlapItem">
+                                <div class="breakdown-header" onclick="toggleBreakdown('overlapItem')">
+                                    <div class="breakdown-icon">
+                                        <span class="material-symbols-outlined">join_inner</span>
+                                    </div>
+                                    <div class="breakdown-text">
+                                        <h3>Overlap Calculator</h3>
+                                        <p>Common holdings in two funds</p>
+                                    </div>
+                                    <span class="material-symbols-outlined breakdown-chevron">expand_more</span>
+                                </div>
+                                <div class="breakdown-content">
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px;">
+                                        <div>
+                                            <label style="font-size: 12px; color: var(--color-blue); margin-bottom: 4px; display: block;">Fund A</label>
+                                            <select style="width: 100%; padding: 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 13px;">
+                                                <option>DSP ELSS Tax Saver Direct Gro...</option>
+                                            </select>
+                                        </div>
+                                        <div>
+                                            <label style="font-size: 12px; color: var(--color-blue); margin-bottom: 4px; display: block;">Fund B</label>
+                                            <select style="width: 100%; padding: 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 13px;">
+                                                <option>Mirae Asset Midcap Fund Dire...</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Venn Diagram -->
+                                    <div style="text-align: center; margin: 32px 0;">
+                                        <svg width="200" height="120" viewBox="0 0 200 120" style="margin: 0 auto;">
+                                            <circle cx="70" cy="60" r="50" fill="#2563EB" opacity="0.5"/>
+                                            <circle cx="130" cy="60" r="50" fill="#93C5FD" opacity="0.5"/>
+                                        </svg>
+                                        <div style="font-size: 32px; font-weight: 700; color: var(--color-blue); margin-top: 16px;">11.49% Overlap</div>
+                                        <div style="display: flex; gap: 8px; justify-content: center; margin-top: 12px;">
+                                            <span style="padding: 4px 12px; background: var(--color-surface); border-radius: 12px; font-size: 12px;">Low Overlap</span>
+                                            <span style="padding: 4px 12px; background: var(--color-surface); border-radius: 12px; font-size: 12px;">Good Diversification</span>
+                                        </div>
+                                        <p style="font-size: 13px; color: var(--color-text-secondary); margin-top: 12px;">
+                                            Funds show very low overlap, indicating good diversification between both funds.
+                                        </p>
+                                    </div>
+
+                                    <!-- Common Stocks Table -->
+                                    <div>
+                                        <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; padding: 8px 0; border-bottom: 1px solid var(--color-border);">
+                                            <span>Common Stocks</span>
+                                            <div style="display: flex; gap: 32px;">
+                                                <span style="color: var(--color-blue);">Fund A</span>
+                                                <span style="color: var(--color-blue);">Fund B</span>
+                                            </div>
+                                        </div>
+                                        <div style="font-size: 13px;">
+                                            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--color-border);">
+                                                <span>Max Financial Services Ltd</span>
+                                                <div style="display: flex; gap: 32px;">
+                                                    <span>1.72%</span>
+                                                    <span>1.75%</span>
+                                                </div>
+                                            </div>
+                                            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--color-border);">
+                                                <span>Axis Bank Ltd</span>
+                                                <div style="display: flex; gap: 32px;">
+                                                    <span>5.38%</span>
+                                                    <span>1.62%</span>
+                                                </div>
+                                            </div>
+                                            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--color-border);">
+                                                <span>Indus Towers Ltd Ordinary Shares</span>
+                                                <div style="display: flex; gap: 32px;">
+                                                    <span>1.38%</span>
+                                                    <span>1.37%</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <!-- End Transactions Tab -->
+
+                    <!-- Tab Content: Active SIPs -->
+                    <div id="sips-tab" class="tab-content">
+                        <!-- SIP Summary Card -->
+                        <div class="sip-summary-section">
+                            <div class="sip-summary-header">
+                                <h3 class="sip-summary-title">SIP Overview</h3>
+                            </div>
+
+                            <!-- Row 1: Frequency Amounts -->
+                            <div class="sip-summary-grid-amounts" id="sipSummaryAmounts">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+
+                            <!-- Row 2: Counts -->
+                            <div class="sip-summary-grid-counts" id="sipSummaryCounts">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+
+                        <!-- SIP Filter Chips -->
+                        <div class="filter-container">
+                            <div class="filter-chips">
+                                <button class="filter-chip active" data-filter="all">All</button>
+                                <button class="filter-chip" data-filter="monthly">Monthly</button>
+                                <button class="filter-chip" data-filter="weekly">Weekly</button>
+                                <button class="filter-chip" data-filter="daily">Daily</button>
+                                <button class="filter-chip" data-filter="skipped">Skipped</button>
+                            </div>
+                        </div>
+
+                        <!-- SIP Cards List -->
+                        <div class="sip-list" id="sipList">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+                    <!-- End Active SIPs Tab -->
+                </div>
+
+                <!-- Enhanced Bottom Navigation -->
+                <nav class="bottom-nav">
+                    <a href="index.html" class="nav-item">
+                        <div class="nav-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                            </svg>
+                        </div>
+                        <span class="nav-label">Home</span>
+                    </a>
+                    <a href="my-funds.html" class="nav-item">
+                        <div class="nav-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M13.66 7C13.1 5.82 11.9 5 10.5 5H6V3h12v2h-3.26c.48.58.84 1.26 1.05 2H18v2h-2.02c-.25 2.8-2.61 5-5.48 5h-.73l6.73 7h-2.77L7 14v-2h3.5c1.76 0 3.22-1.3 3.46-3H6V7h7.66z"/>
+                            </svg>
+                        </div>
+                        <span class="nav-label">My Funds</span>
+                    </a>
+                    <a href="mutual-funds.html" class="nav-item">
+                        <div class="nav-icon">
+                            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12.5 20V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M18.5 20V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M6.5 20V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <span class="nav-label">Mutual Funds</span>
+                    </a>
+                    <a href="transaction-history.html" class="nav-item active">
+                        <div class="nav-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M11,2V22C5.9,21.5 2,17.2 2,12C2,6.8 5.9,2.5 11,2M13,2V11H22C21.5,6.2 17.8,2.5 13,2M13,13V22C17.7,21.5 21.5,17.8 22,13H13Z"/>
+                            </svg>
+                        </div>
+                        <span class="nav-label">Portfolio</span>
+                    </a>
+                </nav>
+                </div>
+            </div>
+        </div>
+
+        <!-- Edit SIP Modal -->
+        <div id="editSIPModal" class="modal-overlay">
+            <div class="modal-container">
+                <div class="modal-header">
+                    <h3 class="modal-title">Edit SIP</h3>
+                    <button class="modal-close" onclick="closeEditSIPModal()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-content">
+                    <form id="editSIPForm">
+                        <div class="form-group">
+                            <label class="form-label">Amount</label>
+                            <input type="number" id="sipAmount" class="form-input" placeholder="Enter amount" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Date</label>
+                            <input type="text" id="sipDate" class="form-input" placeholder="Select date" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn-secondary" onclick="closeEditSIPModal()">Cancel</button>
+                    <button class="modal-btn-primary" onclick="saveEditSIP()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skip Next SIP Confirmation Modal -->
+        <div id="skipSIPModal" class="modal-overlay">
+            <div class="modal-container modal-sm">
+                <div class="modal-header">
+                    <h3 class="modal-title">Skip Next Installment</h3>
+                </div>
+                <div class="modal-content">
+                    <p class="modal-message">Skip the SIP installment scheduled for <strong id="skipDateDisplay"></strong>? Your SIP will automatically resume with the following installment.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn-secondary" onclick="closeSkipSIPModal()">Cancel</button>
+                    <button class="modal-btn-warning" onclick="confirmSkipSIP()">Skip</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cancel SIP Confirmation Modal -->
+        <div id="cancelSIPModal" class="modal-overlay">
+            <div class="modal-container modal-sm">
+                <div class="modal-header">
+                    <h3 class="modal-title">Stop SIP</h3>
+                </div>
+                <div class="modal-content">
+                    <p class="modal-message modal-warning">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="#F59E0B" style="margin: 0 auto 16px; display: block;">
+                            <path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/>
+                        </svg>
+                        Are you sure you want to stop this SIP? This action cannot be undone and you'll need to create a new SIP to continue.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn-secondary" onclick="closeCancelSIPModal()">Cancel</button>
+                    <button class="modal-btn-danger" onclick="confirmCancelSIP()">Stop SIP</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- View Details Modal -->
+        <div id="viewDetailsModal" class="modal-overlay">
+            <div class="modal-container">
+                <div class="modal-header">
+                    <h3 class="modal-title">SIP Details</h3>
+                    <button class="modal-close" onclick="closeViewDetailsModal()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-content" id="sipDetailsContent">
+                    <!-- Content will be populated dynamically -->
+                </div>
+                <div class="modal-footer">
+                    <button class="modal-btn-primary" onclick="closeViewDetailsModal()">Close</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- OTP Verification Modal -->
+        <div class="otp-overlay" id="otpOverlay">
+            <!-- Backdrop -->
+            <div class="otp-overlay-backdrop" onclick="closeOTPModal()"></div>
+
+            <!-- Modal -->
+            <div class="otp-overlay-modal">
+                <!-- Drag Handle -->
+                <div class="otp-drag-handle">
+                    <div class="otp-drag-bar"></div>
+                </div>
+
+                <!-- Modal Header -->
+                <div class="otp-modal-header">
+                    <h2 class="otp-modal-title">Verify with OTP</h2>
+                    <p class="otp-modal-subtitle" id="otpSubtitle">Enter the 4-digit code sent to your registered mobile</p>
+                </div>
+
+                <!-- Content -->
+                <div class="otp-content">
+                    <div class="otp-input-section">
+                        <div class="otp-input-container">
+                            <input type="text" class="otp-input" maxlength="1" id="otp1" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" id="otp2" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" id="otp3" inputmode="numeric">
+                            <input type="text" class="otp-input" maxlength="1" id="otp4" inputmode="numeric">
+                        </div>
+
+                        <div class="otp-timer">
+                            Didn't receive code? <button class="otp-resend-link" onclick="resendOTP()">Resend OTP</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Continue Button -->
+                <div class="otp-continue-section">
+                    <button class="otp-continue-btn" id="verifyOtpBtn" onclick="verifyOTP()">
+                        <span>Verify & Continue</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- iPhone Home Indicator -->
+        <div class="iphone-home-indicator"></div>
+    </div>
+
+    <!-- Load SIPs Data -->
+    <script src="funds-data.js"></script>
+
+    <script>
+        // ===== Original Portfolio Functions =====
+        function toggleBreakdown(itemId) {
+            const item = document.getElementById(itemId);
+            item.classList.toggle('expanded');
+        }
+
+        function toggleAmountVisibility() {
+            const amountValues = document.querySelectorAll('.amount-value');
+            const visibilityIcon = document.getElementById('visibilityIcon');
+
+            amountValues.forEach(amount => {
+                if (amount.classList.contains('hidden')) {
+                    // Show original value
+                    amount.textContent = amount.dataset.originalValue;
+                    amount.classList.remove('hidden');
+                } else {
+                    // Store original value and replace with asterisks
+                    amount.dataset.originalValue = amount.textContent;
+                    amount.textContent = '₹***';
+                    amount.classList.add('hidden');
+                }
+            });
+
+            // Toggle icon between visibility and visibility_off
+            if (visibilityIcon.textContent === 'visibility') {
+                visibilityIcon.textContent = 'visibility_off';
+            } else {
+                visibilityIcon.textContent = 'visibility';
+            }
+        }
+
+        // ===== Tab Management =====
+        let currentTab = 0;
+        let sipDataLoaded = false;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabBtns.forEach((btn, index) => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons and contents
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+
+                    // Add active class to clicked button and corresponding content
+                    this.classList.add('active');
+                    tabContents[index].classList.add('active');
+
+                    // Load SIP data when Active SIPs tab is activated
+                    if (this.dataset.tab === 'sips' && !sipDataLoaded) {
+                        loadSIPData();
+                        sipDataLoaded = true;
+                    }
+                });
+            });
+
+            // Initialize filter chips
+            const filterChips = document.querySelectorAll('.filter-chip');
+            filterChips.forEach(chip => {
+                chip.addEventListener('click', function() {
+                    filterChips.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                    filterSIPs(this.dataset.filter);
+                });
+            });
+
+            // Initialize OTP inputs
+            initializeOTPInputs();
+        });
+
+        // ===== SIP Functions =====
+        function loadSIPData() {
+            calculateSIPSummary();
+            renderSIPCards();
+        }
+
+        function calculateSIPSummary() {
+            let monthly = 0, weekly = 0, daily = 0;
+            let activeSIPs = 0;
+            let totalFunds = new Set();
+
+            sipsData.forEach(sip => {
+                if (sip.status === 'active') {
+                    activeSIPs++;
+                    switch(sip.frequency) {
+                        case 'monthly':
+                            monthly += sip.amount;
+                            break;
+                        case 'weekly':
+                            weekly += sip.amount;
+                            break;
+                        case 'daily':
+                            daily += sip.amount;
+                            break;
+                    }
+                }
+                sip.funds.forEach(fund => totalFunds.add(fund.id));
+            });
+
+            // Update amounts
+            const amountsContainer = document.getElementById('sipSummaryAmounts');
+            let amountsHTML = '';
+            if (monthly > 0) {
+                amountsHTML += `
+                    <div class="sip-summary-item">
+                        <div class="sip-value">₹${monthly.toLocaleString('en-IN')}</div>
+                        <div class="sip-label">Monthly</div>
+                    </div>
+                `;
+            }
+            if (weekly > 0) {
+                amountsHTML += `
+                    <div class="sip-summary-item">
+                        <div class="sip-value">₹${weekly.toLocaleString('en-IN')}</div>
+                        <div class="sip-label">Weekly</div>
+                    </div>
+                `;
+            }
+            if (daily > 0) {
+                amountsHTML += `
+                    <div class="sip-summary-item">
+                        <div class="sip-value">₹${daily.toLocaleString('en-IN')}</div>
+                        <div class="sip-label">Daily</div>
+                    </div>
+                `;
+            }
+            amountsContainer.innerHTML = amountsHTML;
+
+            // Update counts
+            const countsContainer = document.getElementById('sipSummaryCounts');
+            countsContainer.innerHTML = `
+                <div class="sip-summary-item">
+                    <div class="sip-value">${activeSIPs}</div>
+                    <div class="sip-label">Active SIPs</div>
+                </div>
+                <div class="sip-summary-item">
+                    <div class="sip-value">${totalFunds.size}</div>
+                    <div class="sip-label">Funds</div>
+                </div>
+            `;
+        }
+
+        function renderSIPCards() {
+            const sipList = document.getElementById('sipList');
+            sipList.innerHTML = sipsData.map(sip => {
+                const isSkipped = sip.status === 'skipped';
+                const statusText = isSkipped ? ' • Skipped' : '';
+
+                const fundsText = sip.funds.length === 1
+                    ? `Investing in ${sip.funds[0].name}`
+                    : `Investing in ${sip.funds.length} funds: ${sip.funds.map(f => f.name).join(', ')}`;
+
+                return `
+                    <div class="sip-card ${isSkipped ? 'skipped' : ''}" data-frequency="${sip.frequency}" data-status="${sip.status}">
+                        <div class="sip-status"></div>
+                        <div class="sip-amount">₹${sip.amount.toLocaleString('en-IN')}</div>
+                        <div class="sip-frequency">${sip.frequency.charAt(0).toUpperCase() + sip.frequency.slice(1)} SIP${statusText}</div>
+                        <div class="sip-next">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+                            </svg>
+                            ${sip.nextDebitFull}
+                        </div>
+                        <div class="sip-funds">${fundsText}</div>
+                        <div class="sip-actions">
+                            <button class="sip-action-btn" onclick="event.stopPropagation(); editSIP('${sip.id}')">Edit</button>
+                            <button class="sip-action-btn" onclick="event.stopPropagation(); ${isSkipped ? 'resumeSIP' : 'pauseSIP'}('${sip.id}')">${isSkipped ? 'Resume' : 'Pause'}</button>
+                            <button class="sip-action-btn" onclick="event.stopPropagation(); stopSIP('${sip.id}')">Stop</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterSIPs(filterType) {
+            const sipCards = document.querySelectorAll('.sip-card');
+
+            sipCards.forEach(card => {
+                const frequency = card.dataset.frequency;
+                const status = card.dataset.status;
+
+                if (filterType === 'all') {
+                    card.style.display = 'block';
+                } else if (filterType === 'skipped') {
+                    card.style.display = status === 'skipped' ? 'block' : 'none';
+                } else {
+                    card.style.display = (frequency === filterType && status === 'active') ? 'block' : 'none';
+                }
+            });
+        }
+
+        // ===== SIP Action Functions =====
+        let currentSIPId = null;
+        let pendingAction = null;
+
+        function editSIP(sipId) {
+            currentSIPId = sipId;
+            const sip = sipsData.find(s => s.id === sipId);
+            if (!sip) return;
+
+            document.getElementById('sipAmount').value = sip.amount;
+            document.getElementById('sipDate').value = sip.nextDebit;
+
+            const modal = document.getElementById('editSIPModal');
+            modal.classList.add('show');
+        }
+
+        function closeEditSIPModal() {
+            const modal = document.getElementById('editSIPModal');
+            modal.classList.remove('show');
+            currentSIPId = null;
+        }
+
+        function saveEditSIP() {
+            if (!currentSIPId) return;
+
+            const amount = parseInt(document.getElementById('sipAmount').value);
+            const date = document.getElementById('sipDate').value;
+
+            closeEditSIPModal();
+
+            pendingAction = {
+                type: 'edit',
+                sipId: currentSIPId,
+                data: { amount, date }
+            };
+
+            showOTPModal('edit');
+        }
+
+        function pauseSIP(sipId) {
+            currentSIPId = sipId;
+            const sip = sipsData.find(s => s.id === sipId);
+            if (!sip) return;
+
+            document.getElementById('skipDateDisplay').textContent = sip.nextDebit;
+
+            const modal = document.getElementById('skipSIPModal');
+            modal.classList.add('show');
+        }
+
+        function closeSkipSIPModal() {
+            const modal = document.getElementById('skipSIPModal');
+            modal.classList.remove('show');
+            currentSIPId = null;
+        }
+
+        function confirmSkipSIP() {
+            if (!currentSIPId) return;
+
+            const sip = sipsData.find(s => s.id === currentSIPId);
+            if (!sip) return;
+
+            closeSkipSIPModal();
+
+            pendingAction = {
+                type: 'skip',
+                sipId: currentSIPId,
+                data: { skipDate: sip.nextDebit }
+            };
+
+            showOTPModal('skip');
+        }
+
+        function resumeSIP(sipId) {
+            // Resume functionality
+            showToast('SIP resumed successfully');
+            const sipIndex = sipsData.findIndex(s => s.id === sipId);
+            if (sipIndex !== -1) {
+                sipsData[sipIndex].status = 'active';
+                renderSIPCards();
+                calculateSIPSummary();
+            }
+        }
+
+        function stopSIP(sipId) {
+            currentSIPId = sipId;
+            const modal = document.getElementById('cancelSIPModal');
+            modal.classList.add('show');
+        }
+
+        function closeCancelSIPModal() {
+            const modal = document.getElementById('cancelSIPModal');
+            modal.classList.remove('show');
+            currentSIPId = null;
+        }
+
+        function confirmCancelSIP() {
+            if (!currentSIPId) return;
+
+            closeCancelSIPModal();
+
+            pendingAction = {
+                type: 'stop',
+                sipId: currentSIPId,
+                data: {}
+            };
+
+            showOTPModal('stop');
+        }
+
+        function viewSIPDetails(sipId) {
+            const sip = sipsData.find(s => s.id === sipId);
+            if (!sip) return;
+
+            const detailsHTML = `
+                <div style="margin-bottom: 20px;">
+                    <div style="font-size: 28px; font-weight: 700; color: #111827; margin-bottom: 4px;">
+                        ₹${sip.amount.toLocaleString('en-IN')}
+                    </div>
+                    <div style="font-size: 14px; color: #6B7280;">
+                        ${sip.frequency.charAt(0).toUpperCase() + sip.frequency.slice(1)} SIP
+                    </div>
+                </div>
+
+                <div style="background: #F9FAFB; border-radius: 12px; padding: 16px; margin-bottom: 20px;">
+                    <div style="font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 12px;">SIP Information</div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="color: #6B7280; font-size: 14px;">Status</span>
+                        <span style="color: ${sip.status === 'active' ? '#10B981' : '#F59E0B'}; font-weight: 600; font-size: 14px;">
+                            ${sip.status === 'active' ? 'Active' : 'Paused'}
+                        </span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span style="color: #6B7280; font-size: 14px;">Frequency</span>
+                        <span style="color: #111827; font-weight: 500; font-size: 14px;">
+                            ${sip.frequency.charAt(0).toUpperCase() + sip.frequency.slice(1)}
+                        </span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span style="color: #6B7280; font-size: 14px;">Next Debit</span>
+                        <span style="color: #111827; font-weight: 500; font-size: 14px;">${sip.nextDebit}</span>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 12px;">
+                    <div style="font-size: 13px; font-weight: 600; color: #111827; margin-bottom: 8px;">Funds (${sip.funds.length})</div>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        ${sip.funds.map(fund => `
+                            <div style="padding: 12px; background: white; border: 1px solid #E5E7EB; border-radius: 8px; font-size: 14px; color: #111827;">
+                                ${fund.name}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('sipDetailsContent').innerHTML = detailsHTML;
+
+            const modal = document.getElementById('viewDetailsModal');
+            modal.classList.add('show');
+        }
+
+        function closeViewDetailsModal() {
+            const modal = document.getElementById('viewDetailsModal');
+            modal.classList.remove('show');
+        }
+
+        // ===== OTP System =====
+        function showOTPModal(actionType) {
+            const subtitle = document.getElementById('otpSubtitle');
+            if (actionType === 'edit') {
+                subtitle.textContent = 'Confirm SIP changes with the 4-digit code sent to your registered mobile';
+            } else if (actionType === 'skip') {
+                subtitle.textContent = 'Confirm skipping installment with the 4-digit code sent to your registered mobile';
+            } else if (actionType === 'stop') {
+                subtitle.textContent = 'Confirm stopping SIP with the 4-digit code sent to your registered mobile';
+            }
+
+            const modal = document.getElementById('otpOverlay');
+            modal.classList.add('show');
+
+            setTimeout(() => {
+                document.getElementById('otp1').focus();
+            }, 300);
+        }
+
+        function closeOTPModal() {
+            const modal = document.getElementById('otpOverlay');
+            modal.classList.remove('show');
+
+            // Clear all inputs
+            const otpInputs = document.querySelectorAll('.otp-input');
+            otpInputs.forEach(input => {
+                input.value = '';
+                input.classList.remove('filled');
+            });
+
+            // Reset verify button
+            document.getElementById('verifyOtpBtn').classList.remove('enabled');
+
+            // Clear pending action
+            pendingAction = null;
+        }
+
+        function verifyOTP() {
+            const otpInputs = document.querySelectorAll('.otp-input');
+            const otpValue = Array.from(otpInputs).map(input => input.value).join('');
+
+            if (otpValue.length !== 4) return;
+
+            closeOTPModal();
+
+            // Execute pending action
+            if (!pendingAction) return;
+
+            if (pendingAction.type === 'edit') {
+                const sipIndex = sipsData.findIndex(s => s.id === pendingAction.sipId);
+                if (sipIndex !== -1) {
+                    sipsData[sipIndex].amount = pendingAction.data.amount;
+                    sipsData[sipIndex].nextDebit = pendingAction.data.date;
+                    sipsData[sipIndex].nextDebitFull = `Next debit on ${pendingAction.data.date}`;
+
+                    renderSIPCards();
+                    calculateSIPSummary();
+                    showToast('SIP updated successfully');
+                }
+            } else if (pendingAction.type === 'skip') {
+                const sipIndex = sipsData.findIndex(s => s.id === pendingAction.sipId);
+                if (sipIndex !== -1) {
+                    sipsData[sipIndex].status = 'skipped';
+                    sipsData[sipIndex].nextDebitFull = `Skipped: ${pendingAction.data.skipDate}`;
+
+                    renderSIPCards();
+                    calculateSIPSummary();
+                    showToast('SIP installment skipped successfully');
+                }
+            } else if (pendingAction.type === 'stop') {
+                const sipIndex = sipsData.findIndex(s => s.id === pendingAction.sipId);
+                if (sipIndex !== -1) {
+                    sipsData.splice(sipIndex, 1);
+
+                    renderSIPCards();
+                    calculateSIPSummary();
+                    showToast('SIP stopped successfully');
+                }
+            }
+
+            pendingAction = null;
+        }
+
+        function resendOTP() {
+            const otpInputs = document.querySelectorAll('.otp-input');
+            otpInputs.forEach(input => {
+                input.value = '';
+                input.classList.remove('filled');
+            });
+
+            document.getElementById('otp1').focus();
+            document.getElementById('verifyOtpBtn').classList.remove('enabled');
+            showToast('OTP sent successfully');
+        }
+
+        function showToast(message) {
+            const existingToast = document.querySelector('.toast-notification');
+            if (existingToast) existingToast.remove();
+
+            const toast = document.createElement('div');
+            toast.className = 'toast-notification';
+            toast.textContent = message;
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: #111827;
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                font-size: 14px;
+                font-weight: 500;
+                z-index: 2000;
+                animation: slideUp 0.3s ease;
+            `;
+
+            const container = document.querySelector('.iphone-screen') || document.body;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.animation = 'slideDown 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize OTP inputs
+        function initializeOTPInputs() {
+            const otpInputs = document.querySelectorAll('.otp-input');
+
+            otpInputs.forEach((input, index) => {
+                input.addEventListener('input', function(e) {
+                    const value = e.target.value;
+
+                    if (value && /^[0-9]$/.test(value)) {
+                        this.classList.add('filled');
+
+                        if (index < otpInputs.length - 1) {
+                            otpInputs[index + 1].focus();
+                        }
+
+                        checkOTPComplete();
+                    } else {
+                        this.classList.remove('filled');
+                        this.value = '';
+                    }
+                });
+
+                input.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && !this.value && index > 0) {
+                        otpInputs[index - 1].focus();
+                        otpInputs[index - 1].classList.remove('filled');
+                        otpInputs[index - 1].value = '';
+                    }
+                });
+
+                input.addEventListener('paste', function(e) {
+                    e.preventDefault();
+                    const pastedData = e.clipboardData.getData('text').replace(/\D/g, '');
+
+                    if (pastedData.length === 4) {
+                        otpInputs.forEach((inp, i) => {
+                            if (pastedData[i]) {
+                                inp.value = pastedData[i];
+                                inp.classList.add('filled');
+                            }
+                        });
+                        checkOTPComplete();
+                    }
+                });
+            });
+        }
+
+        function checkOTPComplete() {
+            const filledInputs = document.querySelectorAll('.otp-input.filled');
+            const verifyBtn = document.getElementById('verifyOtpBtn');
+
+            if (filledInputs.length === 4) {
+                verifyBtn.classList.add('enabled');
+            } else {
+                verifyBtn.classList.remove('enabled');
+            }
+        }
+
+        // Close modals when clicking on overlay
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) {
+                closeEditSIPModal();
+                closeSkipSIPModal();
+                closeCancelSIPModal();
+                closeViewDetailsModal();
+            }
+        });
+    </script>
+    <script src="assets/js/iphone-toggle.js"></script>
+</body>
+</html>

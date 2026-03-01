@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HDFC Large Cap Fund - NiveshPe</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="funds-data.js"></script>
+
+    <style>
+        :root {
+            --color-bg-primary: #F5F7FA;
+            --color-blue: #2563EB;
+            --color-blue-dark: #1D4ED8;
+            --color-green: #10B981;
+            --color-green-dark: #059669;
+            --color-red: #EF4444;
+            --color-text-primary: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-text-muted: #9CA3AF;
+            --color-border: #E5E7EB;
+            --color-surface: #F8F9FA;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--color-text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .iphone-frame {
+            width: 380px;
+            height: 820px;
+            background: transparent;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fund-content {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: none;
+            padding-bottom: 80px;
+        }
+
+        .fund-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 20px;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .back-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .back-btn:active {
+            background: var(--color-blue);
+            color: white;
+            transform: scale(0.95);
+        }
+
+        .header-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: white;
+            padding: 20px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .fund-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 4px;
+        }
+
+        .fund-category {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-bottom: 16px;
+        }
+
+        .nav-section {
+            background: #F0FDF4;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            color: var(--color-text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .nav-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--color-green-dark);
+            line-height: 1;
+        }
+
+        .nav-date {
+            font-size: 10px;
+            color: var(--color-text-muted);
+            margin-top: 4px;
+        }
+
+        .category-rank-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: white;
+            border: 1px solid #D1FAE5;
+            border-radius: var(--radius-sm);
+            padding: 4px 8px;
+            font-size: 10px;
+            font-weight: 600;
+            color: var(--color-green-dark);
+        }
+
+        /* Period Selector */
+        .period-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .period-btn {
+            flex: 1;
+            padding: 8px 12px;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .period-btn.active {
+            background: var(--color-blue);
+            border-color: var(--color-blue);
+            color: white;
+        }
+
+        .period-btn:active {
+            transform: scale(0.96);
+        }
+
+        /* Returns Display */
+        .returns-display {
+            background: #ECFDF5;
+            border-radius: var(--radius-md);
+            padding: 16px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .returns-label {
+            font-size: 11px;
+            color: var(--color-text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .returns-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--color-green-dark);
+            line-height: 1;
+        }
+
+        .returns-period-label {
+            font-size: 10px;
+            color: var(--color-text-muted);
+            margin-top: 4px;
+        }
+
+        .fund-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .badge-risk {
+            background: #E0F2FE;
+            color: #075985;
+        }
+
+        .badge-min {
+            background: var(--color-surface);
+            color: var(--color-text-secondary);
+        }
+
+        /* Floating CTA Buttons */
+        .floating-cta {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            width: 340px;
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: transparent;
+        }
+
+        .floating-btn {
+            flex: 1;
+            padding: 14px 20px;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .floating-btn-primary {
+            background: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+            color: white;
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
+            border: none;
+        }
+
+        .floating-btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .floating-btn-secondary {
+            background: white;
+            color: var(--color-blue);
+            border: 2px solid var(--color-blue);
+        }
+
+        .floating-btn-secondary:active {
+            transform: scale(0.98);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            padding: 16px 20px;
+            background: white;
+            border-bottom: 8px solid var(--color-bg-primary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .stat-card {
+            background: var(--color-surface);
+            border-radius: var(--radius-sm);
+            padding: 12px;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            color: var(--color-text-secondary);
+            margin-bottom: 4px;
+        }
+
+        .stat-value {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .stat-subtext {
+            font-size: 9px;
+            color: var(--color-text-muted);
+            margin-top: 2px;
+        }
+
+        /* Content Sections */
+        .content-section {
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 12px;
+        }
+
+        /* Accordion */
+        .accordion {
+            background: white;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: 8px;
+            border: 1px solid var(--color-border);
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .accordion-header:active {
+            background: var(--color-surface);
+        }
+
+        .accordion-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .accordion-icon {
+            font-size: 18px;
+            color: var(--color-text-muted);
+            transition: transform 0.3s;
+        }
+
+        .accordion.active .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .accordion-body {
+            padding: 0 16px 16px 16px;
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Performance Chart */
+        .chart-container {
+            margin-bottom: 16px;
+            position: relative;
+            height: 200px;
+        }
+
+        .chart-period-selector {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 12px;
+            justify-content: center;
+        }
+
+        .chart-period-btn {
+            padding: 6px 12px;
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .chart-period-btn.active {
+            background: var(--color-blue);
+            border-color: var(--color-blue);
+            color: white;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        .info-value {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .holdings-list {
+            margin-top: 8px;
+        }
+
+        .holding-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .holding-item:last-child {
+            border-bottom: none;
+        }
+
+        .holding-name {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+        }
+
+        .holding-percent {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-blue);
+        }
+
+        .fund-manager-card {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 8px;
+        }
+
+        .manager-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--color-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-blue);
+        }
+
+        .manager-info {
+            flex: 1;
+        }
+
+        .manager-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .manager-exp {
+            font-size: 11px;
+            color: var(--color-text-secondary);
+        }
+
+        .document-links {
+            margin-top: 8px;
+        }
+
+        .doc-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            color: var(--color-blue);
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 500;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .doc-link:last-child {
+            border-bottom: none;
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            font-size: 9px;
+            color: var(--color-text-muted);
+            text-align: center;
+            margin: 20px;
+            line-height: 1.4;
+        }
+
+        .disclaimer-link {
+            color: var(--color-blue);
+            text-decoration: underline;
+        }
+
+        /* Risk-o-meter */
+        .risk-meter {
+            display: flex;
+            gap: 4px;
+            margin: 8px 0;
+        }
+
+        .risk-level {
+            flex: 1;
+            height: 24px;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .risk-level.low {
+            background: #D1FAE5;
+        }
+
+        .risk-level.moderate-low {
+            background: #FEF3C7;
+        }
+
+        .risk-level.moderate {
+            background: #FED7AA;
+        }
+
+        .risk-level.moderate-high {
+            background: #FECACA;
+        }
+
+        .risk-level.high {
+            background: #FCA5A5;
+        }
+
+        .risk-level.active {
+            border: 2px solid var(--color-blue);
+        }
+
+        .risk-meter-label {
+            font-size: 10px;
+            color: var(--color-text-secondary);
+            margin-top: 4px;
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/iphone-toggle.css">
+</head>
+<body>
+    <!-- Frame Toggle Button -->
+    <button class="frame-toggle-btn" id="frameToggleBtn" onclick="toggleFrameMode()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
+        </svg>
+        <span id="frameToggleText">Normal View</span>
+    </button>
+
+
+    <div class="iphone-frame">
+        <!-- iPhone Notch (Dynamic Island style) -->
+        <div class="iphone-notch"></div>
+
+
+        <div class="iphone-screen">
+            <div class="fund-content">
+                <!-- Header -->
+                <div class="header">
+                <button class="back-btn" onclick="window.location.href='mutual-funds.html#all-funds'">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+                    </svg>
+                </button>
+                <div class="header-title">HDFC Large Cap Fund</div>
+            </div>
+
+            <!-- Hero Section -->
+            <div class="hero-section">
+                <h1 class="fund-name">HDFC Large Cap Fund</h1>
+                <p class="fund-category">Large Cap Fund • Equity • HDFC Mutual Fund</p>
+
+                <!-- NAV -->
+                <div class="nav-section">
+                    <div class="category-rank-badge">#8 in Large Cap</div>
+                    <div class="nav-label">Current NAV</div>
+                    <div class="nav-value">₹845.32</div>
+                    <div class="nav-date">As on 16 Oct 2025</div>
+                </div>
+
+                <!-- Period Selector -->
+                <div class="period-selector">
+                    <button class="period-btn" onclick="selectPeriod('1M')">1M</button>
+                    <button class="period-btn" onclick="selectPeriod('6M')">6M</button>
+                    <button class="period-btn" onclick="selectPeriod('1Y')">1Y</button>
+                    <button class="period-btn" onclick="selectPeriod('3Y')">3Y</button>
+                    <button class="period-btn active" onclick="selectPeriod('5Y')">5Y</button>
+                    <button class="period-btn" onclick="selectPeriod('All')">All</button>
+                </div>
+
+                <!-- Returns Display -->
+                <div class="returns-display">
+                    <div class="returns-label">Returns</div>
+                    <div class="returns-value" id="returnsValue">+21%</div>
+                    <div class="returns-period-label" id="returnsPeriodLabel">5 Year CAGR</div>
+                </div>
+
+                <!-- Badges -->
+                <div class="fund-badges">
+                    <span class="badge badge-risk">Growth Focused</span>
+                    <span class="badge badge-min">Min. SIP: ₹100</span>
+                    <span class="badge badge-min">Min. Lumpsum: ₹5,000</span>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">AUM</div>
+                        <div class="stat-value">₹38,245 Cr</div>
+                        <div class="stat-subtext">Fund Size</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Expense Ratio</div>
+                        <div class="stat-value">0.82%</div>
+                        <div class="stat-subtext">Direct Plan</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Exit Load</div>
+                        <div class="stat-value">1%</div>
+                        <div class="stat-subtext">&lt; 1 year</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Fund Age</div>
+                        <div class="stat-value">18 Yrs</div>
+                        <div class="stat-subtext">Since 2007</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Sections -->
+            <div class="content-section">
+                <!-- 1. Performance (TOP PRIORITY) -->
+                <div class="accordion active">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <div class="accordion-title">Performance</div>
+                        <div class="accordion-icon">▼</div>
+                    </div>
+                    <div class="accordion-content" style="max-height: 1000px;">
+                        <div class="accordion-body">
+                            <!-- Chart Period Selector -->
+                            <div class="chart-period-selector">
+                                <button class="chart-period-btn" onclick="updateChart('1M')">1M</button>
+                                <button class="chart-period-btn" onclick="updateChart('6M')">6M</button>
+                                <button class="chart-period-btn" onclick="updateChart('1Y')">1Y</button>
+                                <button class="chart-period-btn" onclick="updateChart('3Y')">3Y</button>
+                                <button class="chart-period-btn active" onclick="updateChart('5Y')">5Y</button>
+                                <button class="chart-period-btn" onclick="updateChart('All')">All</button>
+                            </div>
+
+                            <!-- Performance Chart -->
+                            <div class="chart-container">
+                                <canvas id="performanceChart"></canvas>
+                            </div>
+
+                            <p style="margin-bottom: 12px; font-weight: 600;">Returns Comparison (5Y CAGR)</p>
+                            <div class="info-row">
+                                <div class="info-label">This Fund</div>
+                                <div class="info-value" style="color: var(--color-green-dark);">21.0%</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Benchmark (NIFTY 50)</div>
+                                <div class="info-value">19.8%</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Category Average</div>
+                                <div class="info-value">18.5%</div>
+                            </div>
+
+                            <p style="margin-top: 16px; font-size: 11px; font-style: italic; color: var(--color-text-muted);">This fund has consistently outperformed its benchmark and category average over the past 5 years.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Fund Overview -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <div class="accordion-title">Fund Overview</div>
+                        <div class="accordion-icon">▼</div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p style="margin-bottom: 12px;"><strong>Investment Objective:</strong> The fund aims to generate long-term capital appreciation by investing in large cap equity stocks.</p>
+
+                            <p style="margin-bottom: 12px;"><strong>Why this fund?</strong> HDFC Large Cap Fund focuses on established, blue-chip companies with strong fundamentals. It's ideal for investors seeking steady growth with relatively lower volatility compared to mid or small cap funds.</p>
+
+                            <p><strong>Who should invest?</strong> This fund is suitable for investors with a long-term horizon (5+ years) seeking capital appreciation through investment in large, established companies.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Fund Details -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <div class="accordion-title">Fund Details</div>
+                        <div class="accordion-icon">▼</div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <div class="info-row">
+                                <div class="info-label">Fund House</div>
+                                <div class="info-value">HDFC Mutual Fund</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Launch Date</div>
+                                <div class="info-value">Jan 01, 2007</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Category</div>
+                                <div class="info-value">Large Cap Fund</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Benchmark</div>
+                                <div class="info-value">NIFTY 50 TRI</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Min. SIP Amount</div>
+                                <div class="info-value">₹100</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Min. Lump Sum</div>
+                                <div class="info-value">₹5,000</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Lock-in Period</div>
+                                <div class="info-value">None</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Dividend Option</div>
+                                <div class="info-value">Available</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Portfolio Allocation -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <div class="accordion-title">Portfolio Allocation</div>
+                        <div class="accordion-icon">▼</div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p style="margin-bottom: 12px; font-weight: 600;">Asset Allocation</p>
+                            <div class="info-row">
+                                <div class="info-label">Equity</div>
+                                <div class="info-value">96.8%</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Cash & Others</div>
+                                <div class="info-value">3.2%</div>
+                            </div>
+
+                            <p style="margin-top: 16px; margin-bottom: 12px; font-weight: 600;">Top 5 Holdings</p>
+                            <div class="holdings-list">
+                                <div class="holding-item">
+                                    <div class="holding-name">HDFC Bank Ltd</div>
+                                    <div class="holding-percent">8.5%</div>
+                                </div>
+                                <div class="holding-item">
+                                    <div class="holding-name">Reliance Industries</div>
+                                    <div class="holding-percent">7.2%</div>
+                                </div>
+                                <div class="holding-item">
+                                    <div class="holding-name">ICICI Bank Ltd</div>
+                                    <div class="holding-percent">6.8%</div>
+                                </div>
+                                <div class="holding-item">
+                                    <div class="holding-name">Infosys Ltd</div>
+                                    <div class="holding-percent">5.4%</div>
+                                </div>
+                                <div class="holding-item">
+                                    <div class="holding-name">TCS Ltd</div>
+                                    <div class="holding-percent">5.1%</div>
+                                </div>
+                            </div>
+
+                            <p style="margin-top: 16px; margin-bottom: 12px; font-weight: 600;">Sector Allocation</p>
+                            <div class="info-row">
+                                <div class="info-label">Financial Services</div>
+                                <div class="info-value">28.5%</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Information Technology</div>
+                                <div class="info-value">18.2%</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Energy</div>
+                                <div class="info-value">12.4%</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Consumer Goods</div>
+                                <div class="info-value">10.8%</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Others</div>
+                                <div class="info-value">26.9%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Risk & Returns -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <div class="accordion-title">Risk & Returns</div>
+                        <div class="accordion-icon">▼</div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <p style="margin-bottom: 8px; font-weight: 600;">SEBI Risk-o-meter</p>
+                            <div class="risk-meter">
+                                <div class="risk-level low"></div>
+                                <div class="risk-level moderate-low"></div>
+                                <div class="risk-level moderate"></div>
+                                <div class="risk-level moderate-high"></div>
+                                <div class="risk-level high active"></div>
+                            </div>
+                            <div class="risk-meter-label">Very High Risk</div>
+
+                            <div style="margin-top: 16px;">
+                                <div class="info-row">
+                                    <div class="info-label">Standard Deviation <span style="cursor: pointer;" title="Measures volatility">ⓘ</span></div>
+                                    <div class="info-value">18.5%</div>
+                                </div>
+                                <div class="info-row">
+                                    <div class="info-label">Sharpe Ratio <span style="cursor: pointer;" title="Risk-adjusted returns">ⓘ</span></div>
+                                    <div class="info-value">1.24</div>
+                                </div>
+                            </div>
+
+                            <p style="margin-top: 12px; font-size: 11px; line-height: 1.5; color: var(--color-text-muted);">Large cap funds invest primarily in top 100 companies by market cap, offering relatively lower volatility compared to mid and small cap funds.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Costs & Fees -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <div class="accordion-title">Costs & Fees</div>
+                        <div class="accordion-icon">▼</div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <div class="info-row">
+                                <div class="info-label">Expense Ratio (Direct)</div>
+                                <div class="info-value">0.82%</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Expense Ratio (Regular)</div>
+                                <div class="info-value">1.45%</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Exit Load</div>
+                                <div class="info-value">1% if redeemed &lt; 1 year</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Tax on Long-term Gains</div>
+                                <div class="info-value">10% above ₹1 lakh</div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Tax on Short-term Gains</div>
+                                <div class="info-value">15%</div>
+                            </div>
+                            <p style="margin-top: 12px; font-size: 10px; color: var(--color-text-muted); font-style: italic;">Lower expense ratio means higher returns. We recommend Direct plans for better returns.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 7. Fund Manager -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <div class="accordion-title">Fund Manager</div>
+                        <div class="accordion-icon">▼</div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <div class="fund-manager-card">
+                                <div class="manager-avatar">CS</div>
+                                <div class="manager-info">
+                                    <div class="manager-name">Chirag Setalvad</div>
+                                    <div class="manager-exp">15+ years experience • MBA, CFA</div>
+                                </div>
+                            </div>
+                            <p style="margin-top: 12px; font-size: 12px; line-height: 1.5;">Chirag Setalvad is the Head of Equities at HDFC Asset Management Company and has been managing this fund since 2018. He brings over 15 years of investment experience.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8. Documents -->
+                <div class="accordion">
+                    <div class="accordion-header" onclick="toggleAccordion(this)">
+                        <div class="accordion-title">Documents</div>
+                        <div class="accordion-icon">▼</div>
+                    </div>
+                    <div class="accordion-content">
+                        <div class="accordion-body">
+                            <div class="document-links">
+                                <a href="#" class="doc-link">
+                                    <span>Scheme Information Document (SID)</span>
+                                    <span>→</span>
+                                </a>
+                                <a href="#" class="doc-link">
+                                    <span>Key Information Memorandum (KIM)</span>
+                                    <span>→</span>
+                                </a>
+                                <a href="#" class="doc-link">
+                                    <span>Latest Factsheet</span>
+                                    <span>→</span>
+                                </a>
+                                <a href="#" class="doc-link">
+                                    <span>Monthly Portfolio</span>
+                                    <span>→</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+                <!-- Disclaimer -->
+                <div class="disclaimer">
+                    Mutual Fund investments are subject to market risks, <a href="#" class="disclaimer-link">read all scheme related documents carefully</a>.
+                </div>
+            </div>
+
+            <!-- Floating CTA Button -->
+            <div class="floating-cta">
+                <button class="floating-btn floating-btn-primary" onclick="showInvestmentOptions()">Invest Now</button>
+            </div>
+        </div>
+        <!-- iPhone Home Indicator -->
+        <div class="iphone-home-indicator"></div>
+    </div>
+
+    <script>
+        // DYNAMIC FUND LOADING SYSTEM
+        let currentFundData = null;
+        let returnsData = {};
+        let performanceChart;
+
+        // Fixed chart data for all funds (sample data)
+        const chartData = {
+            '1M': {
+                labels: ['10 Nov', '11 Nov', '14 Nov', '15 Nov', '16 Nov', '17 Nov', '18 Nov', '21 Nov', '22 Nov', '23 Nov', '24 Nov', '25 Nov', '28 Nov', '29 Nov', '30 Nov', '1 Dec', '2 Dec', '5 Dec', '6 Dec', '7 Dec', '8 Dec', '9 Dec'],
+                data: [820.15, 822.40, 819.85, 825.30, 828.65, 831.20, 827.95, 830.45, 833.80, 829.50, 835.60, 838.25, 834.90, 837.75, 840.30, 836.85, 841.50, 839.20, 842.65, 844.10, 843.25, 845.32]
+            },
+            '6M': {
+                labels: ['10 Jun', '17 Jun', '24 Jun', '1 Jul', '8 Jul', '15 Jul', '22 Jul', '29 Jul', '5 Aug', '12 Aug', '19 Aug', '26 Aug', '2 Sep', '9 Sep', '16 Sep', '23 Sep', '30 Sep', '7 Oct', '14 Oct', '21 Oct', '28 Oct', '4 Nov', '11 Nov', '18 Nov', '25 Nov', '2 Dec', '9 Dec'],
+                data: [745.20, 752.35, 748.90, 755.60, 762.45, 758.80, 765.30, 771.90, 768.25, 775.40, 782.15, 778.50, 785.60, 791.25, 787.90, 794.35, 800.50, 796.85, 803.40, 810.25, 806.70, 813.50, 819.30, 825.80, 832.15, 838.60, 845.32]
+            },
+            '1Y': {
+                labels: ['Dec 2024', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec 2025'],
+                data: [698.45, 705.30, 712.85, 720.50, 728.15, 735.90, 745.20, 758.80, 768.25, 787.90, 806.70, 832.15, 845.32]
+            },
+            '3Y': {
+                labels: ['Q1 2023', 'Q2 2023', 'Q3 2023', 'Q4 2023', 'Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', 'Q1 2025', 'Q2 2025', 'Q3 2025', 'Q4 2025'],
+                data: [520.35, 535.80, 548.65, 562.40, 580.25, 598.70, 615.35, 632.90, 658.45, 685.20, 715.80, 745.60, 780.35, 810.50, 830.75, 845.32]
+            },
+            '5Y': {
+                labels: ['2021', 'Jan 2021', 'Apr 2021', 'Jul 2021', 'Oct 2021', 'Jan 2022', 'Apr 2022', 'Jul 2022', 'Oct 2022', 'Jan 2023', 'Apr 2023', 'Jul 2023', 'Oct 2023', 'Jan 2024', 'Apr 2024', 'Jul 2024', 'Oct 2024', 'Jan 2025', 'Apr 2025', 'Jul 2025', 'Oct 2025', 'Dec 2025'],
+                data: [380.25, 395.40, 410.85, 425.30, 438.65, 455.20, 470.35, 485.90, 498.25, 515.40, 535.80, 548.65, 562.40, 580.25, 598.70, 615.35, 632.90, 658.45, 685.20, 715.80, 780.35, 845.32]
+            },
+            'All': {
+                labels: ['2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'],
+                data: [10.00, 8.45, 12.35, 18.50, 16.85, 21.40, 28.65, 35.90, 42.35, 58.75, 78.25, 85.40, 105.65, 138.90, 185.50, 245.80, 310.45, 420.65, 580.25, 698.45, 845.32]
+            }
+        };
+
+        // Get fund slug from URL parameter
+        function getFundSlug() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('fund') || 'hdfc-large-cap'; // Default to large cap
+        }
+
+        // Accordion toggle
+        function toggleAccordion(element) {
+            const accordion = element.parentElement;
+            const content = element.nextElementSibling;
+
+            // Toggle active class
+            accordion.classList.toggle('active');
+
+            // Expand/collapse content
+            if (accordion.classList.contains('active')) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+            } else {
+                content.style.maxHeight = '0';
+            }
+        }
+
+        // Show investment options
+        function showInvestmentOptions() {
+            // Navigate to add funds page with current fund slug
+            const fundSlug = getFundSlug();
+            window.location.href = 'add-funds.html?fund=' + fundSlug;
+        }
+
+        // Select period and update returns display
+        function selectPeriod(period) {
+            // Update button states
+            document.querySelectorAll('.period-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update returns display using dynamic data
+            const data = returnsData[period];
+            document.getElementById('returnsValue').textContent = data.value;
+            document.getElementById('returnsPeriodLabel').textContent = data.label;
+        }
+
+        // Initialize chart with dynamic data
+        function initializeChart() {
+            console.log('Initializing chart...');
+
+            // Check if Chart.js is loaded
+            if (typeof Chart === 'undefined') {
+                console.error('Chart.js is not loaded!');
+                return;
+            }
+
+            const canvas = document.getElementById('performanceChart');
+            if (!canvas) {
+                console.error('Canvas element not found!');
+                return;
+            }
+
+            const ctx = canvas.getContext('2d');
+            const defaultPeriod = currentFundData?.defaultPeriod || '5Y';
+            const periodData = chartData[defaultPeriod];
+            console.log('Chart data for period', defaultPeriod, ':', periodData);
+            console.log('Canvas dimensions:', canvas.offsetWidth, 'x', canvas.offsetHeight);
+
+            performanceChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: periodData.labels,
+                    datasets: [{
+                        label: 'NAV',
+                        data: periodData.data,
+                        borderColor: '#2563EB',
+                        backgroundColor: 'rgba(37, 99, 235, 0.05)',
+                        borderWidth: 2.5,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 0,
+                        pointHoverRadius: 5,
+                        pointHoverBackgroundColor: '#2563EB',
+                        pointHoverBorderColor: '#FFFFFF',
+                        pointHoverBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                            titleFont: { size: 11, family: 'Inter', weight: '600' },
+                            bodyFont: { size: 12, family: 'Inter', weight: '700' },
+                            padding: 10,
+                            cornerRadius: 8,
+                            displayColors: false,
+                            callbacks: {
+                                title: (context) => context[0].label,
+                                label: (context) => '₹' + context.parsed.y.toFixed(2)
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false, drawBorder: false },
+                            ticks: {
+                                font: { size: 9, family: 'Inter', weight: '500' },
+                                color: '#6B7280',
+                                maxRotation: 0,
+                                minRotation: 0,
+                                autoSkip: true,
+                                maxTicksLimit: 8
+                            }
+                        },
+                        y: {
+                            grid: { color: '#F3F4F6', drawBorder: false },
+                            ticks: {
+                                font: { size: 10, family: 'Inter', weight: '500' },
+                                color: '#6B7280',
+                                padding: 8,
+                                callback: function(value) {
+                                    if (value >= 1000) return '₹' + (value / 1000).toFixed(1) + 'k';
+                                    return '₹' + value.toFixed(0);
+                                }
+                            },
+                            beginAtZero: false
+                        }
+                    },
+                    animation: {
+                        duration: 750,
+                        easing: 'easeInOutQuart'
+                    }
+                }
+            });
+
+            console.log('Chart initialized successfully!');
+        }
+
+        // Update chart based on period using dynamic data
+        function updateChart(period) {
+            // Update button states
+            document.querySelectorAll('.chart-period-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update chart data
+            const periodData = chartData[period];
+            performanceChart.data.labels = periodData.labels;
+            performanceChart.data.datasets[0].data = periodData.data;
+            performanceChart.update('active');
+        }
+
+        // Load fund data dynamically
+        function loadFundData() {
+            const fundSlug = getFundSlug();
+            currentFundData = getFundData(fundSlug);
+
+            if (!currentFundData) {
+                alert('Fund not found! Redirecting to mutual funds page.');
+                window.location.href = 'mutual-funds.html';
+                return;
+            }
+
+            // Set returns data (chartData is now fixed/global)
+            returnsData = currentFundData.returns || {
+                '1M': { value: '+3.1%', label: '1 Month Returns' },
+                '6M': { value: '+13.4%', label: '6 Month Returns' },
+                '1Y': { value: '+21.0%', label: '1 Year Returns' },
+                '3Y': { value: '+19.5%', label: '3 Year CAGR' },
+                '5Y': { value: '+21.0%', label: '5 Year CAGR' },
+                'All': { value: '+8340%', label: 'Since Inception' }
+            };
+
+            // Update all page elements
+            updatePageTitle();
+            updateHeader();
+            updateHeroSection();
+            updateQuickStats();
+            updatePerformanceSection();
+            updateOverviewSection();
+            updateDetailsSection();
+            updatePortfolioSection();
+            updateRiskSection();
+            updateCostsSection();
+            updateManagerSection();
+        }
+
+        function updatePageTitle() {
+            document.title = currentFundData.name + ' - NiveshPe';
+        }
+
+        function updateHeader() {
+            document.querySelector('.header-title').textContent = currentFundData.name;
+        }
+
+        function updateHeroSection() {
+            // Fund name and category
+            document.querySelector('.fund-name').textContent = currentFundData.name;
+            document.querySelector('.fund-category').textContent = currentFundData.subCategory;
+
+            // NAV
+            document.querySelector('.category-rank-badge').textContent = currentFundData.categoryRank;
+            document.querySelector('.nav-value').textContent = '₹' + currentFundData.nav;
+            document.querySelector('.nav-date').textContent = 'As on ' + currentFundData.navDate;
+
+            // Period selector - set active based on default
+            const periodBtns = document.querySelectorAll('.period-btn');
+            periodBtns.forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.textContent === currentFundData.defaultPeriod) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Returns display
+            const defaultReturns = currentFundData.returns[currentFundData.defaultPeriod];
+            document.getElementById('returnsValue').textContent = defaultReturns.value;
+            document.getElementById('returnsPeriodLabel').textContent = defaultReturns.label;
+
+            // Badges
+            const badgesContainer = document.querySelector('.fund-badges');
+            badgesContainer.innerHTML = '';
+            currentFundData.badges.forEach(badge => {
+                const span = document.createElement('span');
+                span.className = 'badge ' + badge.class;
+                span.textContent = badge.text;
+                badgesContainer.appendChild(span);
+            });
+        }
+
+        function updateQuickStats() {
+            if (!currentFundData.quickStats) {
+                console.log('No quick stats data available');
+                return;
+            }
+
+            const stats = currentFundData.quickStats;
+            const statCards = document.querySelectorAll('.stat-card');
+
+            // AUM
+            statCards[0].querySelector('.stat-value').textContent = stats.aum;
+            statCards[0].querySelector('.stat-subtext').textContent = stats.aumSubtext;
+
+            // Expense Ratio
+            statCards[1].querySelector('.stat-value').textContent = stats.expenseRatio;
+            statCards[1].querySelector('.stat-subtext').textContent = stats.expenseSubtext;
+
+            // Exit Load
+            statCards[2].querySelector('.stat-value').textContent = stats.exitLoad;
+            statCards[2].querySelector('.stat-subtext').textContent = stats.exitSubtext;
+
+            // Fund Age
+            statCards[3].querySelector('.stat-value').textContent = stats.fundAge;
+            statCards[3].querySelector('.stat-subtext').textContent = stats.ageSubtext;
+        }
+
+        function updatePerformanceSection() {
+            // Skip if performance data doesn't exist
+            if (!currentFundData.performance) {
+                console.log('No performance comparison data available');
+                return;
+            }
+
+            const perf = currentFundData.performance;
+            const accordionBody = document.querySelectorAll('.accordion')[0].querySelector('.accordion-body');
+
+            // Update comparison title
+            const compTitle = accordionBody.querySelector('p');
+            const defaultPeriod = currentFundData.defaultPeriod || '5Y';
+            compTitle.textContent = `Returns Comparison (${defaultPeriod === '5Y' ? '5Y CAGR' : currentFundData.returns[defaultPeriod].label})`;
+
+            // Update comparison values
+            const infoRows = accordionBody.querySelectorAll('.info-row');
+            infoRows[0].querySelector('.info-value').textContent = perf.comparison.fund;
+            infoRows[1].querySelector('.info-label').textContent = `Benchmark (${perf.comparison.benchmarkName})`;
+            infoRows[1].querySelector('.info-value').textContent = perf.comparison.benchmark;
+            infoRows[2].querySelector('.info-value').textContent = perf.comparison.category;
+
+            // Update note
+            const note = accordionBody.querySelectorAll('p')[1];
+            note.textContent = perf.note;
+        }
+
+        function updateOverviewSection() {
+            if (!currentFundData.overview) {
+                console.log('No overview data available');
+                return;
+            }
+
+            const overview = currentFundData.overview;
+            const accordionBody = document.querySelectorAll('.accordion')[1].querySelector('.accordion-body');
+            const paragraphs = accordionBody.querySelectorAll('p');
+
+            paragraphs[0].innerHTML = `<strong>Investment Objective:</strong> ${overview.objective}`;
+            paragraphs[1].innerHTML = `<strong>Why this fund?</strong> ${overview.why}`;
+            paragraphs[2].innerHTML = `<strong>Who should invest?</strong> ${overview.whoShould}`;
+        }
+
+        function updateDetailsSection() {
+            const details = currentFundData.details;
+            const accordionBody = document.querySelectorAll('.accordion')[2].querySelector('.accordion-body');
+            const infoRows = accordionBody.querySelectorAll('.info-row');
+
+            infoRows[0].querySelector('.info-value').textContent = currentFundData.fundHouse;
+            infoRows[1].querySelector('.info-value').textContent = details.launchDate;
+            infoRows[2].querySelector('.info-value').textContent = details.category;
+            infoRows[3].querySelector('.info-value').textContent = details.benchmark;
+            infoRows[4].querySelector('.info-value').textContent = details.minSIP;
+            infoRows[5].querySelector('.info-value').textContent = details.minLumpsum;
+            infoRows[6].querySelector('.info-value').textContent = details.lockIn;
+            infoRows[7].querySelector('.info-value').textContent = details.dividend;
+        }
+
+        function updatePortfolioSection() {
+            const portfolio = currentFundData.portfolio;
+            const accordionBody = document.querySelectorAll('.accordion')[3].querySelector('.accordion-body');
+
+            // Asset allocation
+            const allocRows = accordionBody.querySelectorAll('.info-row');
+            allocRows[0].querySelector('.info-value').textContent = portfolio.allocation.equity;
+            if (portfolio.allocation.debt && portfolio.allocation.debt !== '0%') {
+                allocRows[1].querySelector('.info-label').textContent = 'Debt';
+                allocRows[1].querySelector('.info-value').textContent = portfolio.allocation.debt;
+            } else {
+                allocRows[1].querySelector('.info-label').textContent = 'Cash & Others';
+                allocRows[1].querySelector('.info-value').textContent = portfolio.allocation.cash;
+            }
+
+            // Top holdings
+            const holdingsList = accordionBody.querySelector('.holdings-list');
+            holdingsList.innerHTML = '';
+            portfolio.topHoldings.forEach(holding => {
+                const div = document.createElement('div');
+                div.className = 'holding-item';
+                div.innerHTML = `
+                    <div class="holding-name">${holding.name}</div>
+                    <div class="holding-percent">${holding.percent}</div>
+                `;
+                holdingsList.appendChild(div);
+            });
+
+            // Sector allocation
+            const sectorRows = Array.from(accordionBody.querySelectorAll('.info-row')).slice(2);
+            portfolio.sectors.forEach((sector, idx) => {
+                if (sectorRows[idx]) {
+                    sectorRows[idx].querySelector('.info-label').textContent = sector.name;
+                    sectorRows[idx].querySelector('.info-value').textContent = sector.percent;
+                }
+            });
+        }
+
+        function updateRiskSection() {
+            const risk = currentFundData.risk;
+            const accordionBody = document.querySelectorAll('.accordion')[4].querySelector('.accordion-body');
+
+            // Risk-o-meter
+            const riskLevels = accordionBody.querySelectorAll('.risk-level');
+            riskLevels.forEach(level => level.classList.remove('active'));
+            if (risk.level === 'high') {
+                riskLevels[4].classList.add('active');
+            } else if (risk.level === 'moderate-high') {
+                riskLevels[3].classList.add('active');
+            } else if (risk.level === 'moderate') {
+                riskLevels[2].classList.add('active');
+            } else if (risk.level === 'moderate-low') {
+                riskLevels[1].classList.add('active');
+            } else {
+                riskLevels[0].classList.add('active');
+            }
+
+            accordionBody.querySelector('.risk-meter-label').textContent = risk.label;
+
+            // Risk metrics
+            const infoRows = accordionBody.querySelectorAll('.info-row');
+            infoRows[0].querySelector('.info-value').textContent = risk.standardDeviation;
+            infoRows[1].querySelector('.info-value').textContent = risk.sharpeRatio;
+
+            // Description
+            const desc = accordionBody.querySelectorAll('p')[1];
+            desc.textContent = risk.description;
+        }
+
+        function updateCostsSection() {
+            const costs = currentFundData.costs;
+            const accordionBody = document.querySelectorAll('.accordion')[5].querySelector('.accordion-body');
+            const infoRows = accordionBody.querySelectorAll('.info-row');
+
+            infoRows[0].querySelector('.info-value').textContent = costs.expenseRatioDirect;
+            infoRows[1].querySelector('.info-value').textContent = costs.expenseRatioRegular;
+            infoRows[2].querySelector('.info-value').textContent = costs.exitLoad;
+            infoRows[3].querySelector('.info-value').textContent = costs.taxLongTerm;
+            infoRows[4].querySelector('.info-value').textContent = costs.taxShortTerm;
+
+            const note = accordionBody.querySelector('p');
+            note.textContent = costs.note;
+        }
+
+        function updateManagerSection() {
+            const manager = currentFundData.manager;
+            const accordionBody = document.querySelectorAll('.accordion')[6].querySelector('.accordion-body');
+
+            accordionBody.querySelector('.manager-avatar').textContent = manager.initials;
+            accordionBody.querySelector('.manager-name').textContent = manager.name;
+            accordionBody.querySelector('.manager-exp').textContent = manager.experience;
+            accordionBody.querySelectorAll('p')[0].textContent = manager.bio;
+        }
+
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            // Load fund data first
+            loadFundData();
+
+            // Initialize performance chart
+            initializeChart();
+
+            // Auto-expand Performance section
+            const performanceAccordion = document.querySelectorAll('.accordion')[0];
+            const content = performanceAccordion.querySelector('.accordion-content');
+            content.style.maxHeight = content.scrollHeight + 'px';
+        });
+    </script>
+    <script src="assets/js/iphone-toggle.js"></script>
+</body>
+</html>

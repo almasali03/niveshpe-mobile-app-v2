@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NiveshPe - Nominee Details</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <style>
+        :root {
+          /* Color System */
+          --color-bg-primary: #F5F7FA;
+          --color-bg-secondary: #FFFFFF;
+          --color-card: #FFFFFF;
+          --color-surface: #F8F9FA;
+          --color-border: #E5E7EB;
+
+          /* Brand Colors */
+          --color-blue: #2563EB;
+          --color-blue-dark: #1D4ED8;
+          --color-blue-light: #3B82F6;
+          --color-green: #10B981;
+          --color-green-light: #34D399;
+          --color-green-dark: #059669;
+          --color-orange: #F59E0B;
+          --color-red: #EF4444;
+
+          /* Text Colors */
+          --color-text-primary: #1F2937;
+          --color-text-secondary: #6B7280;
+          --color-text-muted: #9CA3AF;
+          --color-text-white: #FFFFFF;
+
+          /* Typography */
+          --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+          /* Shadows */
+          --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+          --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+          --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+          /* Border Radius */
+          --radius-sm: 8px;
+          --radius-md: 12px;
+          --radius-lg: 16px;
+          --radius-xl: 20px;
+
+          /* Spacing */
+          --space-xs: 8px;
+          --space-sm: 12px;
+          --space-md: 16px;
+          --space-lg: 20px;
+          --space-xl: 24px;
+          --space-2xl: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--color-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* iPhone Frame */
+        .iphone-frame {
+            width: 380px;
+            height: 820px;
+            background: transparent;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .mobile-container {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-content {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .mobile-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: rgba(245, 247, 250, 0.9);
+            backdrop-filter: blur(10px);
+            font-size: 15px;
+            font-weight: 600;
+            height: 44px;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: rgba(245, 247, 250, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            height: 70px;
+            box-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.12);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .icon-btn .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        /* Content */
+        .content {
+            padding: var(--space-xl) var(--space-lg);
+        }
+
+        /* Nominee Card */
+        .nominee-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-lg);
+            position: relative;
+        }
+
+        /* Allocation Badge */
+        .allocation-badge {
+            position: absolute;
+            top: var(--space-xl);
+            right: var(--space-xl);
+            background: var(--color-blue);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 999px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* Nominee Fields */
+        .nominee-field {
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .nominee-field:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .nominee-field:first-child {
+            padding-top: 0;
+        }
+
+        .field-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .field-value {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+        }
+
+        /* Add Nominee Button */
+        .add-nominee-section {
+            margin-top: var(--space-lg);
+        }
+
+        .add-nominee-btn {
+            width: 100%;
+            padding: 14px 20px;
+            background: white;
+            color: var(--color-blue);
+            border: 2px solid var(--color-blue);
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-weight: 600;
+            font-family: var(--font-family);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .add-nominee-btn:active {
+            background: rgba(37, 99, 235, 0.05);
+            transform: scale(0.98);
+        }
+
+        .add-nominee-btn .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .add-nominee-note {
+            text-align: center;
+            font-size: 12px;
+            color: var(--color-text-muted);
+            margin-top: var(--space-sm);
+        }
+    </style>
+</head>
+<body>
+    <div class="iphone-frame">
+        <div class="iphone-screen">
+            <div class="mobile-container">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <div>9:41</div>
+                    <div class="status-icons">
+                        <span>•••</span>
+                        <span>📶</span>
+                        <span>🔋</span>
+                    </div>
+                </div>
+
+                <!-- Header -->
+                <div class="header">
+                    <div class="header-left">
+                        <button class="icon-btn" onclick="window.location.href='menu.html'">
+                            <span class="material-symbols-outlined">chevron_left</span>
+                        </button>
+                        <div class="header-title">Nominee Details</div>
+                    </div>
+                    <button class="icon-btn" onclick="editNominees()">
+                        <span class="material-symbols-outlined">edit_note</span>
+                    </button>
+                </div>
+
+                <!-- Content -->
+                <div class="mobile-content">
+                    <div class="content">
+                        <!-- Nominee 1 Card -->
+                        <div class="nominee-card">
+                            <div class="allocation-badge">60%</div>
+
+                            <div class="nominee-field">
+                                <div class="field-label">Full Name</div>
+                                <div class="field-value">Priya Khan</div>
+                            </div>
+
+                            <div class="nominee-field">
+                                <div class="field-label">Relationship</div>
+                                <div class="field-value">Spouse</div>
+                            </div>
+
+                            <div class="nominee-field">
+                                <div class="field-label">Date of Birth</div>
+                                <div class="field-value">15 Mar 1992</div>
+                            </div>
+
+                            <div class="nominee-field">
+                                <div class="field-label">PAN Number</div>
+                                <div class="field-value">BKLPK5678M</div>
+                            </div>
+                        </div>
+
+                        <!-- Nominee 2 Card -->
+                        <div class="nominee-card">
+                            <div class="allocation-badge">40%</div>
+
+                            <div class="nominee-field">
+                                <div class="field-label">Full Name</div>
+                                <div class="field-value">Rahul Khan</div>
+                            </div>
+
+                            <div class="nominee-field">
+                                <div class="field-label">Relationship</div>
+                                <div class="field-value">Son</div>
+                            </div>
+
+                            <div class="nominee-field">
+                                <div class="field-label">Date of Birth</div>
+                                <div class="field-value">22 Aug 2018</div>
+                            </div>
+
+                            <div class="nominee-field">
+                                <div class="field-label">PAN Number</div>
+                                <div class="field-value">Minor - Not Applicable</div>
+                            </div>
+                        </div>
+
+                        <!-- Add Nominee Button -->
+                        <div class="add-nominee-section">
+                            <button class="add-nominee-btn" onclick="addNominee()">
+                                <span class="material-symbols-outlined">add_circle</span>
+                                Add Nominee
+                            </button>
+                            <div class="add-nominee-note">You can add up to 3 nominees</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function editNominees() {
+            window.location.href = 'edit-nominees.html';
+        }
+
+        function addNominee() {
+            window.location.href = 'edit-nominees.html';
+        }
+
+        // Mobile touch interactions
+        document.querySelectorAll('.icon-btn, .add-nominee-btn').forEach(item => {
+            item.addEventListener('touchstart', function() {
+                this.style.transition = 'transform 0.1s ease';
+                this.style.transform = 'scale(0.98)';
+            });
+
+            item.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.transition = 'all 0.2s ease';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

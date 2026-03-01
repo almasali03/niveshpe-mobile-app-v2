@@ -1,0 +1,2875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - NiveshPe</title>
+
+    <!-- Meta Tags for Social Sharing -->
+    <meta name="description" content="View your complete portfolio breakdown - allocation, performance, holdings and more on NiveshPe">
+    <meta name="keywords" content="portfolio, investment, mutual funds, NiveshPe">
+    <meta name="author" content="NiveshPe">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="assets/css/my-funds.css">
+    <link rel="stylesheet" href="assets/css/iphone-toggle.css">
+
+    <style>
+        :root {
+            --color-bg-primary: #F5F7FA;
+            --color-blue: #2563EB;
+            --color-blue-dark: #1D4ED8;
+            --color-blue-light: #DBEAFE;
+            --color-blue-lighter: #EFF6FF;
+            --color-blue-medium: #93C5FD;
+            --color-blue-bg: rgba(37, 99, 235, 0.08);
+            --color-blue-icon-bg: rgba(37, 99, 235, 0.15);
+            --color-green: #10B981;
+            --color-green-light: #D1FAE5;
+            --color-green-ultralight: #ECFDF5;
+            --color-green-medium: #34D399;
+            --color-red: #EF4444;
+            --color-red-ultralight: rgba(239, 68, 68, 0.08);
+            --color-red-bg: rgba(239, 68, 68, 0.08);
+            --color-red-icon-bg: rgba(239, 68, 68, 0.15);
+            --color-orange: #F97316;
+            --color-orange-light: #FEF3C7;
+            --color-yellow: #F59E0B;
+            --color-yellow-bg: rgba(245, 158, 11, 0.08);
+            --color-yellow-icon-bg: rgba(245, 158, 11, 0.15);
+            --color-yellow-light: #FDE68A;
+            --color-text-primary: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-text-muted: #9CA3AF;
+            --color-border: #E5E7EB;
+            --color-surface: #F8F9FA;
+            --color-gray-light: #F3F4F6;
+            --color-bg-secondary: #FFFFFF;
+            --color-card: #FFFFFF;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+        }
+
+        /* NiveshPro Banner */
+        .niveshpro-banner {
+            background: linear-gradient(135deg, var(--color-orange-light) 0%, var(--color-yellow-light) 100%);
+            padding: 20px;
+            margin: 16px 16px 0;
+            border-radius: var(--radius-lg);
+            position: relative;
+        }
+
+        .banner-close {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+        }
+
+        .banner-content {
+            max-width: 70%;
+        }
+
+        .banner-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-orange);
+            margin-bottom: 8px;
+        }
+
+        .banner-title-large {
+            color: var(--color-text-primary);
+            font-size: 18px;
+        }
+
+        .banner-subtitle {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.4;
+        }
+
+        .banner-subtitle a {
+            color: var(--color-blue);
+            text-decoration: underline;
+        }
+
+        /* Current Value Card */
+        .current-value-card {
+            background: white;
+            padding: 24px 20px;
+            margin: 16px 16px 0;
+            border-radius: var(--radius-lg);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .value-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .value-label {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .value-amount {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--color-text-primary);
+        }
+
+        .value-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .icon-btn .material-symbols-outlined {
+            font-size: 20px;
+            color: var(--color-text-secondary);
+        }
+
+        /* Top Funds List in Current Value Card */
+        .top-funds-list {
+            border-top: 1px solid var(--color-border);
+            padding-top: 16px;
+            margin-bottom: 16px;
+        }
+
+        .top-funds-list .fund-list-item {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .top-funds-list .fund-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .fund-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        /* Show All Funds Button */
+        .show-all-funds-btn {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 12px 16px;
+            background: var(--color-surface);
+            color: var(--color-blue);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .show-all-funds-btn:hover {
+            background: var(--color-blue-light);
+        }
+
+        .show-all-funds-btn .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        /* Metrics Table */
+        .metrics-table {
+            border-top: 1px solid var(--color-border);
+            padding-top: 16px;
+        }
+
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+
+        .metric-value {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .metric-value.positive {
+            color: var(--color-green);
+        }
+
+        /* Amount visibility toggle */
+        .amount-value.hidden {
+            opacity: 1 !important;
+            visibility: visible !important;
+            user-select: none;
+        }
+
+        /* Portfolio Summary Card */
+        .portfolio-summary-card {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            margin: 16px 16px 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .summary-header .material-symbols-outlined {
+            font-size: 20px;
+            color: var(--color-text-secondary);
+        }
+
+        .summary-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            flex: 1;
+        }
+
+        .summary-insights {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .insight-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px;
+            border-radius: var(--radius-md);
+        }
+
+        .insight-item.warning {
+            background: var(--color-red-bg);
+        }
+
+        .insight-item.recommendation {
+            background: var(--color-yellow-bg);
+        }
+
+        .insight-item.info {
+            background: var(--color-blue-bg);
+        }
+
+        .insight-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .insight-item.warning .insight-icon {
+            background: var(--color-red-icon-bg);
+        }
+
+        .insight-item.recommendation .insight-icon {
+            background: var(--color-yellow-icon-bg);
+        }
+
+        .insight-item.info .insight-icon {
+            background: var(--color-blue-icon-bg);
+        }
+
+        .insight-icon .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .insight-item.warning .insight-icon .material-symbols-outlined {
+            color: var(--color-red);
+        }
+
+        .insight-item.recommendation .insight-icon .material-symbols-outlined {
+            color: var(--color-orange);
+        }
+
+        .insight-item.info .insight-icon .material-symbols-outlined {
+            color: var(--color-blue);
+        }
+
+        .insight-content {
+            flex: 1;
+            padding-top: 2px;
+        }
+
+        .insight-text {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--color-text-primary);
+        }
+
+        .insight-highlight {
+            font-weight: 700;
+        }
+
+        .insight-item.warning .insight-highlight {
+            color: var(--color-red);
+        }
+
+        .insight-item.recommendation .insight-highlight {
+            color: var(--color-orange);
+        }
+
+        .insight-item.info .insight-highlight {
+            color: var(--color-blue);
+        }
+
+        /* SVG Chart Colors */
+        .venn-primary {
+            fill: var(--color-blue);
+        }
+
+        .venn-secondary {
+            fill: var(--color-blue-medium);
+        }
+
+        /* Rebalancing Alert */
+        .rebalancing-alert {
+            background: var(--color-orange-light);
+            padding: 16px 20px;
+            margin: 16px 16px 0;
+            border-radius: var(--radius-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .alert-text {
+            font-size: 14px;
+            color: var(--color-orange);
+            font-weight: 500;
+            flex: 1;
+            padding-right: 12px;
+        }
+
+        .alert-text strong {
+            font-weight: 700;
+        }
+
+        .chevron-icon {
+            color: var(--color-orange);
+            font-size: 20px;
+        }
+
+        /* Fund Carousel */
+        .fund-carousel-section {
+            margin: 16px 0 0;
+            padding: 16px 0;
+            background: white;
+        }
+
+        .fund-carousel {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 0 16px 16px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .fund-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .fund-item {
+            flex-shrink: 0;
+            text-align: center;
+            width: 100px;
+            scroll-snap-align: start;
+        }
+
+        .fund-logo {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-md);
+            background: var(--color-surface);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+            border: 1px solid var(--color-border);
+        }
+
+        .fund-name {
+            font-size: 11px;
+            color: var(--color-text-secondary);
+            line-height: 1.3;
+        }
+
+        /* Active Funds Button */
+        .active-funds-btn {
+            background: var(--color-surface);
+            border: none;
+            padding: 16px 20px;
+            margin: 16px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            cursor: pointer;
+        }
+
+        /* Performance Section */
+        .performance-section {
+            background: white;
+            padding: 24px 0;
+            margin-top: 16px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px 16px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-icon {
+            font-size: 18px;
+            color: var(--color-text-muted);
+        }
+
+        .section-link {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            text-decoration: underline;
+        }
+
+        .performance-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 0 20px;
+        }
+
+        .performance-card {
+            padding: 16px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .performance-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .performance-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .performance-icon .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .performance-text h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .performance-text p {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+        }
+
+        .fund-count {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            background: rgba(0, 0, 0, 0.05);
+            padding: 2px 8px;
+            border-radius: 12px;
+        }
+
+        /* Performance card variants */
+        .performance-card.performing-great {
+            background: var(--color-green-light);
+        }
+
+        .performance-card.performing-great .performance-icon {
+            background: var(--color-green);
+            color: white;
+        }
+
+        .performance-card.underperforming {
+            background: var(--color-orange-light);
+        }
+
+        .performance-card.underperforming .performance-icon {
+            background: var(--color-yellow);
+            color: white;
+        }
+
+        .performance-card.critical {
+            background: var(--color-red-ultralight);
+        }
+
+        .performance-card.critical .performance-icon {
+            background: var(--color-red);
+            color: white;
+        }
+
+        .performance-card.out-of-form {
+            background: var(--color-surface);
+        }
+
+        .performance-card.out-of-form .performance-icon {
+            background: var(--color-text-muted);
+            color: white;
+        }
+
+        .performance-card.unrated {
+            background: var(--color-gray-light);
+        }
+
+        .performance-card.unrated .performance-icon {
+            background: white;
+            border: 2px solid var(--color-border);
+            color: var(--color-text-primary);
+        }
+
+        /* Insights Section */
+        .insights-section {
+            padding: 24px 20px;
+            margin-top: 16px;
+            background: white;
+        }
+
+        .insights-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .insights-title .nivesh,
+        .summary-title .nivesh {
+            color: var(--color-blue);
+        }
+
+        .insights-title .pro {
+            color: var(--color-green);
+        }
+
+        .summary-title .pe {
+            color: var(--color-green);
+        }
+
+        .insight-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .insight-card {
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .insight-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--color-blue-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .insight-icon .material-symbols-outlined {
+            font-size: 20px;
+            color: var(--color-blue);
+        }
+
+        .insight-content {
+            flex: 1;
+        }
+
+        .insight-content h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .insight-content p {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+        }
+
+        /* Upgrade Banner */
+        .upgrade-banner {
+            background: var(--color-orange-light);
+            padding: 20px;
+            margin: 16px 16px 0;
+            border-radius: var(--radius-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .upgrade-content {
+            flex: 1;
+        }
+
+        .upgrade-content h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 6px;
+        }
+
+        .upgrade-content p {
+            font-size: 13px;
+            color: var(--color-orange);
+            line-height: 1.4;
+        }
+
+        /* Membership Question Card */
+        .membership-card {
+            background: white;
+            border: 1px solid var(--color-border);
+            padding: 16px 20px;
+            margin: 16px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .membership-card h3 {
+            font-size: 15px;
+            font-weight: 600;
+            flex: 1;
+        }
+
+        /* Portfolio vs Market */
+        .portfolio-vs-market {
+            background: white;
+            padding: 24px 20px;
+            margin-top: 16px;
+        }
+
+        .comparison-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .comparison-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .comparison-subtitle {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            margin-top: 4px;
+        }
+
+        .comparison-cards {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .comparison-card {
+            flex: 1;
+            padding: 16px;
+            border-radius: var(--radius-md);
+        }
+
+        .comparison-card.portfolio {
+            background: var(--color-blue-light);
+        }
+
+        .comparison-card.market {
+            background: var(--color-orange-light);
+        }
+
+        .comparison-card h4 {
+            font-size: 13px;
+            margin-bottom: 8px;
+        }
+
+        .comparison-card.portfolio h4 {
+            color: var(--color-blue);
+        }
+
+        .comparison-card.market h4 {
+            color: var(--color-orange);
+        }
+
+        .comparison-card .percentage {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .comparison-card .amount {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+        }
+
+        /* Chart */
+        .chart-container {
+            height: 200px;
+            margin: 24px 0;
+            position: relative;
+        }
+
+        .simplified-chart {
+            width: 100%;
+            height: 100%;
+            background: var(--color-surface);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            position: relative;
+        }
+
+        /* Time Period Buttons */
+        .time-buttons {
+            display: flex;
+            gap: 8px;
+            background: var(--color-surface);
+            padding: 8px;
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+        }
+
+        .time-btn {
+            flex: 1;
+            padding: 8px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+        }
+
+        .time-btn.active {
+            background: white;
+            color: var(--color-text-primary);
+        }
+
+        .last-updated {
+            font-size: 12px;
+            color: var(--color-text-muted);
+            text-align: center;
+        }
+
+        /* Recommendation Sections */
+        .recommendation-section {
+            background: var(--color-gray-light);
+            padding: 16px 20px;
+            border-radius: var(--radius-lg);
+            margin-top: 12px;
+        }
+
+        .recommendation-header {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .recommendation-header .material-symbols-outlined {
+            font-size: 18px;
+            color: var(--color-text-secondary);
+        }
+
+        .allocation-targets {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .allocation-target-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            background: white;
+            border-radius: var(--radius-md);
+        }
+
+        .allocation-target-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .allocation-target-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+        }
+
+        .allocation-target-bar {
+            flex: 1;
+            height: 4px;
+            background: var(--color-border);
+            border-radius: 2px;
+            position: relative;
+            max-width: 100px;
+        }
+
+        .allocation-target-fill {
+            height: 100%;
+            background: var(--color-blue);
+            border-radius: 2px;
+        }
+
+        .allocation-target-diff {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        .allocation-target-diff.positive {
+            color: var(--color-green);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .allocation-target-diff.negative {
+            color: var(--color-red);
+            background: rgba(239, 68, 68, 0.1);
+        }
+
+        /* Fund Chips */
+        .fund-chips-container {
+            margin-bottom: 16px;
+        }
+
+        .fund-chips-label {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .fund-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .fund-list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--color-border);
+            gap: 12px;
+        }
+
+        .fund-list-item:last-child {
+            border-bottom: none;
+        }
+
+        .fund-list-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .fund-list-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--color-blue-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--color-blue);
+            text-transform: uppercase;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .fund-list-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .fund-list-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+
+        .fund-list-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            line-height: 1.3;
+        }
+
+        .fund-list-detail {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        .fund-list-action {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 13px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .fund-list-action .material-symbols-outlined {
+            font-size: 18px;
+        }
+
+        .fund-list-action.add {
+            color: var(--color-green);
+        }
+
+        .fund-list-action.exit {
+            color: var(--color-red);
+        }
+
+        .fund-list-action.pause {
+            color: var(--color-orange);
+        }
+
+        .fund-list-action.switch {
+            color: var(--color-blue);
+        }
+
+        /* Action Buttons */
+        .action-button {
+            width: 100%;
+            padding: 12px 16px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .action-button-primary {
+            background: var(--color-blue);
+            color: white;
+        }
+
+        .action-button-primary:active {
+            background: var(--color-blue-dark);
+        }
+
+        .action-button-success {
+            background: var(--color-green);
+            color: white;
+        }
+
+        .action-button-warning {
+            background: var(--color-yellow);
+            color: white;
+        }
+
+        .action-button-danger {
+            background: var(--color-red);
+            color: white;
+        }
+
+        .action-button-small {
+            padding: 6px 12px;
+            font-size: 12px;
+            width: auto;
+            border: 1px solid;
+        }
+
+        .action-button-small.outlined-red {
+            background: transparent;
+            color: var(--color-red);
+            border-color: var(--color-red);
+        }
+
+        .action-button-small.outlined-orange {
+            background: transparent;
+            color: var(--color-orange);
+            border-color: var(--color-orange);
+        }
+
+        .action-button-small.outlined-blue {
+            background: transparent;
+            color: var(--color-blue);
+            border-color: var(--color-blue);
+        }
+
+        .action-button-small.outlined-gray {
+            background: transparent;
+            color: var(--color-text-secondary);
+            border-color: var(--color-border);
+        }
+
+        /* Alert Banner */
+        .alert-banner {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 3px solid var(--color-orange);
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+        }
+
+        .alert-banner .material-symbols-outlined {
+            color: var(--color-orange);
+            font-size: 20px;
+        }
+
+        .alert-banner-text {
+            flex: 1;
+            font-size: 13px;
+            color: var(--color-text-primary);
+            line-height: 1.4;
+        }
+
+        /* Action Pill */
+        .action-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: var(--color-blue);
+            color: white;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 12px 0 12px auto;
+            border: none;
+            transition: all 0.2s;
+        }
+
+        /* Action Pill Wrapper for right alignment */
+        .action-pill-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            padding: 0 20px;
+        }
+
+        .action-pill:active {
+            background: var(--color-blue-dark);
+            transform: scale(0.98);
+        }
+
+        .action-pill .material-symbols-outlined {
+            font-size: 16px;
+        }
+
+        /* Recommendation Overlay */
+        .recommendation-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            display: none;
+        }
+
+        .recommendation-overlay.active {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        /* Make mobile-container positioned for overlay containment */
+        .mobile-container {
+            position: relative;
+        }
+
+        .overlay-content {
+            background: white;
+            width: 100%;
+            max-height: 85vh;
+            border-radius: 24px 24px 0 0;
+            padding: 24px 20px;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+
+        .overlay-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .overlay-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .overlay-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .overlay-close .material-symbols-outlined {
+            font-size: 24px;
+            color: var(--color-text-secondary);
+        }
+
+        .overlay-section {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .overlay-section:last-child {
+            border-bottom: none;
+        }
+
+        .overlay-section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 8px;
+        }
+
+        .overlay-section-desc {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            margin-bottom: 12px;
+        }
+
+        /* Update fund chip logo for initials */
+        .fund-chip-logo {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--color-blue-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--color-blue);
+            text-transform: uppercase;
+            flex-shrink: 0;
+        }
+
+        /* Portfolio Breakdown */
+        .portfolio-breakdown {
+            background: white;
+            padding: 24px 0;
+            margin-top: 16px;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .breakdown-title {
+            font-size: 20px;
+            font-weight: 700;
+            padding: 0 20px 16px;
+        }
+
+        .breakdown-items {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .breakdown-item {
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            width: 100%;
+        }
+
+        .breakdown-header {
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .breakdown-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .breakdown-icon .material-symbols-outlined {
+            font-size: 24px;
+            color: var(--color-text-secondary);
+        }
+
+        .breakdown-text {
+            flex: 1;
+            text-align: left;
+        }
+
+        .breakdown-text h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            text-align: left;
+        }
+
+        .breakdown-text p {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            text-align: left;
+        }
+
+        .breakdown-chevron {
+            font-size: 24px;
+            color: var(--color-text-muted);
+            transition: transform 0.2s;
+        }
+
+        .breakdown-item.expanded .breakdown-chevron {
+            transform: rotate(180deg);
+        }
+
+        .breakdown-content {
+            display: none;
+            padding: 0 20px 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .breakdown-item.expanded .breakdown-content {
+            display: block;
+        }
+
+        /* Allocation Content */
+        .allocation-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .allocation-item {
+            text-align: center;
+            padding: 16px;
+            background: var(--color-surface);
+            border-radius: var(--radius-md);
+        }
+
+        .allocation-item h4 {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .allocation-item .percentage {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        /* Distribution Content */
+        .distribution-tabs {
+            display: flex;
+            gap: 8px;
+            background: var(--color-surface);
+            padding: 4px;
+            border-radius: var(--radius-md);
+            margin-bottom: 16px;
+        }
+
+        .distribution-tab {
+            flex: 1;
+            padding: 8px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+        }
+
+        .distribution-tab.active {
+            background: white;
+            color: var(--color-text-primary);
+        }
+
+        .market-cap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .market-cap-bars {
+            display: flex;
+            gap: 4px;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+
+        .market-cap-bar {
+            background: var(--color-blue);
+        }
+
+        .market-cap-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .market-cap-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .market-cap-item::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-blue);
+            margin-right: 8px;
+        }
+
+        .sector-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sector-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sector-name {
+            font-size: 14px;
+            color: var(--color-blue);
+        }
+
+        .sector-percentage {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .view-all-btn {
+            width: 100%;
+            padding: 12px;
+            background: var(--color-surface);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            margin-top: 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Frame Toggle Button -->
+    <button class="frame-toggle-btn" id="frameToggleBtn" onclick="toggleFrameMode()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
+        </svg>
+        <span id="frameToggleText">Normal View</span>
+    </button>
+
+    <div class="app-container">
+        <div class="iphone-frame">
+            <!-- iPhone Notch (Dynamic Island style) -->
+            <div class="iphone-notch"></div>
+
+            <div class="iphone-screen">
+                <div class="mobile-container">
+                    <!-- Status Bar -->
+                    <div class="status-bar">
+                        <div class="status-left">
+                            <span class="time">9:41</span>
+                        </div>
+                        <div class="status-right">
+                            <span class="battery">87%</span>
+                            <div class="signal-bars">
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="header" style="justify-content: center; position: relative;">
+                        <div class="header-title">Portfolio</div>
+                        <div class="header-actions" style="position: absolute; right: 20px;">
+                            <button class="icon-btn" onclick="window.location.href='menu.html'">
+                                <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="44" height="44" rx="12" fill="#F1F5F9"/>
+                                    <circle cx="22" cy="18" r="5" stroke="#2563EB" stroke-width="2" fill="none"/>
+                                    <path d="M14 32C14 28 17 25 22 25C27 25 30 28 30 32" stroke="#2563EB" stroke-width="2" stroke-linecap="round" fill="none"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Scrollable Content -->
+                    <div class="scroll-content">
+                        <!-- NiveshPro Banner -->
+                        <!-- <div class="niveshpro-banner" id="niveshproBanner">
+                            <button class="banner-close" onclick="document.getElementById('niveshproBanner').style.display='none'">×</button>
+                            <div class="banner-content">
+                                <div class="banner-title">
+                                    15,000+ members on<br>
+                                    <span class="banner-title-large">NiveshPro</span>
+                                </div>
+                                <div class="banner-subtitle">
+                                    Explore all the benefits you unlock with the NiveshPro membership <a href="#">here</a>.
+                                </div>
+                            </div>
+                        </div> -->
+
+                        <!-- Current Value Card -->
+                        <div class="current-value-card">
+                            <div class="value-header">
+                                <div>
+                                    <div class="value-label">Current Value</div>
+                                    <div class="value-amount"><span class="amount-value">₹10,35,962</span></div>
+                                </div>
+                                <div class="value-actions">
+                                    <button class="icon-btn">
+                                        <span class="material-symbols-outlined">refresh</span>
+                                    </button>
+                                    <button class="icon-btn" id="toggleVisibility" onclick="toggleAmountVisibility()">
+                                        <span class="material-symbols-outlined" id="visibilityIcon">visibility</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Top 3 Funds -->
+                            <div class="top-funds-list">
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">DET</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">DSP ELSS Tax Saver</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹1,90,401</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">MAM</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Mirae Asset Midcap</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹1,44,270</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">PPF</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Parag Parikh Flexi Cap</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹1,16,565</span></div>
+                                </div>
+                            </div>
+
+                            <!-- Show All Button -->
+                            <button class="show-all-funds-btn" onclick="openOverlay('allFundsOverlay')">
+                                View 19 Other Funds
+                                <span class="material-symbols-outlined">chevron_right</span>
+                            </button>
+                        </div>
+
+                        <!-- Portfolio Summary Card (NiveshPe Insights) -->
+                        <div class="portfolio-summary-card" id="insights">
+                            <div class="summary-header">
+                                <div class="summary-title"><span class="nivesh">Nivesh</span><span class="pe">Pe</span> Insights</div>
+                                <span class="material-symbols-outlined">info</span>
+                            </div>
+
+                            <div class="summary-insights">
+                                <!-- Overall Returns - Info -->
+                                <div class="insight-item info">
+                                    <div class="insight-icon">
+                                        <span class="material-symbols-outlined">trending_up</span>
+                                    </div>
+                                    <div class="insight-content">
+                                        <div class="insight-text">Your portfolio has generated <span class="insight-highlight">+₹2,71,784</span> in absolute returns (<span class="insight-highlight">+26.77%</span>)</div>
+                                    </div>
+                                </div>
+
+                                <!-- Asset Allocation - Warning -->
+                                <div class="insight-item warning">
+                                    <div class="insight-icon">
+                                        <span class="material-symbols-outlined">pie_chart</span>
+                                    </div>
+                                    <div class="insight-content">
+                                        <div class="insight-text">Your portfolio has <span class="insight-highlight">98.18% in Equity</span>, only <span class="insight-highlight">0.03% in Debt</span>. High concentration risk detected.</div>
+                                    </div>
+                                </div>
+
+                                <!-- Gold Allocation - Recommendation -->
+                                <div class="insight-item recommendation">
+                                    <div class="insight-icon">
+                                        <span class="material-symbols-outlined">savings</span>
+                                    </div>
+                                    <div class="insight-content">
+                                        <div class="insight-text">Gold allocation is at <span class="insight-highlight">1.79%</span>. Consider increasing to <span class="insight-highlight">10%</span> for better diversification.</div>
+                                    </div>
+                                </div>
+
+                                <!-- Performance Summary - Info -->
+                                <div class="insight-item info">
+                                    <div class="insight-icon">
+                                        <span class="material-symbols-outlined">stars</span>
+                                    </div>
+                                    <div class="insight-content">
+                                        <div class="insight-text"><span class="insight-highlight">5 funds</span> are performing exceptionally well (>50% returns), including Mirae Asset ELSS with <span class="insight-highlight">+276%</span> returns!</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action Pill -->
+                            <div class="action-pill-wrapper">
+                                <button class="action-pill" onclick="openOverlay('summaryOverlay')">
+                                    Take Action
+                                    <span class="material-symbols-outlined">chevron_right</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Rebalancing Alert -->
+                        <div class="rebalancing-alert">
+                            <div class="alert-text">
+                                Get a personalised Rebalancing Plan for your Portfolio
+                            </div>
+                            <span class="material-symbols-outlined chevron-icon">chevron_right</span>
+                        </div>
+
+                        <!-- Performance Section -->
+                        <div class="performance-section">
+                            <div class="section-header">
+                                <div class="section-title">
+                                    Performance
+                                    <span class="material-symbols-outlined info-icon">info</span>
+                                </div>
+                                <a href="#" class="section-link">Changes last month</a>
+                            </div>
+
+                            <div class="performance-cards">
+                                <div class="performance-card performing-great">
+                                    <div class="performance-left">
+                                        <div class="performance-icon">
+                                            <span class="material-symbols-outlined">trending_up</span>
+                                        </div>
+                                        <div class="performance-text">
+                                            <h3>On Track <span class="fund-count">5</span></h3>
+                                            <p>Performing great</p>
+                                        </div>
+                                    </div>
+                                    <span class="material-symbols-outlined">chevron_right</span>
+                                </div>
+
+                                <div class="performance-card underperforming">
+                                    <div class="performance-left">
+                                        <div class="performance-icon">
+                                            <span class="material-symbols-outlined">south</span>
+                                        </div>
+                                        <div class="performance-text">
+                                            <h3>Underperforming <span class="fund-count">4</span></h3>
+                                            <p>Don't invest further</p>
+                                        </div>
+                                    </div>
+                                    <span class="material-symbols-outlined">chevron_right</span>
+                                </div>
+
+                                <div class="performance-card critical">
+                                    <div class="performance-left">
+                                        <div class="performance-icon">
+                                            <span class="material-symbols-outlined">keyboard_double_arrow_down</span>
+                                        </div>
+                                        <div class="performance-text">
+                                            <h3>Critical <span class="fund-count">6</span></h3>
+                                            <p>Exit now</p>
+                                        </div>
+                                    </div>
+                                    <span class="material-symbols-outlined">chevron_right</span>
+                                </div>
+
+                                <div class="performance-card unrated">
+                                    <div class="performance-left">
+                                        <div class="performance-icon">
+                                            <span class="material-symbols-outlined">remove</span>
+                                        </div>
+                                        <div class="performance-text">
+                                            <h3>Unrated <span class="fund-count">7</span></h3>
+                                        </div>
+                                    </div>
+                                    <span class="material-symbols-outlined">chevron_right</span>
+                                </div>
+                            </div>
+
+                            <!-- Action Pill -->
+                            <div class="action-pill-wrapper">
+                                <button class="action-pill" onclick="openOverlay('performanceOverlay')">
+                                    View Recommended Actions
+                                    <span class="material-symbols-outlined">chevron_right</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Upgrade to NiveshPro -->
+                        <!-- <div class="upgrade-banner">
+                            <div class="upgrade-content">
+                                <h3>Upgrade to NiveshPro</h3>
+                                <p>Unlock Power Rank, Power Rebalance, Elite Scores and much more...</p>
+                            </div>
+                            <span class="material-symbols-outlined chevron-icon">chevron_right</span>
+                        </div> -->
+
+                        <!-- Membership Question Card -->
+                        <!-- <div class="membership-card">
+                            <h3>Is the NiveshPro membership for you?</h3>
+                            <span class="material-symbols-outlined">chevron_right</span>
+                        </div> -->
+
+                        <!-- Portfolio vs Market -->
+                        <div class="portfolio-vs-market">
+                            <div class="comparison-header">
+                                <div>
+                                    <h2 class="comparison-title">Portfolio vs Market</h2>
+                                    <p class="comparison-subtitle">1W Absolute Returns</p>
+                                </div>
+                                <span class="material-symbols-outlined info-icon">help</span>
+                            </div>
+
+                            <div class="comparison-cards">
+                                <div class="comparison-card portfolio">
+                                    <h4>My Portfolio</h4>
+                                    <div class="percentage">0.31%</div>
+                                    <div class="amount">₹10,08,159.69</div>
+                                </div>
+
+                                <div class="comparison-card market">
+                                    <h4>NIFTY 50</h4>
+                                    <div class="percentage">0.33%</div>
+                                    <div class="amount">₹10,08,218.56</div>
+                                </div>
+                            </div>
+
+                            <div class="chart-container">
+                                <div class="simplified-chart">
+                                    <!-- Simplified chart placeholder -->
+                                    <svg width="100%" height="100%" viewBox="0 0 300 150">
+                                        <!-- Grid lines -->
+                                        <line x1="0" y1="30" x2="300" y2="30" stroke="#E5E7EB" stroke-width="1"/>
+                                        <line x1="0" y1="75" x2="300" y2="75" stroke="#E5E7EB" stroke-width="1"/>
+                                        <line x1="0" y1="120" x2="300" y2="120" stroke="#E5E7EB" stroke-width="1"/>
+
+                                        <!-- Blue line (Portfolio) -->
+                                        <polyline points="0,100 60,60 120,110 180,35 240,30 300,35"
+                                                  fill="none" stroke="#2563EB" stroke-width="2"/>
+
+                                        <!-- Orange line (NIFTY 50) -->
+                                        <polyline points="0,110 60,80 120,125 180,45 240,40 300,45"
+                                                  fill="none" stroke="#F97316" stroke-width="2"/>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div class="time-buttons">
+                                <button class="time-btn">1D</button>
+                                <button class="time-btn active">1W</button>
+                                <button class="time-btn">1M</button>
+                                <button class="time-btn">3M</button>
+                                <button class="time-btn">6M</button>
+                                <button class="time-btn">1Y</button>
+                            </div>
+
+                            <div class="last-updated">Last updated on 29 Oct 2025</div>
+                        </div>
+
+                        <!-- Portfolio Breakdown -->
+                        <div class="portfolio-breakdown">
+                            <h2 class="breakdown-title">Portfolio Breakdown</h2>
+
+                            <div class="breakdown-items">
+                                <!-- Allocation -->
+                                <div class="breakdown-item expanded" id="allocationItem">
+                                    <div class="breakdown-header" onclick="toggleBreakdown('allocationItem')">
+                                        <div class="breakdown-icon">
+                                            <span class="material-symbols-outlined">view_agenda</span>
+                                        </div>
+                                        <div class="breakdown-text">
+                                            <h3>Allocation</h3>
+                                            <p>Equity, Debt and others</p>
+                                        </div>
+                                        <span class="material-symbols-outlined breakdown-chevron">expand_more</span>
+                                    </div>
+                                    <div class="breakdown-content">
+                                        <div class="allocation-grid">
+                                            <div class="allocation-item">
+                                                <h4>Equity</h4>
+                                                <div class="percentage">88.74%</div>
+                                            </div>
+                                            <div class="allocation-item">
+                                                <h4>Debt</h4>
+                                                <div class="percentage">0.13%</div>
+                                            </div>
+                                            <div class="allocation-item">
+                                                <h4>Others</h4>
+                                                <div class="percentage">11.13%</div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Action Pill -->
+                                        <div class="action-pill-wrapper">
+                                            <button class="action-pill" onclick="openOverlay('allocationOverlay')">
+                                                Rebalance Portfolio
+                                                <span class="material-symbols-outlined">chevron_right</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Distribution -->
+                                <div class="breakdown-item expanded" id="distributionItem">
+                                    <div class="breakdown-header" onclick="toggleBreakdown('distributionItem')">
+                                        <div class="breakdown-icon">
+                                            <span class="material-symbols-outlined">pie_chart</span>
+                                        </div>
+                                        <div class="breakdown-text">
+                                            <h3>Distribution</h3>
+                                            <p>Sectors & Holdings</p>
+                                        </div>
+                                        <span class="material-symbols-outlined breakdown-chevron">expand_more</span>
+                                    </div>
+                                    <div class="breakdown-content">
+                                        <div class="distribution-tabs">
+                                            <button class="distribution-tab active">Sectors</button>
+                                            <button class="distribution-tab">Holdings</button>
+                                        </div>
+
+                                        <div class="market-cap-header">
+                                            <span style="font-size: 14px; font-weight: 600;">Distribution</span>
+                                            <span style="font-size: 13px; color: var(--color-blue);">Market Cap ⇅</span>
+                                        </div>
+
+                                        <div class="market-cap-bars">
+                                            <div class="market-cap-bar" style="flex: 39.19;"></div>
+                                            <div class="market-cap-bar" style="flex: 30.61;"></div>
+                                            <div class="market-cap-bar" style="flex: 30.2;"></div>
+                                        </div>
+
+                                        <div class="market-cap-list">
+                                            <div class="market-cap-item">
+                                                <span style="font-size: 14px;">Large Cap</span>
+                                                <span style="font-size: 14px; font-weight: 600;">39.19%</span>
+                                            </div>
+                                            <div class="market-cap-item">
+                                                <span style="font-size: 14px;">Small Cap</span>
+                                                <span style="font-size: 14px; font-weight: 600;">30.61%</span>
+                                            </div>
+                                            <div class="market-cap-item">
+                                                <span style="font-size: 14px;">Mid Cap</span>
+                                                <span style="font-size: 14px; font-weight: 600;">30.2%</span>
+                                            </div>
+                                        </div>
+
+                                        <div style="margin-top: 24px;">
+                                            <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 12px;">Sectors</h4>
+                                            <div class="sector-list">
+                                                <div class="sector-item">
+                                                    <span class="sector-name">Financial Services</span>
+                                                    <span class="sector-percentage">23.17%</span>
+                                                </div>
+                                                <div class="sector-item">
+                                                    <span class="sector-name">Consumer Cyclical</span>
+                                                    <span class="sector-percentage">13.86%</span>
+                                                </div>
+                                                <div class="sector-item">
+                                                    <span class="sector-name">Healthcare</span>
+                                                    <span class="sector-percentage">11.05%</span>
+                                                </div>
+                                                <div class="sector-item">
+                                                    <span class="sector-name">Industrial</span>
+                                                    <span class="sector-percentage">9.51%</span>
+                                                </div>
+                                                <div class="sector-item">
+                                                    <span class="sector-name">Basic Materials</span>
+                                                    <span class="sector-percentage">7.43%</span>
+                                                </div>
+                                            </div>
+                                            <button class="view-all-btn">View All (11)</button>
+
+                                            <!-- Action Pill -->
+                                            <div class="action-pill-wrapper">
+                                                <button class="action-pill" onclick="openOverlay('diversificationOverlay')">
+                                                    Recommended Diversification
+                                                    <span class="material-symbols-outlined">chevron_right</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- History -->
+                                <!-- COMMENTED OUT: History section hidden from UI
+                                <div class="breakdown-item" id="historyItem">
+                                    <div class="breakdown-header" onclick="toggleBreakdown('historyItem')">
+                                        <div class="breakdown-icon">
+                                            <span class="material-symbols-outlined">history</span>
+                                        </div>
+                                        <div class="breakdown-text">
+                                            <h3>History</h3>
+                                            <p>Investments & Withdrawals</p>
+                                        </div>
+                                        <span class="material-symbols-outlined breakdown-chevron">expand_more</span>
+                                    </div>
+                                    <div class="breakdown-content">
+                                        <div class="distribution-tabs">
+                                            <button class="distribution-tab active">Overview</button>
+                                            <button class="distribution-tab">Investments</button>
+                                            <button class="distribution-tab">Withdrawals</button>
+                                        </div>
+
+                                        <h4 style="font-size: 16px; font-weight: 600; margin-bottom: 12px;">Portfolio Journey</h4>
+
+                                        <div class="allocation-grid">
+                                            <div class="allocation-item" style="background: var(--color-blue-light);">
+                                                <h4 style="color: var(--color-blue);">Total Value</h4>
+                                                <div class="percentage">₹10L</div>
+                                            </div>
+                                            <div class="allocation-item" style="background: var(--color-blue-light);">
+                                                <h4 style="color: var(--color-blue);">Invested</h4>
+                                                <div class="percentage">₹7.1L</div>
+                                            </div>
+                                            <div class="allocation-item" style="background: var(--color-green-light);">
+                                                <h4 style="color: var(--color-green);">Returns</h4>
+                                                <div class="percentage">+₹2.9L</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="chart-container" style="margin-top: 24px;">
+                                            <div class="simplified-chart">
+                                                <svg width="100%" height="100%" viewBox="0 0 300 150">
+                                                    <line x1="0" y1="30" x2="300" y2="30" stroke="#E5E7EB" stroke-width="1"/>
+                                                    <line x1="0" y1="75" x2="300" y2="75" stroke="#E5E7EB" stroke-width="1"/>
+                                                    <line x1="0" y1="120" x2="300" y2="120" stroke="#E5E7EB" stroke-width="1"/>
+
+                                                    <polyline points="0,140 50,135 100,125 150,90 200,40 250,20 300,15"
+                                                              fill="none" stroke="#2563EB" stroke-width="2"/>
+                                                    <polyline points="0,145 50,140 100,130 150,95 200,50 250,35 300,30"
+                                                              fill="none" stroke="#93C5FD" stroke-width="1.5"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        <div class="time-buttons">
+                                            <button class="time-btn">3M</button>
+                                            <button class="time-btn">6M</button>
+                                            <button class="time-btn">1Y</button>
+                                            <button class="time-btn">3Y</button>
+                                            <button class="time-btn">5Y</button>
+                                            <button class="time-btn active">ALL</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                END COMMENTED OUT -->
+
+                                <!-- Overlap Calculator -->
+                                <div class="breakdown-item expanded" id="overlapItem">
+                                    <div class="breakdown-header" onclick="toggleBreakdown('overlapItem')">
+                                        <div class="breakdown-icon">
+                                            <span class="material-symbols-outlined">join_inner</span>
+                                        </div>
+                                        <div class="breakdown-text">
+                                            <h3>Overlap Calculator</h3>
+                                            <p>Common holdings in two funds</p>
+                                        </div>
+                                        <span class="material-symbols-outlined breakdown-chevron">expand_more</span>
+                                    </div>
+                                    <div class="breakdown-content">
+                                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px;">
+                                            <div>
+                                                <label style="font-size: 12px; color: var(--color-blue); margin-bottom: 4px; display: block;">Fund A</label>
+                                                <select style="width: 100%; padding: 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 13px;">
+                                                    <option>DSP ELSS Tax Saver Direct Gro...</option>
+                                                </select>
+                                            </div>
+                                            <div>
+                                                <label style="font-size: 12px; color: var(--color-blue); margin-bottom: 4px; display: block;">Fund B</label>
+                                                <select style="width: 100%; padding: 10px; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font-size: 13px;">
+                                                    <option>Mirae Asset Midcap Fund Dire...</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Venn Diagram -->
+                                        <div style="text-align: center; margin: 32px 0;">
+                                            <svg width="200" height="120" viewBox="0 0 200 120" style="margin: 0 auto;">
+                                                <circle cx="70" cy="60" r="50" class="venn-primary" opacity="0.5"/>
+                                                <circle cx="130" cy="60" r="50" class="venn-secondary" opacity="0.5"/>
+                                            </svg>
+                                            <div style="font-size: 32px; font-weight: 700; color: var(--color-blue); margin-top: 16px;">11.49% Overlap</div>
+                                            <div style="display: flex; gap: 8px; justify-content: center; margin-top: 12px;">
+                                                <span style="padding: 4px 12px; background: var(--color-surface); border-radius: 12px; font-size: 12px;">Low Overlap</span>
+                                                <span style="padding: 4px 12px; background: var(--color-surface); border-radius: 12px; font-size: 12px;">Good Diversification</span>
+                                            </div>
+                                            <p style="font-size: 13px; color: var(--color-text-secondary); margin-top: 12px;">
+                                                Funds show very low overlap, indicating good diversification between both funds.
+                                            </p>
+                                        </div>
+
+                                        <!-- Common Stocks Table -->
+                                        <div>
+                                            <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; padding: 8px 0; border-bottom: 1px solid var(--color-border);">
+                                                <span>Common Stocks</span>
+                                                <div style="display: flex; gap: 32px;">
+                                                    <span style="color: var(--color-blue);">Fund A</span>
+                                                    <span style="color: var(--color-blue);">Fund B</span>
+                                                </div>
+                                            </div>
+                                            <div style="font-size: 13px;">
+                                                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--color-border);">
+                                                    <span>Max Financial Services Ltd</span>
+                                                    <div style="display: flex; gap: 32px;">
+                                                        <span>1.72%</span>
+                                                        <span>1.75%</span>
+                                                    </div>
+                                                </div>
+                                                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--color-border);">
+                                                    <span>Axis Bank Ltd</span>
+                                                    <div style="display: flex; gap: 32px;">
+                                                        <span>5.38%</span>
+                                                        <span>1.62%</span>
+                                                    </div>
+                                                </div>
+                                                <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--color-border);">
+                                                    <span>Indus Towers Ltd Ordinary Shares</span>
+                                                    <div style="display: flex; gap: 32px;">
+                                                        <span>1.38%</span>
+                                                        <span>1.37%</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enhanced Bottom Navigation -->
+                    <nav class="bottom-nav">
+                        <a href="index.html" class="nav-item">
+                            <div class="nav-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                                </svg>
+                            </div>
+                            <span class="nav-label">Home</span>
+                        </a>
+                        <a href="my-funds.html" class="nav-item">
+                            <div class="nav-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M13.66 7C13.1 5.82 11.9 5 10.5 5H6V3h12v2h-3.26c.48.58.84 1.26 1.05 2H18v2h-2.02c-.25 2.8-2.61 5-5.48 5h-.73l6.73 7h-2.77L7 14v-2h3.5c1.76 0 3.22-1.3 3.46-3H6V7h7.66z"/>
+                                </svg>
+                            </div>
+                            <span class="nav-label">My Funds</span>
+                        </a>
+                        <a href="mutual-funds.html" class="nav-item">
+                            <div class="nav-icon">
+                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.5 20V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M18.5 20V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M6.5 20V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span class="nav-label">Mutual Funds</span>
+                        </a>
+                        <a href="portfolio.html" class="nav-item active">
+                            <div class="nav-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M11,2V22C5.9,21.5 2,17.2 2,12C2,6.8 5.9,2.5 11,2M13,2V11H22C21.5,6.2 17.8,2.5 13,2M13,13V22C17.7,21.5 21.5,17.8 22,13H13Z"/>
+                                </svg>
+                            </div>
+                            <span class="nav-label">Portfolio</span>
+                        </a>
+                    </nav>
+
+                    <!-- Asset Allocation Overlay -->
+                    <div class="recommendation-overlay" id="allocationOverlay">
+                        <div class="overlay-content">
+                            <div class="overlay-header">
+                                <div class="overlay-title">Rebalance Portfolio</div>
+                                <button class="overlay-close" onclick="closeOverlay('allocationOverlay')">
+                                    <span class="material-symbols-outlined">close</span>
+                                </button>
+                            </div>
+
+                            <div class="allocation-targets">
+                                <div class="allocation-target-item">
+                                    <div class="allocation-target-left">
+                                        <div class="allocation-target-name">Equity: 88.74% → 80%</div>
+                                    </div>
+                                    <div class="allocation-target-diff negative">-8.74%</div>
+                                </div>
+                                <div class="allocation-target-item">
+                                    <div class="allocation-target-left">
+                                        <div class="allocation-target-name">Debt: 0.13% → 15%</div>
+                                    </div>
+                                    <div class="allocation-target-diff positive">+14.87%</div>
+                                </div>
+                                <div class="allocation-target-item">
+                                    <div class="allocation-target-left">
+                                        <div class="allocation-target-name">Gold: 0% → 10%</div>
+                                    </div>
+                                    <div class="allocation-target-diff positive">+10%</div>
+                                </div>
+                            </div>
+
+                            <div class="fund-chips-container">
+                                <div class="fund-chips-label">Reduce Equity</div>
+                                <div class="fund-list">
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">ABL</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">Axis Bluechip</div>
+                                                <div class="fund-list-detail">-₹45,000</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action exit">
+                                            Exit
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">PPF</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">Parag Parikh Flexi</div>
+                                                <div class="fund-list-detail">-₹40,000</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action exit">
+                                            Exit
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fund-chips-container">
+                                <div class="fund-chips-label">Add Debt Funds</div>
+                                <div class="fund-list">
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">HCB</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">HDFC Corporate Bond</div>
+                                                <div class="fund-list-detail">+₹60,000</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action add">
+                                            Add
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">IPC</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">ICICI Prudential Corporate</div>
+                                                <div class="fund-list-detail">+₹50,000</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action add">
+                                            Add
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fund-chips-container">
+                                <div class="fund-chips-label">Add Gold</div>
+                                <div class="fund-list">
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">SGF</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">SBI Gold Fund</div>
+                                                <div class="fund-list-detail">+₹50,000</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action add">
+                                            Add
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="action-button action-button-primary">
+                                Apply Rebalancing Plan
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Performance Overlay -->
+                    <div class="recommendation-overlay" id="performanceOverlay">
+                        <div class="overlay-content">
+                            <div class="overlay-header">
+                                <div class="overlay-title">Recommended Actions</div>
+                                <button class="overlay-close" onclick="closeOverlay('performanceOverlay')">
+                                    <span class="material-symbols-outlined">close</span>
+                                </button>
+                            </div>
+
+                            <div class="overlay-section">
+                                <div class="overlay-section-title">On Track (5 funds)</div>
+                                <div class="overlay-section-desc">Increase monthly SIP by ₹2,000</div>
+                                <div class="fund-list">
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">ABL</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">Axis Bluechip</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action add">
+                                            Add SIP
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">HFC</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">HDFC Flexi Cap</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action add">
+                                            Add SIP
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="overlay-section">
+                                <div class="overlay-section-title">Underperforming (4 funds)</div>
+                                <div class="overlay-section-desc">Pause SIPs • Review alternatives</div>
+                                <div class="fund-list">
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">KEO</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">Kotak Equity Opp</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action pause">
+                                            Pause SIP
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">SSC</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">SBI Small Cap</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action pause">
+                                            Pause SIP
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="overlay-section">
+                                <div class="overlay-section-title">Critical (6 funds)</div>
+                                <div class="overlay-section-desc">Exit recommended within 30 days</div>
+                                <div class="fund-list">
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">TDI</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">Tata Digital India</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action exit">
+                                            Exit
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">IPT</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">ICICI Pru Technology</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action switch">
+                                            Switch to
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="overlay-section">
+                                <div class="overlay-section-title">Unrated (7 funds)</div>
+                                <div class="overlay-section-desc">Get expert rating for these funds</div>
+                                <button class="action-button-small outlined-gray">Request analysis</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Summary Overlay -->
+                    <div class="recommendation-overlay" id="summaryOverlay">
+                        <div class="overlay-content">
+                            <div class="overlay-header">
+                                <div class="overlay-title">Take Action on Insights</div>
+                                <button class="overlay-close" onclick="closeOverlay('summaryOverlay')">
+                                    <span class="material-symbols-outlined">close</span>
+                                </button>
+                            </div>
+
+                            <div class="overlay-section">
+                                <div class="overlay-section-title">Below Benchmark Performance</div>
+                                <div class="overlay-section-desc">Your portfolio is 3% below benchmark. Consider switching to these better performers:</div>
+                                <div class="fund-list">
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">PPF</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">Parag Parikh Flexi</div>
+                                                <div class="fund-list-detail">+15.2% returns</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action add">
+                                            Add
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">QAF</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">Quant Active Fund</div>
+                                                <div class="fund-list-detail">+18.5% returns</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action add">
+                                            Add
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="overlay-section">
+                                <div class="overlay-section-title">Add Debt for Balance</div>
+                                <div class="overlay-section-desc">Reduce equity exposure from 88.74% to 80%</div>
+                                <div class="fund-list">
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">HCB</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">HDFC Corporate Bond</div>
+                                                <div class="fund-list-detail">+₹60,000</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action add">
+                                            Add
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">IPC</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">ICICI Prudential Corporate</div>
+                                                <div class="fund-list-detail">+₹50,000</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action add">
+                                            Add
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="overlay-section">
+                                <div class="overlay-section-title">Increase Gold Allocation</div>
+                                <div class="overlay-section-desc">Target: 10% (currently at 4%)</div>
+                                <div class="fund-list">
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">SGF</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">SBI Gold Fund</div>
+                                                <div class="fund-list-detail">+₹50,000</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action add">
+                                            Add
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="overlay-section">
+                                <div class="overlay-section-title">Review Underperforming Funds</div>
+                                <div class="overlay-section-desc">13 out of 22 funds need attention</div>
+                                <button class="action-button action-button-danger">
+                                    View All 13 Funds
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diversification Overlay -->
+                    <div class="recommendation-overlay" id="diversificationOverlay">
+                        <div class="overlay-content">
+                            <div class="overlay-header">
+                                <div class="overlay-title">Recommended Diversification</div>
+                                <button class="overlay-close" onclick="closeOverlay('diversificationOverlay')">
+                                    <span class="material-symbols-outlined">close</span>
+                                </button>
+                            </div>
+
+                            <div class="alert-banner">
+                                <span class="material-symbols-outlined">warning</span>
+                                <div class="alert-banner-text">Your portfolio has concentration risk in Financial Services (23%)</div>
+                            </div>
+
+                            <div style="font-size: 14px; color: var(--color-text-primary); margin-bottom: 16px; font-weight: 500;">
+                                Reduce Financial Services to 15% and add exposure to:
+                            </div>
+
+                            <div class="fund-chips-container">
+                                <div class="fund-chips-label">Healthcare (Target: 5%)</div>
+                                <div class="fund-list">
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">IPP</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">ICICI Pru Pharma</div>
+                                                <div class="fund-list-detail">+₹25,000</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action add">
+                                            Add
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fund-chips-container">
+                                <div class="fund-chips-label">Technology (Target: 5%)</div>
+                                <div class="fund-list">
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">QET</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">Quant ELSS Tax Saver</div>
+                                                <div class="fund-list-detail">+₹25,000</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action add">
+                                            Add
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="fund-chips-container">
+                                <div class="fund-chips-label">Consumer Goods (Target: 3%)</div>
+                                <div class="fund-list">
+                                    <div class="fund-list-item">
+                                        <div class="fund-list-left">
+                                            <div class="fund-list-logo">NIF</div>
+                                            <div class="fund-list-info">
+                                                <div class="fund-list-name">Nippon India FMCG</div>
+                                                <div class="fund-list-detail">+₹15,000</div>
+                                            </div>
+                                        </div>
+                                        <div class="fund-list-action add">
+                                            Add
+                                            <span class="material-symbols-outlined">chevron_right</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button class="action-button action-button-primary">
+                                Diversify Portfolio
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- All Funds Overlay -->
+                    <div class="recommendation-overlay" id="allFundsOverlay">
+                        <div class="overlay-content">
+                            <div class="overlay-header">
+                                <div class="overlay-title">All Holdings (22 Funds)</div>
+                                <button class="overlay-close" onclick="closeOverlay('allFundsOverlay')">
+                                    <span class="material-symbols-outlined">close</span>
+                                </button>
+                            </div>
+
+                            <div class="fund-list">
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">DET</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">DSP ELSS Tax Saver</div>
+                                            <div class="fund-list-detail">+58.67%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹1,90,401</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">MAM</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Mirae Asset Midcap</div>
+                                            <div class="fund-list-detail">+53.50%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹1,44,270</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">PPF</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Parag Parikh Flexi Cap</div>
+                                            <div class="fund-list-detail">+28.70%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹1,16,565</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">IIM</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Invesco India Midcap</div>
+                                            <div class="fund-list-detail">+119.40%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹92,693</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">DSC</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">DSP Small Cap</div>
+                                            <div class="fund-list-detail">+7.54%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹85,975</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">QSC</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Quant Small Cap</div>
+                                            <div class="fund-list-detail">+25.40%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹78,984</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">QMC</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Quant Mid Cap</div>
+                                            <div class="fund-list-detail">+4.70%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹56,540</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">NGS</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Nippon India Gold Savings</div>
+                                            <div class="fund-list-detail">+31.00%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹35,345</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">MAL</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Mirae Asset Large & Midcap</div>
+                                            <div class="fund-list-detail">+11.40%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹33,404</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">ERI</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Edelweiss Recently Listed IPO</div>
+                                            <div class="fund-list-detail">+14.80%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹30,516</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">MAE</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Mirae Asset ELSS Tax Saver</div>
+                                            <div class="fund-list-detail">+276.30%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹19,770</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">QLF</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Quant Liquid Fund</div>
+                                            <div class="fund-list-detail">+17.20%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹18,207</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">NIN</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Nippon India Nifty 50 Index</div>
+                                            <div class="fund-list-detail">+23.10%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹14,539</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">NIM</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Nippon India Midcap 150 Index</div>
+                                            <div class="fund-list-detail">+22.30%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹14,412</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">NIN</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Nippon India Nifty Next 50 FoF</div>
+                                            <div class="fund-list-detail">+15.70%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹14,223</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">NIS</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Nippon India Smallcap 250 Index</div>
+                                            <div class="fund-list-detail">+16.70%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹13,586</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">DNQ</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">DSP Nifty Midcap 150 Quality 50 ETF</div>
+                                            <div class="fund-list-detail">—</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹12,735</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">NI5</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Nippon India Nifty 50 Index</div>
+                                            <div class="fund-list-detail">+6.50%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹10,390</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">NMI</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Nippon India Midcap 150 Index</div>
+                                            <div class="fund-list-detail">+2.00%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹9,945</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">DHF</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">DSP Healthcare Fund</div>
+                                            <div class="fund-list-detail">+93.05%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹9,423</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">NN5</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Nippon India Nifty Next 50 FoF</div>
+                                            <div class="fund-list-detail">-5.30%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹9,236</span></div>
+                                </div>
+                                <div class="fund-list-item">
+                                    <div class="fund-list-left">
+                                        <div class="fund-list-logo">NS2</div>
+                                        <div class="fund-list-info">
+                                            <div class="fund-list-name">Nippon India Smallcap 250 Index</div>
+                                            <div class="fund-list-detail">-9.00%</div>
+                                        </div>
+                                    </div>
+                                    <div class="fund-value"><span class="amount-value">₹8,870</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- iPhone Home Indicator -->
+            <div class="iphone-home-indicator"></div>
+        </div>
+    </div>
+
+    <script>
+        function toggleBreakdown(itemId) {
+            const item = document.getElementById(itemId);
+            item.classList.toggle('expanded');
+        }
+
+        function toggleAmountVisibility() {
+            const amountValues = document.querySelectorAll('.amount-value');
+            const visibilityIcon = document.getElementById('visibilityIcon');
+
+            amountValues.forEach(amount => {
+                if (amount.classList.contains('hidden')) {
+                    // Show original value
+                    amount.textContent = amount.dataset.originalValue;
+                    amount.classList.remove('hidden');
+                } else {
+                    // Store original value and replace with asterisks
+                    amount.dataset.originalValue = amount.textContent;
+                    amount.textContent = '₹***';
+                    amount.classList.add('hidden');
+                }
+            });
+
+            // Toggle icon between visibility and visibility_off
+            if (visibilityIcon.textContent === 'visibility') {
+                visibilityIcon.textContent = 'visibility_off';
+            } else {
+                visibilityIcon.textContent = 'visibility';
+            }
+        }
+    </script>
+
+    <script>
+        function openOverlay(overlayId) {
+            document.getElementById(overlayId).classList.add('active');
+            // Prevent body scroll when overlay is open
+            const mobileContainer = document.querySelector('.mobile-container');
+            if (mobileContainer) {
+                mobileContainer.style.overflow = 'hidden';
+            }
+        }
+
+        function closeOverlay(overlayId) {
+            document.getElementById(overlayId).classList.remove('active');
+            const mobileContainer = document.querySelector('.mobile-container');
+            if (mobileContainer) {
+                mobileContainer.style.overflow = 'auto';
+            }
+        }
+
+        // Close overlay when clicking backdrop
+        document.querySelectorAll('.recommendation-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) {
+                    closeOverlay(overlay.id);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        // Fund Icon Mapping Function (same as mutual-funds.html)
+        function getFundIcon(fundName) {
+            const name = fundName.toLowerCase();
+            if (name.includes('hdfc')) return 'AMC-Fund-logo-icons/hdfc.png';
+            if (name.includes('sbi')) return 'AMC-Fund-logo-icons/SBI.png';
+            if (name.includes('icici')) return 'AMC-Fund-logo-icons/ICICI.jpg';
+            if (name.includes('parag parikh') || name.includes('ppfas')) return 'AMC-Fund-logo-icons/PPFAS.png';
+            if (name.includes('kotak')) return 'AMC-Fund-logo-icons/kotak.jpeg';
+            if (name.includes('nippon')) return 'AMC-Fund-logo-icons/nippon.png';
+            if (name.includes('tata')) return 'AMC-Fund-logo-icons/tata.jpeg';
+            if (name.includes('mirae')) return 'AMC-Fund-logo-icons/nippon.png'; // Fallback to Nippon for now
+            if (name.includes('dsp')) return 'AMC-Fund-logo-icons/hdfc.png'; // Fallback to HDFC for now
+            if (name.includes('axis')) return 'AMC-Fund-logo-icons/hdfc.png'; // Fallback to HDFC for now
+            if (name.includes('quant')) return 'AMC-Fund-logo-icons/hdfc.png'; // Fallback to HDFC for now
+            return null; // Return null for unmapped funds
+        }
+
+        // Function to replace text logos with AMC logos
+        function replacePortfolioLogos() {
+            const fundLogos = document.querySelectorAll('.fund-list-logo');
+            fundLogos.forEach(logoDiv => {
+                // Get the fund name from the adjacent fund-list-name element
+                const fundListItem = logoDiv.closest('.fund-list-item');
+                if (fundListItem) {
+                    const fundNameElement = fundListItem.querySelector('.fund-list-name');
+                    if (fundNameElement && !logoDiv.querySelector('img')) {
+                        const fundName = fundNameElement.textContent.trim();
+                        const iconPath = getFundIcon(fundName);
+                        
+                        if (iconPath) {
+                            // Replace text with image
+                            const img = document.createElement('img');
+                            img.src = iconPath;
+                            img.alt = fundName.split(' ')[0];
+                            img.onerror = function() {
+                                // If image fails to load, keep original text
+                                this.remove();
+                            };
+                            
+                            logoDiv.innerHTML = '';
+                            logoDiv.appendChild(img);
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize portfolio logos when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Small delay to ensure all content is loaded
+            setTimeout(replacePortfolioLogos, 100);
+        });
+    </script>
+
+    <script src="assets/js/iphone-toggle.js"></script>
+</body>
+</html>

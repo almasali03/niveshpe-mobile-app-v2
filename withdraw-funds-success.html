@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdrawal Successful - NiveshPe</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+          /* Color System */
+          --color-bg-primary: #F5F7FA;
+          --color-bg-secondary: #FFFFFF;
+          --color-card: #FFFFFF;
+          --color-surface: #F8F9FA;
+          --color-border: #E5E7EB;
+          
+          /* Brand Colors */
+          --color-blue: #2563EB;
+          --color-blue-dark: #1D4ED8;
+          --color-blue-light: #3B82F6;
+          --color-green: #10B981;
+          --color-green-light: #34D399;
+          --color-green-dark: #059669;
+          --color-orange: #F59E0B;
+          
+          /* Text Colors */
+          --color-text-primary: #1F2937;
+          --color-text-secondary: #6B7280;
+          --color-text-muted: #9CA3AF;
+          --color-text-white: #FFFFFF;
+          
+          /* Enhanced Gradients */
+          --gradient-success: linear-gradient(135deg, #34D399 0%, #10B981 100%);
+          --gradient-hero: linear-gradient(135deg, #2563EB 0%, #10B981 100%);
+          
+          /* Typography */
+          --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+          
+          /* Shadows */
+          --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+          --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+          --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+          --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+          
+          /* Border Radius */
+          --radius-sm: 8px;
+          --radius-md: 12px;
+          --radius-lg: 16px;
+          --radius-xl: 20px;
+          --radius-2xl: 24px;
+          --radius-full: 9999px;
+
+          /* Spacing System */
+          --space-xs: 8px;
+          --space-sm: 12px;
+          --space-md: 16px;
+          --space-lg: 20px;
+          --space-xl: 24px;
+          --space-2xl: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--color-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px 20px 40px;
+            overflow-x: auto;
+        }
+
+        /* iPhone Frame */
+        .iphone-frame {
+            width: 380px;
+            height: 820px;
+            background: transparent;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+            position: relative;
+            margin: 0 auto;
+            flex-shrink: 0;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            border-radius: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .mobile-container {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-content {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: none;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: #F5F7FA;
+            font-size: 15px;
+            font-weight: 600;
+            height: 44px;
+            z-index: 10;
+            position: relative;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        /* Header without Back Button */
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px 20px;
+            background: #F5F7FA;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            height: 70px;
+            box-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.12);
+            z-index: 10;
+            position: relative;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        /* Success Content */
+        .success-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: var(--space-md) var(--space-lg) var(--space-lg);
+            text-align: center;
+            position: relative;
+            min-height: fit-content;
+            gap: var(--space-lg);
+        }
+
+        /* Animated Success Icon */
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            margin-bottom: var(--space-xl);
+            position: relative;
+            animation: bounceIn 1s ease-out;
+            flex-shrink: 0;
+        }
+
+        .success-circle {
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(16, 185, 129, 0.3);
+            position: relative;
+            overflow: visible;
+            z-index: 2;
+        }
+
+        .success-circle::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            animation: shine 3s ease-in-out infinite;
+        }
+
+        .checkmark {
+            color: white;
+            font-size: 40px;
+            font-weight: 800;
+            z-index: 3;
+            animation: checkmarkDraw 1s ease-out 0.5s both;
+            position: relative;
+        }
+
+        /* Ripple Wave Animation */
+        .ripple-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .ripple {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+
+        .ripple-1 {
+            border: 3px solid rgba(16, 185, 129, 0.6);
+            animation: rippleWave 4s ease-out infinite;
+        }
+
+        .ripple-2 {
+            border: 2px solid rgba(52, 211, 153, 0.4);
+            animation: rippleWave 4s ease-out infinite 1s;
+        }
+
+        .ripple-3 {
+            border: 2px solid rgba(16, 185, 129, 0.3);
+            animation: rippleWave 4s ease-out infinite 2s;
+        }
+
+        /* Success Message */
+        .success-message {
+            flex-shrink: 0;
+            margin-bottom: var(--space-lg);
+        }
+
+        .success-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--color-text-primary);
+            margin-bottom: 8px;
+            animation: slideInUp 0.8s ease-out 1s both;
+        }
+
+        .success-subtitle {
+            font-size: 16px;
+            color: var(--color-text-secondary);
+            margin-bottom: 0;
+            animation: slideInUp 0.8s ease-out 1.2s both;
+            line-height: 1.4;
+        }
+
+        /* Amount Highlight */
+        .amount-highlight {
+            width: 100%;
+            max-width: 340px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(52, 211, 153, 0.02) 100%);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            animation: slideInUp 0.8s ease-out 1.4s both;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .amount-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-success);
+        }
+
+        .amount-label {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .amount-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--color-green);
+            margin-bottom: var(--space-xs);
+        }
+
+        .amount-timeline {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        .amount-timeline .highlight {
+            font-weight: 600;
+            color: var(--color-green);
+        }
+
+        /* Transaction Details Card */
+        .transaction-details {
+            width: 100%;
+            max-width: 340px;
+            background: var(--color-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-lg);
+            margin-bottom: var(--space-lg);
+            animation: slideInUp 0.8s ease-out 1.4s both;
+            border: 1px solid rgba(16, 185, 129, 0.1);
+            flex-shrink: 0;
+        }
+
+        .details-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-xs);
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-sm);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .details-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+            padding: 4px 0;
+        }
+
+        .detail-row:last-child {
+            margin-bottom: 0;
+            padding-top: var(--space-sm);
+            border-top: 2px solid var(--color-border);
+            font-weight: 600;
+        }
+
+        .detail-label {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+
+        .detail-value {
+            font-size: 14px;
+            color: var(--color-text-primary);
+            font-weight: 600;
+            text-align: right;
+        }
+
+        .detail-value.highlight {
+            color: var(--color-green);
+            font-size: 18px;
+        }
+
+        .detail-value.negative {
+            color: var(--color-red);
+        }
+
+        .detail-value.small {
+            font-size: 12px;
+            color: var(--color-text-muted);
+            font-weight: 500;
+        }
+
+        /* Timeline Info */
+        .timeline-info {
+            background: rgba(37, 99, 235, 0.05);
+            border: 1px solid rgba(37, 99, 235, 0.2);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            margin-bottom: var(--space-lg);
+            animation: slideInUp 0.8s ease-out 1.6s both;
+            width: 100%;
+            max-width: 340px;
+        }
+
+        .timeline-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-blue);
+            margin-bottom: var(--space-xs);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .timeline-text {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.4;
+        }
+
+        .timeline-highlight {
+            font-weight: 600;
+            color: var(--color-blue);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            width: 100%;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+            animation: slideInUp 0.8s ease-out 1.8s both;
+            flex-shrink: 0;
+        }
+
+        .primary-btn {
+            width: 100%;
+            padding: 16px 20px;
+            border-radius: var(--radius-md);
+            border: none;
+            background: var(--gradient-success);
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .primary-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 3px 10px rgba(16, 185, 129, 0.4);
+        }
+
+        .secondary-btn {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: var(--radius-md);
+            border: 2px solid var(--color-border);
+            background: var(--color-card);
+            color: var(--color-text-primary);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .secondary-btn:active {
+            transform: scale(0.96);
+            border-color: var(--color-blue);
+            background: rgba(37, 99, 235, 0.05);
+        }
+
+
+        /* Animations */
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes checkmarkDraw {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes rippleWave {
+            0% {
+                transform: translate(-50%, -50%) scale(0.8);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(3);
+                opacity: 0;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/iphone-toggle.css">
+</head>
+<body>
+    <!-- Frame Toggle Button -->
+    <button class="frame-toggle-btn" id="frameToggleBtn" onclick="toggleFrameMode()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
+        </svg>
+        <span id="frameToggleText">Normal View</span>
+    </button>
+
+
+    <div class="iphone-frame">
+        <!-- iPhone Notch (Dynamic Island style) -->
+        <div class="iphone-notch"></div>
+
+
+        <div class="iphone-screen">
+            <div class="mobile-container">
+                <div class="mobile-content">
+                    <!-- Status Bar -->
+                    <div class="status-bar">
+                        <div>9:41</div>
+                        <div class="status-icons">
+                            <span>•••</span>
+                            <span>📶</span>
+                            <span>🔋</span>
+                        </div>
+                    </div>
+
+                    <!-- Header without Back Button -->
+                    <div class="header">
+                        <div class="header-title">Withdrawal Successful!</div>
+                    </div>
+
+                    <!-- Success Content -->
+                    <div class="success-content">
+                        <!-- Success Icon with Ripple Animation -->
+                        <div class="success-icon">
+                            <div class="ripple-container">
+                                <div class="ripple ripple-1"></div>
+                                <div class="ripple ripple-2"></div>
+                                <div class="ripple ripple-3"></div>
+                            </div>
+                            <div class="success-circle">
+                                <div class="checkmark">✓</div>
+                            </div>
+                        </div>
+
+                        <!-- Success Message -->
+                        <div class="success-message">
+                            <h1 class="success-title">Withdrawal Initiated!</h1>
+                            <p class="success-subtitle">Your mutual fund withdrawal request has been successfully submitted and is being processed.</p>
+                        </div>
+
+                        <!-- Amount Highlight -->
+                        <div class="amount-highlight">
+                            <div class="amount-label">You will receive</div>
+                            <div class="amount-value" id="finalAmount">₹67,736</div>
+                            <div class="amount-timeline">
+                                Credited to your account by <span class="highlight" id="creditDate">Monday, 25 September</span>
+                            </div>
+                        </div>
+
+                        <!-- Transaction Details -->
+                        <div class="transaction-details">
+                            <div class="details-header">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color: var(--color-green);">
+                                    <path d="M9 12l2 2 4-4"/>
+                                </svg>
+                                <h3 class="details-title">Transaction Details</h3>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <span class="detail-label">Fund</span>
+                                <span class="detail-value" id="fundName">SBI Hybrid Mutual Funds</span>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <span class="detail-label">NAV</span>
+                                <span class="detail-value" id="navValue">₹45.67</span>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <span class="detail-label">Units Redeemed</span>
+                                <span class="detail-value" id="unitsRedeemed">1,498.36</span>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <span class="detail-label">Gross Amount</span>
+                                <span class="detail-value" id="grossAmount">₹68,420</span>
+                            </div>
+                            
+                            <div class="detail-row" id="exitLoadRow">
+                                <span class="detail-label">Exit Load (1%)</span>
+                                <span class="detail-value negative" id="exitLoadAmount">-₹684</span>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <span class="detail-label">Net Amount</span>
+                                <span class="detail-value highlight" id="netAmount">₹67,736</span>
+                            </div>
+                            
+                            <div class="detail-row">
+                                <span class="detail-label">Reference ID</span>
+                                <span class="detail-value small" id="referenceId">TXN2024190721384</span>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Information -->
+                        <div class="timeline-info">
+                            <div class="timeline-title">
+                                <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
+                                </svg>
+                                What happens next?
+                            </div>
+                            <div class="timeline-text">
+                                Your funds will be credited to your <span class="timeline-highlight">HDFC Bank</span> account ending in <span class="timeline-highlight">1234</span> within <span class="timeline-highlight">3-5 working days</span>.
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="action-buttons">
+                            <button class="primary-btn" onclick="goHome()">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                                </svg>
+                                Back to Home
+                            </button>
+                            
+                            <button class="secondary-btn" onclick="viewTransactions()">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z"/>
+                                </svg>
+                                View All Transactions
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- iPhone Home Indicator -->
+        <div class="iphone-home-indicator"></div>
+    </div>
+
+    <script>
+        // Initialize page with URL parameters
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const fundParam = urlParams.get('fund');
+            const typeParam = urlParams.get('type');
+            const amountParam = urlParams.get('amount');
+
+            // Fund data
+            const fundData = {
+                'liquid-fund': { name: 'HDFC Liquid Fund', exitLoad: 0, hasExitLoad: false, nav: 12.45 },
+                'sbi-hybrid': { name: 'SBI Hybrid Mutual Funds', exitLoad: 1, hasExitLoad: true, nav: 45.67 },
+                'axis-midcap': { name: 'Axis Midcap Fund', exitLoad: 0, hasExitLoad: false, nav: 67.89 },
+                'sbi-smallcap': { name: 'SBI Small Cap Fund', exitLoad: 0, hasExitLoad: false, nav: 89.12 }
+            };
+
+            const fund = fundData[fundParam] || fundData['sbi-hybrid'];
+            const amount = parseInt(amountParam) || 68420;
+            const type = typeParam || 'full';
+
+            // Calculate exit load
+            let exitLoadAmount = 0;
+            if (fund.hasExitLoad) {
+                exitLoadAmount = Math.floor(amount * fund.exitLoad / 100);
+            }
+            const netAmount = amount - exitLoadAmount;
+
+            // Generate reference ID
+            const referenceId = 'TXN' + new Date().getFullYear() + Math.random().toString(36).substr(2, 9).toUpperCase();
+
+            // Calculate units
+            const units = (amount / fund.nav).toFixed(2);
+
+            // Update transaction details
+            document.getElementById('fundName').textContent = fund.name;
+            document.getElementById('navValue').textContent = `₹${fund.nav.toFixed(2)}`;
+            document.getElementById('unitsRedeemed').textContent = units;
+            document.getElementById('grossAmount').textContent = `₹${amount.toLocaleString('en-IN')}`;
+            document.getElementById('exitLoadAmount').textContent = `-₹${exitLoadAmount.toLocaleString('en-IN')}`;
+            document.getElementById('netAmount').textContent = `₹${netAmount.toLocaleString('en-IN')}`;
+            document.getElementById('referenceId').textContent = referenceId;
+            
+            // Update amount highlight card
+            document.getElementById('finalAmount').textContent = `₹${netAmount.toLocaleString('en-IN')}`;
+            
+            // Calculate and display credit date
+            updateCreditDate();
+
+            // Hide exit load row if not applicable
+            if (!fund.hasExitLoad) {
+                document.getElementById('exitLoadRow').style.display = 'none';
+            }
+
+            // Add haptic feedback
+            setTimeout(() => {
+                if (navigator.vibrate) {
+                    navigator.vibrate([100, 50, 100, 50, 200]);
+                }
+            }, 1000);
+        });
+
+        function updateCreditDate() {
+            // Calculate credit date (3-5 working days from now)
+            const today = new Date();
+            let creditDate = new Date(today);
+            let workingDays = 0;
+            
+            while (workingDays < 4) { // 4 working days on average
+                creditDate.setDate(creditDate.getDate() + 1);
+                const dayOfWeek = creditDate.getDay();
+                if (dayOfWeek !== 0 && dayOfWeek !== 6) { // Not weekend
+                    workingDays++;
+                }
+            }
+            
+            const options = { weekday: 'long', day: 'numeric', month: 'long' };
+            document.getElementById('creditDate').textContent = creditDate.toLocaleDateString('en-US', options);
+        }
+
+
+        function goHome() {
+            // Add button press animation
+            const btn = event.currentTarget;
+            btn.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                btn.style.transform = '';
+                window.location.href = 'index.html';
+            }, 150);
+        }
+
+        function viewTransactions() {
+            // Add button press animation
+            const btn = event.currentTarget;
+            btn.style.transform = 'scale(0.95)';
+            
+            setTimeout(() => {
+                btn.style.transform = '';
+                // In real app, navigate to transactions page
+                alert('Transaction history feature coming soon!');
+            }, 150);
+        }
+
+        // Add touch interactions for all buttons
+        document.querySelectorAll('.primary-btn, .secondary-btn').forEach(btn => {
+            btn.addEventListener('touchstart', function(e) {
+                this.style.transition = 'transform 0.1s ease';
+                this.style.transform = 'scale(0.95)';
+            });
+            
+            btn.addEventListener('touchend', function(e) {
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.transition = 'all 0.2s ease';
+                }, 100);
+            });
+        });
+    </script>
+    <script src="assets/js/iphone-toggle.js"></script>
+</body>
+</html>

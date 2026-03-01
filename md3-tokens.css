@@ -1,0 +1,479 @@
+/**
+ * Material Design 3 Design Tokens
+ * Complete token system for NiveshPe app
+ * Reference: https://m3.material.io
+ */
+
+:root {
+  /* ==========================================
+     COLOR SYSTEM - Material Design 3
+     ========================================== */
+
+  /* Primary - Main brand color (Blue) */
+  --md-sys-color-primary: #2563EB;
+  --md-sys-color-on-primary: #FFFFFF;
+  --md-sys-color-primary-container: #E0E7FF;
+  --md-sys-color-on-primary-container: #1E3A8A;
+
+  /* Secondary - Supporting color (Green) */
+  --md-sys-color-secondary: #10B981;
+  --md-sys-color-on-secondary: #FFFFFF;
+  --md-sys-color-secondary-container: #D1FAE5;
+  --md-sys-color-on-secondary-container: #065F46;
+
+  /* Tertiary - Accent color */
+  --md-sys-color-tertiary: #F59E0B;
+  --md-sys-color-on-tertiary: #FFFFFF;
+  --md-sys-color-tertiary-container: #FEF3C7;
+  --md-sys-color-on-tertiary-container: #78350F;
+
+  /* Error */
+  --md-sys-color-error: #EF4444;
+  --md-sys-color-on-error: #FFFFFF;
+  --md-sys-color-error-container: #FEE2E2;
+  --md-sys-color-on-error-container: #7F1D1D;
+
+  /* Surface & Background */
+  --md-sys-color-background: #FFFBFE;
+  --md-sys-color-on-background: #1C1B1F;
+  --md-sys-color-surface: #FFFBFE;
+  --md-sys-color-on-surface: #1C1B1F;
+  --md-sys-color-surface-variant: #E7E0EC;
+  --md-sys-color-on-surface-variant: #49454F;
+
+  /* Surface Containers - For layering */
+  --md-sys-color-surface-container-lowest: #FFFFFF;
+  --md-sys-color-surface-container-low: #F7F2FA;
+  --md-sys-color-surface-container: #F3EDF7;
+  --md-sys-color-surface-container-high: #ECE6F0;
+  --md-sys-color-surface-container-highest: #E6E0E9;
+
+  /* Outline */
+  --md-sys-color-outline: #79747E;
+  --md-sys-color-outline-variant: #CAC4D0;
+
+  /* Inverse (for dark-on-light scenarios) */
+  --md-sys-color-inverse-surface: #313033;
+  --md-sys-color-inverse-on-surface: #F4EFF4;
+  --md-sys-color-inverse-primary: #93C5FD;
+
+  /* Surface Tint (for elevation) */
+  --md-sys-color-surface-tint: #2563EB;
+  --md-sys-color-surface-tint-color: #2563EB;
+
+  /* Scrim (for overlays) */
+  --md-sys-color-scrim: #000000;
+
+  /* Shadow */
+  --md-sys-color-shadow: #000000;
+
+
+  /* ==========================================
+     TYPOGRAPHY - Material Design 3 Type Scale
+     ========================================== */
+
+  --md-sys-typescale-font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Display - Largest text */
+  --md-sys-typescale-display-large-font-size: 57px;
+  --md-sys-typescale-display-large-line-height: 64px;
+  --md-sys-typescale-display-large-font-weight: 400;
+  --md-sys-typescale-display-large-letter-spacing: -0.25px;
+
+  --md-sys-typescale-display-medium-font-size: 45px;
+  --md-sys-typescale-display-medium-line-height: 52px;
+  --md-sys-typescale-display-medium-font-weight: 400;
+  --md-sys-typescale-display-medium-letter-spacing: 0px;
+
+  --md-sys-typescale-display-small-font-size: 36px;
+  --md-sys-typescale-display-small-line-height: 44px;
+  --md-sys-typescale-display-small-font-weight: 400;
+  --md-sys-typescale-display-small-letter-spacing: 0px;
+
+  /* Headline */
+  --md-sys-typescale-headline-large-font-size: 32px;
+  --md-sys-typescale-headline-large-line-height: 40px;
+  --md-sys-typescale-headline-large-font-weight: 400;
+  --md-sys-typescale-headline-large-letter-spacing: 0px;
+
+  --md-sys-typescale-headline-medium-font-size: 28px;
+  --md-sys-typescale-headline-medium-line-height: 36px;
+  --md-sys-typescale-headline-medium-font-weight: 400;
+  --md-sys-typescale-headline-medium-letter-spacing: 0px;
+
+  --md-sys-typescale-headline-small-font-size: 24px;
+  --md-sys-typescale-headline-small-line-height: 32px;
+  --md-sys-typescale-headline-small-font-weight: 400;
+  --md-sys-typescale-headline-small-letter-spacing: 0px;
+
+  /* Title */
+  --md-sys-typescale-title-large-font-size: 22px;
+  --md-sys-typescale-title-large-line-height: 28px;
+  --md-sys-typescale-title-large-font-weight: 400;
+  --md-sys-typescale-title-large-letter-spacing: 0px;
+
+  --md-sys-typescale-title-medium-font-size: 16px;
+  --md-sys-typescale-title-medium-line-height: 24px;
+  --md-sys-typescale-title-medium-font-weight: 500;
+  --md-sys-typescale-title-medium-letter-spacing: 0.15px;
+
+  --md-sys-typescale-title-small-font-size: 14px;
+  --md-sys-typescale-title-small-line-height: 20px;
+  --md-sys-typescale-title-small-font-weight: 500;
+  --md-sys-typescale-title-small-letter-spacing: 0.1px;
+
+  /* Body */
+  --md-sys-typescale-body-large-font-size: 16px;
+  --md-sys-typescale-body-large-line-height: 24px;
+  --md-sys-typescale-body-large-font-weight: 400;
+  --md-sys-typescale-body-large-letter-spacing: 0.5px;
+
+  --md-sys-typescale-body-medium-font-size: 14px;
+  --md-sys-typescale-body-medium-line-height: 20px;
+  --md-sys-typescale-body-medium-font-weight: 400;
+  --md-sys-typescale-body-medium-letter-spacing: 0.25px;
+
+  --md-sys-typescale-body-small-font-size: 12px;
+  --md-sys-typescale-body-small-line-height: 16px;
+  --md-sys-typescale-body-small-font-weight: 400;
+  --md-sys-typescale-body-small-letter-spacing: 0.4px;
+
+  /* Label */
+  --md-sys-typescale-label-large-font-size: 14px;
+  --md-sys-typescale-label-large-line-height: 20px;
+  --md-sys-typescale-label-large-font-weight: 500;
+  --md-sys-typescale-label-large-letter-spacing: 0.1px;
+
+  --md-sys-typescale-label-medium-font-size: 12px;
+  --md-sys-typescale-label-medium-line-height: 16px;
+  --md-sys-typescale-label-medium-font-weight: 500;
+  --md-sys-typescale-label-medium-letter-spacing: 0.5px;
+
+  --md-sys-typescale-label-small-font-size: 11px;
+  --md-sys-typescale-label-small-line-height: 16px;
+  --md-sys-typescale-label-small-font-weight: 500;
+  --md-sys-typescale-label-small-letter-spacing: 0.5px;
+
+
+  /* ==========================================
+     ELEVATION - Shadow Levels
+     ========================================== */
+
+  --md-sys-elevation-0: none;
+
+  --md-sys-elevation-1:
+    0px 1px 2px 0px rgba(0, 0, 0, 0.30),
+    0px 1px 3px 1px rgba(0, 0, 0, 0.15);
+
+  --md-sys-elevation-2:
+    0px 1px 2px 0px rgba(0, 0, 0, 0.30),
+    0px 2px 6px 2px rgba(0, 0, 0, 0.15);
+
+  --md-sys-elevation-3:
+    0px 1px 3px 0px rgba(0, 0, 0, 0.30),
+    0px 4px 8px 3px rgba(0, 0, 0, 0.15);
+
+  --md-sys-elevation-4:
+    0px 2px 3px 0px rgba(0, 0, 0, 0.30),
+    0px 6px 10px 4px rgba(0, 0, 0, 0.15);
+
+  --md-sys-elevation-5:
+    0px 4px 4px 0px rgba(0, 0, 0, 0.30),
+    0px 8px 12px 6px rgba(0, 0, 0, 0.15);
+
+
+  /* ==========================================
+     SHAPE - Border Radius
+     ========================================== */
+
+  --md-sys-shape-corner-none: 0px;
+  --md-sys-shape-corner-extra-small: 4px;
+  --md-sys-shape-corner-small: 8px;
+  --md-sys-shape-corner-medium: 12px;
+  --md-sys-shape-corner-large: 16px;
+  --md-sys-shape-corner-extra-large: 28px;
+  --md-sys-shape-corner-full: 9999px;
+
+
+  /* ==========================================
+     MOTION - Durations & Easing
+     ========================================== */
+
+  /* Duration */
+  --md-sys-motion-duration-short1: 50ms;
+  --md-sys-motion-duration-short2: 100ms;
+  --md-sys-motion-duration-short3: 150ms;
+  --md-sys-motion-duration-short4: 200ms;
+  --md-sys-motion-duration-medium1: 250ms;
+  --md-sys-motion-duration-medium2: 300ms;
+  --md-sys-motion-duration-medium3: 350ms;
+  --md-sys-motion-duration-medium4: 400ms;
+  --md-sys-motion-duration-long1: 450ms;
+  --md-sys-motion-duration-long2: 500ms;
+  --md-sys-motion-duration-long3: 550ms;
+  --md-sys-motion-duration-long4: 600ms;
+
+  /* Easing */
+  --md-sys-motion-easing-standard: cubic-bezier(0.2, 0.0, 0, 1.0);
+  --md-sys-motion-easing-standard-accelerate: cubic-bezier(0.3, 0.0, 1, 1);
+  --md-sys-motion-easing-standard-decelerate: cubic-bezier(0, 0.0, 0, 1);
+  --md-sys-motion-easing-emphasized: cubic-bezier(0.2, 0.0, 0, 1.0);
+  --md-sys-motion-easing-emphasized-accelerate: cubic-bezier(0.3, 0.0, 0.8, 0.15);
+  --md-sys-motion-easing-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1.0);
+  --md-sys-motion-easing-legacy: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --md-sys-motion-easing-legacy-accelerate: cubic-bezier(0.4, 0.0, 1, 1);
+  --md-sys-motion-easing-legacy-decelerate: cubic-bezier(0.0, 0.0, 0.2, 1);
+  --md-sys-motion-easing-linear: cubic-bezier(0, 0, 1, 1);
+
+
+  /* ==========================================
+     STATE LAYERS - Touch Interaction (Mobile-First)
+     ========================================== */
+
+  /* Note: This is a mobile-first design system.
+     Hover states are removed as they don't apply to touch devices.
+     Focus on pressed/active states for tap feedback. */
+
+  --md-sys-state-pressed-opacity: 0.12;
+  --md-sys-state-dragged-opacity: 0.16;
+
+
+  /* ==========================================
+     SPACING - 8dp Grid System
+     ========================================== */
+
+  --md-sys-spacing-0: 0px;
+  --md-sys-spacing-1: 4px;
+  --md-sys-spacing-2: 8px;
+  --md-sys-spacing-3: 12px;
+  --md-sys-spacing-4: 16px;
+  --md-sys-spacing-5: 20px;
+  --md-sys-spacing-6: 24px;
+  --md-sys-spacing-7: 28px;
+  --md-sys-spacing-8: 32px;
+  --md-sys-spacing-9: 36px;
+  --md-sys-spacing-10: 40px;
+  --md-sys-spacing-12: 48px;
+  --md-sys-spacing-16: 64px;
+
+
+  /* ==========================================
+     COMPONENT SIZES (Mobile-First Touch Targets)
+     ========================================== */
+
+  /* Touch Target Minimum (Material Design Guidelines) */
+  --md-sys-touch-target-minimum: 48px;
+
+  /* Buttons */
+  --md-comp-button-height: 40px; /* Visual height */
+  --md-comp-button-touch-target: 48px; /* Actual touch target */
+  --md-comp-button-padding-horizontal: 24px;
+  --md-comp-button-padding-vertical: 10px;
+  --md-comp-button-icon-size: 18px;
+  --md-comp-button-border-radius: var(--md-sys-shape-corner-full);
+
+  /* FAB (Floating Action Button) */
+  --md-comp-fab-small-size: 40px;
+  --md-comp-fab-medium-size: 56px;
+  --md-comp-fab-large-size: 96px;
+  --md-comp-fab-border-radius: var(--md-sys-shape-corner-large);
+
+  /* Cards */
+  --md-comp-card-border-radius: var(--md-sys-shape-corner-medium);
+  --md-comp-card-padding: var(--md-sys-spacing-4);
+
+  /* List Items */
+  --md-comp-list-item-one-line-height: 56px;
+  --md-comp-list-item-two-line-height: 72px;
+  --md-comp-list-item-three-line-height: 88px;
+  --md-comp-list-item-padding-horizontal: var(--md-sys-spacing-4);
+
+  /* Top App Bar */
+  --md-comp-top-app-bar-height: 64px;
+  --md-comp-top-app-bar-padding-horizontal: var(--md-sys-spacing-2);
+
+  /* Bottom Navigation */
+  --md-comp-bottom-nav-height: 80px;
+
+  /* Text Fields */
+  --md-comp-text-field-height: 56px;
+  --md-comp-text-field-padding-horizontal: var(--md-sys-spacing-4);
+
+  /* Chips */
+  --md-comp-chip-height: 32px;
+  --md-comp-chip-padding-horizontal: var(--md-sys-spacing-4);
+  --md-comp-chip-border-radius: var(--md-sys-shape-corner-small);
+
+  /* Dialog */
+  --md-comp-dialog-border-radius: var(--md-sys-shape-corner-extra-large);
+  --md-comp-dialog-padding: var(--md-sys-spacing-6);
+
+  /* Snackbar */
+  --md-comp-snackbar-border-radius: var(--md-sys-shape-corner-small);
+  --md-comp-snackbar-padding: var(--md-sys-spacing-4);
+}
+
+
+/* ==========================================
+   UTILITY CLASSES
+   ========================================== */
+
+/* Typography Utility Classes */
+.display-large {
+  font-family: var(--md-sys-typescale-font-family);
+  font-size: var(--md-sys-typescale-display-large-font-size);
+  line-height: var(--md-sys-typescale-display-large-line-height);
+  font-weight: var(--md-sys-typescale-display-large-font-weight);
+  letter-spacing: var(--md-sys-typescale-display-large-letter-spacing);
+}
+
+.display-medium {
+  font-family: var(--md-sys-typescale-font-family);
+  font-size: var(--md-sys-typescale-display-medium-font-size);
+  line-height: var(--md-sys-typescale-display-medium-line-height);
+  font-weight: var(--md-sys-typescale-display-medium-font-weight);
+  letter-spacing: var(--md-sys-typescale-display-medium-letter-spacing);
+}
+
+.display-small {
+  font-family: var(--md-sys-typescale-font-family);
+  font-size: var(--md-sys-typescale-display-small-font-size);
+  line-height: var(--md-sys-typescale-display-small-line-height);
+  font-weight: var(--md-sys-typescale-display-small-font-weight);
+  letter-spacing: var(--md-sys-typescale-display-small-letter-spacing);
+}
+
+.headline-large {
+  font-family: var(--md-sys-typescale-font-family);
+  font-size: var(--md-sys-typescale-headline-large-font-size);
+  line-height: var(--md-sys-typescale-headline-large-line-height);
+  font-weight: var(--md-sys-typescale-headline-large-font-weight);
+  letter-spacing: var(--md-sys-typescale-headline-large-letter-spacing);
+}
+
+.headline-medium {
+  font-family: var(--md-sys-typescale-font-family);
+  font-size: var(--md-sys-typescale-headline-medium-font-size);
+  line-height: var(--md-sys-typescale-headline-medium-line-height);
+  font-weight: var(--md-sys-typescale-headline-medium-font-weight);
+  letter-spacing: var(--md-sys-typescale-headline-medium-letter-spacing);
+}
+
+.headline-small {
+  font-family: var(--md-sys-typescale-font-family);
+  font-size: var(--md-sys-typescale-headline-small-font-size);
+  line-height: var(--md-sys-typescale-headline-small-line-height);
+  font-weight: var(--md-sys-typescale-headline-small-font-weight);
+  letter-spacing: var(--md-sys-typescale-headline-small-letter-spacing);
+}
+
+.title-large {
+  font-family: var(--md-sys-typescale-font-family);
+  font-size: var(--md-sys-typescale-title-large-font-size);
+  line-height: var(--md-sys-typescale-title-large-line-height);
+  font-weight: var(--md-sys-typescale-title-large-font-weight);
+  letter-spacing: var(--md-sys-typescale-title-large-letter-spacing);
+}
+
+.title-medium {
+  font-family: var(--md-sys-typescale-font-family);
+  font-size: var(--md-sys-typescale-title-medium-font-size);
+  line-height: var(--md-sys-typescale-title-medium-line-height);
+  font-weight: var(--md-sys-typescale-title-medium-font-weight);
+  letter-spacing: var(--md-sys-typescale-title-medium-letter-spacing);
+}
+
+.title-small {
+  font-family: var(--md-sys-typescale-font-family);
+  font-size: var(--md-sys-typescale-title-small-font-size);
+  line-height: var(--md-sys-typescale-title-small-line-height);
+  font-weight: var(--md-sys-typescale-title-small-font-weight);
+  letter-spacing: var(--md-sys-typescale-title-small-letter-spacing);
+}
+
+.body-large {
+  font-family: var(--md-sys-typescale-font-family);
+  font-size: var(--md-sys-typescale-body-large-font-size);
+  line-height: var(--md-sys-typescale-body-large-line-height);
+  font-weight: var(--md-sys-typescale-body-large-font-weight);
+  letter-spacing: var(--md-sys-typescale-body-large-letter-spacing);
+}
+
+.body-medium {
+  font-family: var(--md-sys-typescale-font-family);
+  font-size: var(--md-sys-typescale-body-medium-font-size);
+  line-height: var(--md-sys-typescale-body-medium-line-height);
+  font-weight: var(--md-sys-typescale-body-medium-font-weight);
+  letter-spacing: var(--md-sys-typescale-body-medium-letter-spacing);
+}
+
+.body-small {
+  font-family: var(--md-sys-typescale-font-family);
+  font-size: var(--md-sys-typescale-body-small-font-size);
+  line-height: var(--md-sys-typescale-body-small-line-height);
+  font-weight: var(--md-sys-typescale-body-small-font-weight);
+  letter-spacing: var(--md-sys-typescale-body-small-letter-spacing);
+}
+
+.label-large {
+  font-family: var(--md-sys-typescale-font-family);
+  font-size: var(--md-sys-typescale-label-large-font-size);
+  line-height: var(--md-sys-typescale-label-large-line-height);
+  font-weight: var(--md-sys-typescale-label-large-font-weight);
+  letter-spacing: var(--md-sys-typescale-label-large-letter-spacing);
+}
+
+.label-medium {
+  font-family: var(--md-sys-typescale-font-family);
+  font-size: var(--md-sys-typescale-label-medium-font-size);
+  line-height: var(--md-sys-typescale-label-medium-line-height);
+  font-weight: var(--md-sys-typescale-label-medium-font-weight);
+  letter-spacing: var(--md-sys-typescale-label-medium-letter-spacing);
+}
+
+.label-small {
+  font-family: var(--md-sys-typescale-font-family);
+  font-size: var(--md-sys-typescale-label-small-font-size);
+  line-height: var(--md-sys-typescale-label-small-line-height);
+  font-weight: var(--md-sys-typescale-label-small-font-weight);
+  letter-spacing: var(--md-sys-typescale-label-small-letter-spacing);
+}
+
+/* Surface Utility Classes */
+.surface {
+  background-color: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
+}
+
+.surface-variant {
+  background-color: var(--md-sys-color-surface-variant);
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.surface-container-lowest {
+  background-color: var(--md-sys-color-surface-container-lowest);
+}
+
+.surface-container-low {
+  background-color: var(--md-sys-color-surface-container-low);
+}
+
+.surface-container {
+  background-color: var(--md-sys-color-surface-container);
+}
+
+.surface-container-high {
+  background-color: var(--md-sys-color-surface-container-high);
+}
+
+.surface-container-highest {
+  background-color: var(--md-sys-color-surface-container-highest);
+}
+
+/* Elevation Utility Classes */
+.elevation-0 { box-shadow: var(--md-sys-elevation-0); }
+.elevation-1 { box-shadow: var(--md-sys-elevation-1); }
+.elevation-2 { box-shadow: var(--md-sys-elevation-2); }
+.elevation-3 { box-shadow: var(--md-sys-elevation-3); }
+.elevation-4 { box-shadow: var(--md-sys-elevation-4); }
+.elevation-5 { box-shadow: var(--md-sys-elevation-5); }

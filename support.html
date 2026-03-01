@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NiveshPe - Help & Support</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <style>
+        :root {
+          /* Color System */
+          --color-bg-primary: #F5F7FA;
+          --color-bg-secondary: #FFFFFF;
+          --color-card: #FFFFFF;
+          --color-surface: #F8F9FA;
+          --color-border: #E5E7EB;
+
+          /* Brand Colors */
+          --color-blue: #2563EB;
+          --color-blue-dark: #1D4ED8;
+          --color-blue-light: #3B82F6;
+          --color-green: #10B981;
+          --color-green-light: #34D399;
+          --color-green-dark: #059669;
+          --color-orange: #F59E0B;
+          --color-red: #EF4444;
+
+          /* Text Colors */
+          --color-text-primary: #1F2937;
+          --color-text-secondary: #6B7280;
+          --color-text-muted: #9CA3AF;
+          --color-text-white: #FFFFFF;
+
+          /* Typography */
+          --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+          /* Shadows */
+          --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+          --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+          --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+          /* Border Radius */
+          --radius-sm: 8px;
+          --radius-md: 12px;
+          --radius-lg: 16px;
+          --radius-xl: 20px;
+
+          /* Spacing */
+          --space-xs: 8px;
+          --space-sm: 12px;
+          --space-md: 16px;
+          --space-lg: 20px;
+          --space-xl: 24px;
+          --space-2xl: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--color-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* iPhone Frame */
+        .iphone-frame {
+            width: 380px;
+            height: 820px;
+            background: transparent;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .mobile-container {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-content {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .mobile-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: rgba(245, 247, 250, 0.9);
+            backdrop-filter: blur(10px);
+            font-size: 15px;
+            font-weight: 600;
+            height: 44px;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: rgba(245, 247, 250, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            height: 70px;
+            box-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.12);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .icon-btn .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        /* Content */
+        .content {
+            padding: var(--space-xl) var(--space-lg);
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-xs);
+        }
+
+        .page-subtitle {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-2xl);
+        }
+
+        /* Support Cards */
+        .support-cards {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            margin-bottom: var(--space-2xl);
+        }
+
+        .support-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .support-card:active {
+            transform: scale(0.98);
+            box-shadow: var(--shadow-md);
+        }
+
+        .support-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .support-card-icon.whatsapp {
+            background: rgba(37, 211, 102, 0.1);
+        }
+
+        .support-card-icon.whatsapp .material-symbols-outlined {
+            color: #25D366;
+            font-size: 24px;
+        }
+
+        .support-card-icon.call {
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .support-card-icon.call .material-symbols-outlined {
+            color: var(--color-blue);
+            font-size: 24px;
+        }
+
+        .support-card-icon.email {
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        .support-card-icon.email .material-symbols-outlined {
+            color: var(--color-orange);
+            font-size: 24px;
+        }
+
+        .support-card-icon.faq {
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .support-card-icon.faq .material-symbols-outlined {
+            color: var(--color-green);
+            font-size: 24px;
+        }
+
+        .support-card-content {
+            flex: 1;
+        }
+
+        .support-card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 4px;
+        }
+
+        .support-card-subtitle {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+        }
+
+        .support-card-chevron {
+            color: var(--color-text-muted);
+            font-size: 20px;
+        }
+
+        /* Operating Hours */
+        .operating-hours {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .operating-hours-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-sm);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .operating-hours-title .material-symbols-outlined {
+            font-size: 18px;
+            color: var(--color-blue);
+        }
+
+        .operating-hours-text {
+            font-size: 13px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+
+        .operating-hours-text strong {
+            color: var(--color-text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="iphone-frame">
+        <div class="iphone-screen">
+            <div class="mobile-container">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <div>1:40 <span style="font-weight: 700;">▲</span></div>
+                    <div class="status-icons">
+                        <span>⚫⚫⚫</span> 📶 78%
+                    </div>
+                </div>
+
+                <!-- Header -->
+                <div class="header">
+                    <div class="header-left">
+                        <button class="icon-btn" onclick="window.location.href='menu.html'">
+                            <span class="material-symbols-outlined">arrow_back</span>
+                        </button>
+                        <div class="header-title">Help & Support</div>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="mobile-content">
+                    <div class="content">
+                        <div class="page-title">How can we help you?</div>
+                        <div class="page-subtitle">Choose your preferred way to reach us</div>
+
+                        <!-- Support Cards -->
+                        <div class="support-cards">
+                            <!-- WhatsApp Support -->
+                            <div class="support-card" onclick="openWhatsApp()">
+                                <div class="support-card-icon whatsapp">
+                                    <span class="material-symbols-outlined">chat</span>
+                                </div>
+                                <div class="support-card-content">
+                                    <div class="support-card-title">WhatsApp</div>
+                                    <div class="support-card-subtitle">Chat with us instantly</div>
+                                </div>
+                                <span class="material-symbols-outlined support-card-chevron">chevron_right</span>
+                            </div>
+
+                            <!-- Call Support -->
+                            <div class="support-card" onclick="makeCall()">
+                                <div class="support-card-icon call">
+                                    <span class="material-symbols-outlined">call</span>
+                                </div>
+                                <div class="support-card-content">
+                                    <div class="support-card-title">Call</div>
+                                    <div class="support-card-subtitle">Speak to our team: 1800-123-4567</div>
+                                </div>
+                                <span class="material-symbols-outlined support-card-chevron">chevron_right</span>
+                            </div>
+
+                            <!-- Email Support -->
+                            <div class="support-card" onclick="sendEmail()">
+                                <div class="support-card-icon email">
+                                    <span class="material-symbols-outlined">email</span>
+                                </div>
+                                <div class="support-card-content">
+                                    <div class="support-card-title">Email</div>
+                                    <div class="support-card-subtitle">support@niveshpe.com</div>
+                                </div>
+                                <span class="material-symbols-outlined support-card-chevron">chevron_right</span>
+                            </div>
+
+                            <!-- FAQs -->
+                            <div class="support-card" onclick="openFAQs()">
+                                <div class="support-card-icon faq">
+                                    <span class="material-symbols-outlined">question_answer</span>
+                                </div>
+                                <div class="support-card-content">
+                                    <div class="support-card-title">FAQs</div>
+                                    <div class="support-card-subtitle">Find quick answers</div>
+                                </div>
+                                <span class="material-symbols-outlined support-card-chevron">chevron_right</span>
+                            </div>
+                        </div>
+
+                        <!-- Operating Hours -->
+                        <div class="operating-hours">
+                            <div class="operating-hours-title">
+                                <span class="material-symbols-outlined">schedule</span>
+                                Operating Hours
+                            </div>
+                            <div class="operating-hours-text">
+                                <strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM<br>
+                                <strong>Saturday:</strong> 10:00 AM - 4:00 PM<br>
+                                <strong>Sunday:</strong> Closed
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openWhatsApp() {
+            alert('Opening WhatsApp...\n\nThis would open WhatsApp chat with NiveshPe support');
+            // In production: window.location.href = 'https://wa.me/918000000000';
+        }
+
+        function makeCall() {
+            alert('Calling support...\n\n1800-123-4567');
+            // In production: window.location.href = 'tel:18001234567';
+        }
+
+        function sendEmail() {
+            alert('Opening email client...\n\nsupport@niveshpe.com');
+            // In production: window.location.href = 'mailto:support@niveshpe.com';
+        }
+
+        function openFAQs() {
+            alert('Navigating to FAQs page...\n\nThis would open the FAQs section');
+            // In production: window.location.href = 'faqs.html';
+        }
+
+        // Mobile touch interactions
+        document.querySelectorAll('.support-card, .icon-btn').forEach(item => {
+            item.addEventListener('touchstart', function() {
+                this.style.transition = 'transform 0.1s ease';
+                this.style.transform = 'scale(0.98)';
+            });
+
+            item.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.transition = 'all 0.2s ease';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

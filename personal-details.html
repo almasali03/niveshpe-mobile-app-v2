@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NiveshPe - Personal Details</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <style>
+        :root {
+          /* Color System */
+          --color-bg-primary: #F5F7FA;
+          --color-bg-secondary: #FFFFFF;
+          --color-card: #FFFFFF;
+          --color-surface: #F8F9FA;
+          --color-border: #E5E7EB;
+
+          /* Brand Colors */
+          --color-blue: #2563EB;
+          --color-blue-dark: #1D4ED8;
+          --color-blue-light: #3B82F6;
+          --color-green: #10B981;
+          --color-green-light: #34D399;
+          --color-green-dark: #059669;
+          --color-orange: #F59E0B;
+          --color-red: #EF4444;
+
+          /* Text Colors */
+          --color-text-primary: #1F2937;
+          --color-text-secondary: #6B7280;
+          --color-text-muted: #9CA3AF;
+          --color-text-white: #FFFFFF;
+
+          /* Typography */
+          --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+          /* Shadows */
+          --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+          --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+          --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+          /* Border Radius */
+          --radius-sm: 8px;
+          --radius-md: 12px;
+          --radius-lg: 16px;
+          --radius-xl: 20px;
+
+          /* Spacing */
+          --space-xs: 8px;
+          --space-sm: 12px;
+          --space-md: 16px;
+          --space-lg: 20px;
+          --space-xl: 24px;
+          --space-2xl: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--color-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* iPhone Frame */
+        .iphone-frame {
+            width: 380px;
+            height: 820px;
+            background: transparent;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .mobile-container {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-content {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .mobile-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: rgba(245, 247, 250, 0.9);
+            backdrop-filter: blur(10px);
+            font-size: 15px;
+            font-weight: 600;
+            height: 44px;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: rgba(245, 247, 250, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            height: 70px;
+            box-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.12);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .icon-btn .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        /* Content */
+        .content {
+            padding: var(--space-xl) var(--space-lg);
+        }
+
+        /* Details Card */
+        .details-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-xl);
+        }
+
+        .detail-field {
+            padding: var(--space-lg) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .detail-field:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .detail-field:first-child {
+            padding-top: 0;
+        }
+
+        .detail-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .detail-value {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            line-height: 1.6;
+        }
+
+        .detail-value.address {
+            white-space: pre-line;
+        }
+
+        /* Verification Badge */
+        .verification-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: var(--space-sm);
+        }
+
+        .verification-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .verification-badge .material-symbols-outlined {
+            font-size: 16px;
+        }
+
+        /* Verified Badge (Green) */
+        .verification-badge.verified {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--color-green-dark);
+        }
+
+        .verification-badge.verified .material-symbols-outlined {
+            color: var(--color-green);
+        }
+
+        /* Unverified Badge (Orange) */
+        .verification-badge.unverified {
+            background: rgba(245, 158, 11, 0.1);
+            color: #D97706;
+        }
+
+        .verification-badge.unverified .material-symbols-outlined {
+            color: var(--color-orange);
+        }
+
+        /* Action Button for Unverified */
+        .action-btn {
+            padding: 8px 16px;
+            background: var(--color-blue);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            font-family: var(--font-family);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:active {
+            background: var(--color-blue-dark);
+            transform: scale(0.98);
+        }
+
+        /* Info Note */
+        .info-note {
+            background: rgba(37, 99, 235, 0.05);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            display: flex;
+            gap: var(--space-sm);
+            align-items: flex-start;
+        }
+
+        .info-note .material-symbols-outlined {
+            font-size: 20px;
+            color: var(--color-blue);
+            flex-shrink: 0;
+        }
+
+        .info-note-text {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="iphone-frame">
+        <div class="iphone-screen">
+            <div class="mobile-container">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <div>9:41</div>
+                    <div class="status-icons">
+                        <span>•••</span>
+                        <span>📶</span>
+                        <span>🔋</span>
+                    </div>
+                </div>
+
+                <!-- Header -->
+                <div class="header">
+                    <div class="header-left">
+                        <button class="icon-btn" onclick="window.location.href='menu.html'">
+                            <span class="material-symbols-outlined">chevron_left</span>
+                        </button>
+                        <div class="header-title">Personal Details</div>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="mobile-content">
+                    <div class="content">
+                        <!-- Details Card -->
+                        <div class="details-card">
+                            <!-- Name Field -->
+                            <div class="detail-field">
+                                <div class="detail-label">Full Name</div>
+                                <div class="detail-value">Almas Khan</div>
+                            </div>
+
+                            <!-- Mobile Number Field -->
+                            <div class="detail-field">
+                                <div class="detail-label">Registered Mobile Number</div>
+                                <div class="verification-row">
+                                    <div class="detail-value">+91 98765 43210</div>
+                                    <div class="verification-badge verified">
+                                        <span class="material-symbols-outlined">check_circle</span>
+                                        Verified
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Email ID Field -->
+                            <div class="detail-field">
+                                <div class="detail-label">Email Address</div>
+                                <!-- State 1: Unverified (currently shown) -->
+                                <div class="verification-row" id="emailUnverified">
+                                    <div class="detail-value" style="color: var(--color-text-muted);">Not Added</div>
+                                    <button class="action-btn" onclick="verifyEmail()">Add Email</button>
+                                </div>
+                                <!-- State 2: Verified (hidden by default) -->
+                                <div class="verification-row" id="emailVerified" style="display: none;">
+                                    <div class="detail-value">almas.khan@example.com</div>
+                                    <div class="verification-badge verified">
+                                        <span class="material-symbols-outlined">check_circle</span>
+                                        Verified
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Address Field -->
+                            <div class="detail-field">
+                                <div class="detail-label">Registered Address</div>
+                                <div class="detail-value address">123, Green Valley Apartments
+MG Road, Bangalore
+Karnataka - 560001</div>
+                            </div>
+                        </div>
+
+                        <!-- Info Note -->
+                        <div class="info-note">
+                            <span class="material-symbols-outlined">info</span>
+                            <div class="info-note-text">
+                                These details are fetched from your KYC. To update, please contact support.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle email verification state (for demo)
+        function verifyEmail() {
+            const unverified = document.getElementById('emailUnverified');
+            const verified = document.getElementById('emailVerified');
+
+            // Fade out unverified
+            unverified.style.transition = 'opacity 0.3s ease';
+            unverified.style.opacity = '0';
+
+            setTimeout(() => {
+                unverified.style.display = 'none';
+                verified.style.display = 'flex';
+                verified.style.opacity = '0';
+
+                // Fade in verified
+                setTimeout(() => {
+                    verified.style.transition = 'opacity 0.3s ease';
+                    verified.style.opacity = '1';
+                }, 50);
+            }, 300);
+        }
+
+        // Mobile touch interactions
+        document.querySelectorAll('.icon-btn, .action-btn').forEach(item => {
+            item.addEventListener('touchstart', function() {
+                this.style.transition = 'transform 0.1s ease';
+                this.style.transform = 'scale(0.98)';
+            });
+
+            item.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.transition = 'all 0.2s ease';
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>

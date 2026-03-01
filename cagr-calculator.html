@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NiveshPe - CAGR Calculator</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <style>
+        :root {
+          /* Color System */
+          --color-bg-primary: #F5F7FA;
+          --color-bg-secondary: #FFFFFF;
+          --color-card: #FFFFFF;
+          --color-surface: #F8F9FA;
+          --color-border: #E5E7EB;
+
+          /* Brand Colors */
+          --color-blue: #2563EB;
+          --color-blue-dark: #1D4ED8;
+          --color-blue-light: #3B82F6;
+          --color-green: #10B981;
+          --color-green-light: #34D399;
+          --color-green-dark: #059669;
+          --color-orange: #F59E0B;
+          --color-red: #EF4444;
+
+          /* Text Colors */
+          --color-text-primary: #1F2937;
+          --color-text-secondary: #6B7280;
+          --color-text-muted: #9CA3AF;
+          --color-text-white: #FFFFFF;
+
+          /* Typography */
+          --font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+          /* Shadows */
+          --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+          --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+          --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+
+          /* Border Radius */
+          --radius-sm: 8px;
+          --radius-md: 12px;
+          --radius-lg: 16px;
+          --radius-xl: 20px;
+
+          /* Spacing */
+          --space-xs: 8px;
+          --space-sm: 12px;
+          --space-md: 16px;
+          --space-lg: 20px;
+          --space-xl: 24px;
+          --space-2xl: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--color-text-primary);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        /* iPhone Frame */
+        .iphone-frame {
+            width: 380px;
+            height: 820px;
+            background: transparent;
+            position: relative;
+            margin: 0 auto;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .mobile-container {
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mobile-content {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: none;
+        }
+
+        .mobile-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: rgba(245, 247, 250, 0.9);
+            backdrop-filter: blur(10px);
+            font-size: 15px;
+            font-weight: 600;
+            height: 44px;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            background: rgba(245, 247, 250, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            height: 70px;
+            box-shadow: 0 8px 16px -2px rgba(0, 0, 0, 0.12);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius-md);
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(37, 99, 235, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .icon-btn .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+        }
+
+        /* Content */
+        .content {
+            padding: var(--space-xl) var(--space-lg);
+        }
+
+        /* Mode Toggle */
+        .mode-toggle {
+            display: flex;
+            gap: var(--space-xs);
+            background: var(--color-surface);
+            padding: 4px;
+            border-radius: var(--radius-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .mode-btn {
+            flex: 1;
+            padding: 10px 12px;
+            background: transparent;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: var(--font-family);
+        }
+
+        .mode-btn.active {
+            background: white;
+            color: var(--color-blue);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .mode-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* Input Card */
+        .input-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .input-group {
+            margin-bottom: var(--space-xl);
+        }
+
+        .input-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .input-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+        }
+
+        .label-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .label-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-blue);
+        }
+
+        /* Slider */
+        .slider-container {
+            position: relative;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #E5E7EB;
+            outline: none;
+            transition: background 0.2s;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--color-blue);
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .slider::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.4);
+        }
+
+        .slider::-webkit-slider-thumb:active {
+            transform: scale(1.05);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--color-blue);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .slider::-moz-range-thumb:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.4);
+        }
+
+        .slider-minmax {
+            display: flex;
+            justify-content: space-between;
+            margin-top: var(--space-xs);
+            font-size: 11px;
+            color: var(--color-text-muted);
+        }
+
+        /* Results Card */
+        .results-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-md);
+            margin-bottom: var(--space-lg);
+        }
+
+        .results-header {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-lg);
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-md) 0;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .result-row:first-child {
+            padding-top: 0;
+        }
+
+        .result-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--color-text-secondary);
+        }
+
+        .result-value {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .result-value.invested {
+            color: var(--color-blue);
+        }
+
+        .result-value.returns {
+            color: var(--color-green);
+        }
+
+        .result-value.total {
+            color: var(--color-text-primary);
+            font-size: 22px;
+        }
+
+        .result-value.cagr {
+            color: var(--color-orange);
+            font-size: 22px;
+        }
+
+        /* Chart Container */
+        .chart-container {
+            background: white;
+            border-radius: var(--radius-lg);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .chart-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .donut-chart {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+
+        .donut-chart svg {
+            transform: rotate(-90deg);
+        }
+
+        .chart-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        .chart-center-label {
+            font-size: 11px;
+            color: var(--color-text-muted);
+            font-weight: 500;
+        }
+
+        .chart-center-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-top: 4px;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: var(--space-lg);
+            justify-content: center;
+            margin-top: var(--space-lg);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+
+        .legend-color.invested {
+            background: var(--color-blue);
+        }
+
+        .legend-color.returns {
+            background: var(--color-green);
+        }
+
+        .legend-label {
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        /* Table */
+        .table-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: var(--space-lg);
+            overflow: hidden;
+        }
+
+        .table-header {
+            padding: var(--space-lg) var(--space-xl);
+            background: var(--color-surface);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .table-container {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            position: sticky;
+            top: 0;
+            background: var(--color-surface);
+            z-index: 1;
+        }
+
+        th {
+            padding: var(--space-md) var(--space-sm);
+            text-align: right;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--color-border);
+        }
+
+        th:first-child {
+            text-align: left;
+            padding-left: var(--space-xl);
+        }
+
+        th:last-child {
+            padding-right: var(--space-xl);
+        }
+
+        td {
+            padding: var(--space-md) var(--space-sm);
+            text-align: right;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        td:first-child {
+            text-align: left;
+            font-weight: 600;
+            padding-left: var(--space-xl);
+        }
+
+        td:last-child {
+            padding-right: var(--space-xl);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tbody tr:nth-child(even) {
+            background: rgba(245, 247, 250, 0.5);
+        }
+    </style>
+    <link rel="stylesheet" href="assets/css/iphone-toggle.css">
+</head>
+<body>
+    <!-- Frame Toggle Button -->
+    <button class="frame-toggle-btn" onclick="toggleFrameMode()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <rect x="5" y="4" width="14" height="17" rx="2" stroke="currentColor" stroke-width="2"/>
+            <path d="M9 2L15 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        <span id="frameToggleText">Normal View</span>
+    </button>
+
+    <div class="iphone-frame">
+        <div class="iphone-screen">
+            <!-- iPhone Notch -->
+            <div class="iphone-notch"></div>
+
+            <div class="mobile-container">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <div>9:41</div>
+                    <div class="status-icons">
+                        <span>•••</span>
+                        <span>📶</span>
+                        <span>🔋</span>
+                    </div>
+                </div>
+
+                <!-- Header -->
+                <div class="header">
+                    <div class="header-left">
+                        <button class="icon-btn" onclick="window.location.href='menu.html'">
+                            <span class="material-symbols-outlined">chevron_left</span>
+                        </button>
+                        <div class="header-title">CAGR Calculator</div>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="mobile-content">
+                    <div class="content">
+                        <!-- Mode Toggle -->
+                        <div class="mode-toggle">
+                            <button class="mode-btn active" id="futureValueBtn" onclick="setMode('futureValue')">Future Value</button>
+                            <button class="mode-btn" id="cagrRateBtn" onclick="setMode('cagrRate')">CAGR Rate</button>
+                        </div>
+
+                        <!-- Input Card -->
+                        <div class="input-card">
+                            <!-- Future Value Mode Inputs -->
+                            <div id="futureValueInputs">
+                                <div class="input-group">
+                                    <div class="input-label">
+                                        <span class="label-text">Initial Investment</span>
+                                        <span class="label-value" id="initialValue1">₹1,00,000</span>
+                                    </div>
+                                    <div class="slider-container">
+                                        <input type="range" min="10000" max="1000000" value="100000" step="10000" class="slider" id="initialSlider1">
+                                        <div class="slider-minmax">
+                                            <span>₹10,000</span>
+                                            <span>₹10,00,000</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <div class="input-label">
+                                        <span class="label-text">Time Period</span>
+                                        <span class="label-value" id="yearsValue1">5 Years</span>
+                                    </div>
+                                    <div class="slider-container">
+                                        <input type="range" min="1" max="30" value="5" step="1" class="slider" id="yearsSlider1">
+                                        <div class="slider-minmax">
+                                            <span>1 Year</span>
+                                            <span>30 Years</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <div class="input-label">
+                                        <span class="label-text">Expected Annual Return (CAGR)</span>
+                                        <span class="label-value" id="returnValue1">15%</span>
+                                    </div>
+                                    <div class="slider-container">
+                                        <input type="range" min="1" max="30" value="15" step="0.5" class="slider" id="returnSlider1">
+                                        <div class="slider-minmax">
+                                            <span>1%</span>
+                                            <span>30%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- CAGR Rate Mode Inputs -->
+                            <div id="cagrRateInputs" style="display: none;">
+                                <div class="input-group">
+                                    <div class="input-label">
+                                        <span class="label-text">Initial Investment</span>
+                                        <span class="label-value" id="initialValue2">₹1,00,000</span>
+                                    </div>
+                                    <div class="slider-container">
+                                        <input type="range" min="10000" max="1000000" value="100000" step="10000" class="slider" id="initialSlider2">
+                                        <div class="slider-minmax">
+                                            <span>₹10,000</span>
+                                            <span>₹10,00,000</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <div class="input-label">
+                                        <span class="label-text">Final Value</span>
+                                        <span class="label-value" id="finalValue2">₹2,00,000</span>
+                                    </div>
+                                    <div class="slider-container">
+                                        <input type="range" min="10000" max="5000000" value="200000" step="10000" class="slider" id="finalSlider2">
+                                        <div class="slider-minmax">
+                                            <span>₹10,000</span>
+                                            <span>₹50,00,000</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <div class="input-label">
+                                        <span class="label-text">Time Period</span>
+                                        <span class="label-value" id="yearsValue2">5 Years</span>
+                                    </div>
+                                    <div class="slider-container">
+                                        <input type="range" min="1" max="30" value="5" step="1" class="slider" id="yearsSlider2">
+                                        <div class="slider-minmax">
+                                            <span>1 Year</span>
+                                            <span>30 Years</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Results Card -->
+                        <div class="results-card">
+                            <div class="results-header">Investment Summary</div>
+                            <div id="futureValueResults">
+                                <div class="result-row">
+                                    <span class="result-label">Initial Investment</span>
+                                    <span class="result-value invested" id="displayInitial1">₹1,00,000</span>
+                                </div>
+                                <div class="result-row">
+                                    <span class="result-label">Total Returns</span>
+                                    <span class="result-value returns" id="displayReturns1">₹1,01,136</span>
+                                </div>
+                                <div class="result-row">
+                                    <span class="result-label">Final Value</span>
+                                    <span class="result-value total" id="displayFinal1">₹2,01,136</span>
+                                </div>
+                            </div>
+
+                            <div id="cagrRateResults" style="display: none;">
+                                <div class="result-row">
+                                    <span class="result-label">Initial Investment</span>
+                                    <span class="result-value invested" id="displayInitial2">₹1,00,000</span>
+                                </div>
+                                <div class="result-row">
+                                    <span class="result-label">Final Value</span>
+                                    <span class="result-value total" id="displayFinal2">₹2,00,000</span>
+                                </div>
+                                <div class="result-row">
+                                    <span class="result-label">CAGR Achieved</span>
+                                    <span class="result-value cagr" id="displayCAGR2">14.87%</span>
+                                </div>
+                                <div class="result-row">
+                                    <span class="result-label">Total Returns</span>
+                                    <span class="result-value returns" id="displayReturns2">₹1,00,000</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart -->
+                        <div class="chart-container">
+                            <div class="chart-wrapper">
+                                <div class="donut-chart">
+                                    <svg width="200" height="200">
+                                        <circle cx="100" cy="100" r="80" fill="none" stroke="#E5E7EB" stroke-width="40"/>
+                                        <circle cx="100" cy="100" r="80" fill="none" stroke="#2563EB" stroke-width="40"
+                                                id="investedCircle" stroke-dasharray="0 502" stroke-linecap="round"/>
+                                        <circle cx="100" cy="100" r="80" fill="none" stroke="#10B981" stroke-width="40"
+                                                id="returnsCircle" stroke-dasharray="0 502" stroke-linecap="round"/>
+                                    </svg>
+                                    <div class="chart-center">
+                                        <div class="chart-center-label" id="chartLabel">Final Value</div>
+                                        <div class="chart-center-value" id="chartCenterValue">₹2,01,136</div>
+                                    </div>
+                                </div>
+                                <div class="chart-legend">
+                                    <div class="legend-item">
+                                        <div class="legend-color invested"></div>
+                                        <span class="legend-label">Invested</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <div class="legend-color returns"></div>
+                                        <span class="legend-label">Returns</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Year-wise Breakup Table -->
+                        <div class="table-card">
+                            <div class="table-header">Year-wise Breakup</div>
+                            <div class="table-container">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Year</th>
+                                            <th>Value</th>
+                                            <th>Returns</th>
+                                            <th>Total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="yearTableBody">
+                                        <!-- Populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- iPhone Home Indicator -->
+            <div class="iphone-home-indicator"></div>
+        </div>
+    </div>
+
+    <script>
+        // Current mode
+        let currentMode = 'futureValue';
+
+        // Elements
+        const futureValueBtn = document.getElementById('futureValueBtn');
+        const cagrRateBtn = document.getElementById('cagrRateBtn');
+        const futureValueInputs = document.getElementById('futureValueInputs');
+        const cagrRateInputs = document.getElementById('cagrRateInputs');
+        const futureValueResults = document.getElementById('futureValueResults');
+        const cagrRateResults = document.getElementById('cagrRateResults');
+
+        // Mode 1 elements
+        const initialSlider1 = document.getElementById('initialSlider1');
+        const yearsSlider1 = document.getElementById('yearsSlider1');
+        const returnSlider1 = document.getElementById('returnSlider1');
+        const initialValue1 = document.getElementById('initialValue1');
+        const yearsValue1 = document.getElementById('yearsValue1');
+        const returnValue1 = document.getElementById('returnValue1');
+
+        // Mode 2 elements
+        const initialSlider2 = document.getElementById('initialSlider2');
+        const finalSlider2 = document.getElementById('finalSlider2');
+        const yearsSlider2 = document.getElementById('yearsSlider2');
+        const initialValue2 = document.getElementById('initialValue2');
+        const finalValue2 = document.getElementById('finalValue2');
+        const yearsValue2 = document.getElementById('yearsValue2');
+
+        // Chart elements
+        const investedCircle = document.getElementById('investedCircle');
+        const returnsCircle = document.getElementById('returnsCircle');
+        const chartCenterValue = document.getElementById('chartCenterValue');
+        const chartLabel = document.getElementById('chartLabel');
+        const yearTableBody = document.getElementById('yearTableBody');
+
+        // Format currency
+        function formatCurrency(amount) {
+            return '₹' + Math.round(amount).toLocaleString('en-IN');
+        }
+
+        // Set mode
+        function setMode(mode) {
+            currentMode = mode;
+
+            // Update button states
+            futureValueBtn.classList.remove('active');
+            cagrRateBtn.classList.remove('active');
+
+            if (mode === 'futureValue') {
+                futureValueBtn.classList.add('active');
+                futureValueInputs.style.display = 'block';
+                cagrRateInputs.style.display = 'none';
+                futureValueResults.style.display = 'block';
+                cagrRateResults.style.display = 'none';
+                chartLabel.textContent = 'Final Value';
+                calculateFutureValue();
+            } else {
+                cagrRateBtn.classList.add('active');
+                futureValueInputs.style.display = 'none';
+                cagrRateInputs.style.display = 'block';
+                futureValueResults.style.display = 'none';
+                cagrRateResults.style.display = 'block';
+                chartLabel.textContent = 'Final Value';
+                calculateCAGR();
+            }
+        }
+
+        // Calculate Future Value
+        function calculateFutureValue() {
+            const initial = parseFloat(initialSlider1.value);
+            const years = parseInt(yearsSlider1.value);
+            const rate = parseFloat(returnSlider1.value) / 100;
+
+            // Update display values
+            initialValue1.textContent = formatCurrency(initial);
+            yearsValue1.textContent = years + (years === 1 ? ' Year' : ' Years');
+            returnValue1.textContent = parseFloat(returnSlider1.value) + '%';
+
+            // Calculate final value: FV = PV × (1 + r)^n
+            const finalValue = initial * Math.pow(1 + rate, years);
+            const returns = finalValue - initial;
+
+            // Update results
+            document.getElementById('displayInitial1').textContent = formatCurrency(initial);
+            document.getElementById('displayReturns1').textContent = formatCurrency(returns);
+            document.getElementById('displayFinal1').textContent = formatCurrency(finalValue);
+            chartCenterValue.textContent = formatCurrency(finalValue);
+
+            // Update chart
+            updateChart(initial, returns, finalValue);
+
+            // Update table
+            updateTable(initial, rate, years);
+        }
+
+        // Calculate CAGR
+        function calculateCAGR() {
+            const initial = parseFloat(initialSlider2.value);
+            const final = parseFloat(finalSlider2.value);
+            const years = parseInt(yearsSlider2.value);
+
+            // Update display values
+            initialValue2.textContent = formatCurrency(initial);
+            finalValue2.textContent = formatCurrency(final);
+            yearsValue2.textContent = years + (years === 1 ? ' Year' : ' Years');
+
+            // Calculate CAGR: [(FV / PV)^(1/n) - 1] × 100
+            let cagr = 0;
+            if (final > initial && years > 0) {
+                cagr = (Math.pow(final / initial, 1 / years) - 1) * 100;
+            }
+
+            const returns = final - initial;
+
+            // Update results
+            document.getElementById('displayInitial2').textContent = formatCurrency(initial);
+            document.getElementById('displayFinal2').textContent = formatCurrency(final);
+            document.getElementById('displayCAGR2').textContent = cagr.toFixed(2) + '%';
+            document.getElementById('displayReturns2').textContent = formatCurrency(returns);
+            chartCenterValue.textContent = formatCurrency(final);
+
+            // Update chart
+            updateChart(initial, returns, final);
+
+            // Update table
+            updateTable(initial, cagr / 100, years);
+        }
+
+        // Update chart
+        function updateChart(invested, returns, total) {
+            const circumference = 2 * Math.PI * 80;
+            const investedPercent = (invested / total) * 100;
+            const returnsPercent = (returns / total) * 100;
+
+            const investedDash = (investedPercent / 100) * circumference;
+            const returnsDash = (returnsPercent / 100) * circumference;
+
+            investedCircle.setAttribute('stroke-dasharray', `${investedDash} ${circumference}`);
+            returnsCircle.setAttribute('stroke-dasharray', `${returnsDash} ${circumference}`);
+            returnsCircle.setAttribute('stroke-dashoffset', -investedDash);
+        }
+
+        // Update table
+        function updateTable(initial, rate, years) {
+            yearTableBody.innerHTML = '';
+
+            for (let year = 1; year <= years; year++) {
+                const value = initial * Math.pow(1 + rate, year);
+                const returns = value - initial;
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${year}</td>
+                    <td>${formatCurrency(initial)}</td>
+                    <td>${formatCurrency(returns)}</td>
+                    <td>${formatCurrency(value)}</td>
+                `;
+                yearTableBody.appendChild(row);
+            }
+        }
+
+        // Event listeners - Mode 1
+        initialSlider1.addEventListener('input', calculateFutureValue);
+        yearsSlider1.addEventListener('input', calculateFutureValue);
+        returnSlider1.addEventListener('input', calculateFutureValue);
+
+        // Event listeners - Mode 2
+        initialSlider2.addEventListener('input', calculateCAGR);
+        finalSlider2.addEventListener('input', calculateCAGR);
+        yearsSlider2.addEventListener('input', calculateCAGR);
+
+        // Initialize
+        calculateFutureValue();
+
+        // Mobile touch interactions
+        document.querySelectorAll('.icon-btn, .mode-btn').forEach(item => {
+            item.addEventListener('touchstart', function() {
+                this.style.transition = 'transform 0.1s ease';
+                this.style.transform = 'scale(0.98)';
+            });
+
+            item.addEventListener('touchend', function() {
+                setTimeout(() => {
+                    this.style.transform = '';
+                    this.style.transition = 'all 0.2s ease';
+                }, 100);
+            });
+        });
+    </script>
+    <script src="assets/js/iphone-toggle.js"></script>
+</body>
+</html>

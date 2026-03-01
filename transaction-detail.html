@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Details - NiveshPe</title>
+    <!-- Cache busting version -->
+
+    <!-- Meta Tags for Social Sharing -->
+    <meta name="description" content="View detailed transaction information including NAV, units, processing status and more on NiveshPe">
+    <meta name="keywords" content="transaction details, NAV, mutual funds, SIP, investment, NiveshPe">
+    <meta name="author" content="NiveshPe">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/my-funds.css">
+    <link rel="stylesheet" href="assets/css/iphone-toggle.css">
+</head>
+<body>
+    <!-- Frame Toggle Button -->
+    <button class="frame-toggle-btn" id="frameToggleBtn" onclick="toggleFrameMode()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/>
+        </svg>
+        <span id="frameToggleText">Normal View</span>
+    </button>
+
+
+    <div class="app-container">
+        <div class="iphone-frame">
+        <!-- iPhone Notch (Dynamic Island style) -->
+        <div class="iphone-notch"></div>
+
+
+            <div class="iphone-screen">
+                <div class="mobile-container">
+                    <!-- Status Bar -->
+                    <div class="status-bar">
+                        <div class="status-left">
+                            <span class="time">9:41</span>
+                        </div>
+                        <div class="status-right">
+                            <span class="battery">87%</span>
+                            <div class="signal-bars">
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                                <div class="bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Header -->
+                    <div class="header">
+                        <button class="back-btn" onclick="window.history.back()">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+                            </svg>
+                        </button>
+                        <div class="header-title">Transaction Details</div>
+                        <div class="header-actions">
+                            <button class="icon-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.5 6L12 10.5 8.5 8 12 5.5 15.5 8zM12 13.5l3.5 2.5L12 18.5 8.5 16l3.5-2.5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Scrollable Content -->
+                    <div class="scroll-content">
+                        <div class="transaction-detail-page">
+                            <!-- Transaction Status Header -->
+                            <div class="transaction-status-card">
+                                <div class="status-icon success">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                </div>
+                                <div class="status-content">
+                                    <div class="status-title" id="transactionTitle">Monthly SIP: HDFC Liquid Fund</div>
+                                    <div class="status-amount" id="transactionAmount">₹1,500</div>
+                                    <div class="status-badge success" id="transactionStatus">Completed</div>
+                                </div>
+                            </div>
+
+                            <!-- Mandate Note -->
+                            <div class="mandate-note">
+                                <div class="note-icon">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                    </svg>
+                                </div>
+                                <div class="note-text">Your order is successful and money will be deducted in T+4 (Jan 13, 2026) business days. DO NOT cancel the mandate in the UPI app.</div>
+                            </div>
+
+                            <!-- Status Timeline -->
+                            <div class="detail-section">
+                                <div class="section-title">Transaction Timeline</div>
+                                <div class="timeline">
+                                    <div class="timeline-item completed">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-title">Payment Initiated</div>
+                                            <div class="timeline-time">Nov 8, 2024 • 09:30 AM</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item completed">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-title">Payment Successful</div>
+                                            <div class="timeline-time">Nov 8, 2024 • 09:31 AM</div>
+                                        </div>
+                                    </div>
+                                    <div class="timeline-item completed">
+                                        <div class="timeline-dot"></div>
+                                        <div class="timeline-content">
+                                            <div class="timeline-title" id="timelineUnitsTitle">Units Allocated</div>
+                                            <div class="timeline-time">Nov 8, 2024 • 09:45 AM</div>
+                                        </div>
+                                    </div>
+                                    <!-- Dates Disclaimer -->
+                                    <div class="timeline-disclaimer">
+                                        <div class="disclaimer-text">*Above mentioned dates are indicative & can vary if there is a delay in verification of details submitted OR if there is any delay in transfer of funds.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Transaction Summary -->
+                            <div class="detail-section">
+                                <div class="section-title">Transaction Summary</div>
+                                <div class="detail-grid">
+                                    <div class="detail-item">
+                                        <span class="detail-label">Transaction ID</span>
+                                        <span class="detail-value" id="transactionId">TXN240708001</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Date & Time</span>
+                                        <span class="detail-value" id="transactionDateTime">Nov 8, 2024 • 09:30 AM</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Transaction Type</span>
+                                        <span class="detail-value" id="transactionType">SIP Investment</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Payment Method</span>
+                                        <span class="detail-value" id="paymentMethod">UPI AutoPay</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Folio Number</span>
+                                        <span class="detail-value" id="folioNumber">HDFC12345678</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Fund Details -->
+                            <div class="detail-section">
+                                <div class="section-title">Fund Information</div>
+                                <div class="fund-info-card">
+                                    <div class="fund-logo">
+                                        <div class="fund-icon">HDFC</div>
+                                    </div>
+                                    <div class="fund-details">
+                                        <div class="fund-name" id="fundName">HDFC Liquid Fund - Direct Growth</div>
+                                        <div class="fund-category">Debt • Liquid</div>
+                                        <div class="fund-rating">
+                                            <span>★★★★☆</span>
+                                            <span class="rating-text">4.2/5</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Investment Breakdown -->
+                            <div class="detail-section">
+                                <div class="section-title" id="breakdownTitle">Investment Breakdown</div>
+                                <div class="breakdown-card">
+                                    <div class="breakdown-item">
+                                        <div class="breakdown-label">Investment Amount</div>
+                                        <div class="breakdown-value" id="investmentAmount">₹1,500.00</div>
+                                    </div>
+                                    <div class="breakdown-item">
+                                        <div class="breakdown-label">NAV (Net Asset Value)</div>
+                                        <div class="breakdown-value" id="navValue">₹3,245.67</div>
+                                    </div>
+                                    <div class="breakdown-item">
+                                        <div class="breakdown-label" id="unitsLabel">Units Allocated</div>
+                                        <div class="breakdown-value highlight" id="unitsAllocated">Pending (By T+5 Jan 14, 2026)</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- SIP Information (shown for SIP transactions) -->
+                            <div class="detail-section" id="sipInfo">
+                                <div class="section-title">SIP Details</div>
+                                <div class="detail-grid">
+                                    <div class="detail-item">
+                                        <span class="detail-label">SIP Amount</span>
+                                        <span class="detail-value">₹1,500</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Frequency</span>
+                                        <span class="detail-value">Monthly</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Next SIP Date</span>
+                                        <span class="detail-value">Dec 8, 2024</span>
+                                    </div>
+                                    <div class="detail-item">
+                                        <span class="detail-label">Total SIPs</span>
+                                        <span class="detail-value">12 of 60</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tax Information -->
+                            <div class="detail-section">
+                                <div class="section-title">Tax Information</div>
+                                <div class="tax-info-card">
+                                    <div class="tax-item">
+                                        <span class="tax-label">Holding Period</span>
+                                        <span class="tax-value">Short Term (< 3 years)</span>
+                                    </div>
+                                    <div class="tax-item">
+                                        <span class="tax-label">Tax Implication</span>
+                                        <span class="tax-value">As per your income tax slab</span>
+                                    </div>
+                                    <div class="tax-note">
+                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                                        </svg>
+                                        Tax implications are calculated at the time of redemption
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Documents -->
+                            <div class="detail-section">
+                                <div class="section-title">Documents</div>
+                                <div class="documents-list">
+                                    <div class="document-item">
+                                        <div class="document-icon">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="document-details">
+                                            <div class="document-name" id="transactionDocumentName">Transaction Statement</div>
+                                            <div class="document-size">PDF • 124 KB</div>
+                                        </div>
+                                        <button class="document-download">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="document-item">
+                                        <div class="document-icon">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                                            </svg>
+                                        </div>
+                                        <div class="document-details">
+                                            <div class="document-name" id="unitsDocumentName">Units Allocation Statement</div>
+                                            <div class="document-size">PDF • 87 KB</div>
+                                        </div>
+                                        <button class="document-download">
+                                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                                <path d="M5,20H19V18H5M19,9H15V3H9V9H5L12,16L19,9Z"/>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Support Section -->
+                            <div class="detail-section">
+                                <div class="support-card">
+                                    <div class="support-icon">
+                                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c1.19 0 2.34-.21 3.41-.6.3-.11.49-.4.49-.72v-2.81c0-.45-.54-.67-.85-.35-.59.6-1.41.97-2.05.97-1.66 0-3-1.34-3-3s1.34-3 3-3c.64 0 1.46.37 2.05.97.31.32.85.09.85-.36V5.32c0-.31-.19-.61-.49-.72C14.34 2.21 13.19 2 12 2z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="support-content">
+                                        <div class="support-title">Need Help?</div>
+                                        <div class="support-subtitle">Contact our support team for any queries</div>
+                                    </div>
+                                    <button class="support-button">Contact</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enhanced Bottom Navigation -->
+                    <nav class="bottom-nav">
+                        <a href="index.html" class="nav-item">
+                            <div class="nav-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                                </svg>
+                            </div>
+                            <span class="nav-label">Home</span>
+                        </a>
+                        <a href="my-funds.html" class="nav-item">
+                            <div class="nav-icon">
+                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M21.0273 13.375C21.3789 13.375 21.6602 13.6914 21.5898 14.0078C21.3438 15.9766 20.3945 17.6992 19.0234 18.9648C18.8125 19.1758 18.4609 19.1758 18.25 18.9648L12.6953 13.375H21.0273ZM20.4648 11.125C20.5 11.4414 20.2188 11.6875 19.9023 11.6875H12.0625V3.84766C12.0625 3.53125 12.3086 3.25 12.625 3.28516C16.8438 3.56641 20.1836 6.90625 20.4648 11.125ZM10.375 13.375L15.8242 18.8594C16.0703 19.1055 16.0703 19.5273 15.7891 19.7031C14.4531 20.6875 12.8008 21.25 11.043 21.25C6.50781 21.3203 2.64062 17.6289 2.5 13.1289C2.32422 8.73438 5.52344 5.07812 9.74219 4.48047C10.0586 4.44531 10.375 4.72656 10.375 5.04297V13.375Z" fill="currentColor"/>
+                                </svg>
+                            </div>
+                            <span class="nav-label">My Funds</span>
+                        </a>
+                        <a href="#" class="nav-item">
+                            <div class="nav-icon">
+                                <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.5 20V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M18.5 20V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M6.5 20V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
+                            <span class="nav-label">Mutual Funds</span>
+                        </a>
+                        <a href="transaction-history.html" class="nav-item">
+                            <div class="nav-icon">
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M16.2,16.2L11,13V7H12.5V12.2L17,14.9L16.2,16.2Z"/>
+                                </svg>
+                            </div>
+                            <span class="nav-label">History</span>
+                        </a>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Try to get API payload from localStorage or URL
+            let apiData = null;
+            const urlParams = new URLSearchParams(window.location.search);
+
+            // Check if API data is stored in localStorage
+            const storedData = localStorage.getItem('transactionDetailData');
+            if (storedData) {
+                try {
+                    apiData = JSON.parse(storedData);
+                    // Clear after reading
+                    localStorage.removeItem('transactionDetailData');
+                } catch (e) {
+                    console.error('Error parsing transaction data:', e);
+                }
+            }
+
+            // If API data exists, use it; otherwise fall back to URL parameters
+            if (apiData && apiData.data) {
+                updateTransactionDetailsFromAPI(apiData.data);
+            } else {
+                // Fallback to old URL parameter method
+                const txnType = urlParams.get('type') || 'sip';
+                const txnAmount = urlParams.get('amount') || '1500';
+                const txnTitle = urlParams.get('title') || 'Monthly SIP: HDFC Liquid Fund';
+                const txnDate = urlParams.get('date') || 'Nov 8, 2024 • 09:30 AM';
+                updateTransactionDetails(txnType, txnAmount, txnTitle, txnDate);
+            }
+
+            // Mobile touch interactions
+            document.querySelectorAll('.document-item, .support-card, .status-card').forEach(item => {
+                item.addEventListener('touchstart', function(e) {
+                    this.style.transition = 'transform 0.1s ease';
+                    this.style.transform = 'scale(0.95)';
+                });
+
+                item.addEventListener('touchend', function(e) {
+                    setTimeout(() => {
+                        this.style.transform = '';
+                        this.style.transition = 'all 0.2s ease';
+                    }, 100);
+                });
+            });
+        });
+
+        function updateTransactionDetailsFromAPI(data) {
+            // Update transaction header
+            const fundTitle = `Monthly SIP: ${data.fund_name}`;
+            document.getElementById('transactionTitle').textContent = fundTitle;
+            document.getElementById('transactionAmount').textContent = `₹${data.amount.toLocaleString('en-IN')}`;
+
+            // Update status badge and icon
+            const statusBadge = document.getElementById('transactionStatus');
+            const statusCard = document.querySelector('.transaction-status-card');
+            const statusIcon = statusCard.querySelector('.status-icon');
+
+            // Map API status to display status
+            const statusMap = {
+                'Order Placed': { text: 'Processing', class: 'processing' },
+                'Processing': { text: 'Processing', class: 'processing' },
+                'SUCCESS': { text: 'Completed', class: 'success' },
+                'FAILED': { text: 'Failed', class: 'failed' }
+            };
+
+            const displayStatus = statusMap[data.status] || { text: data.status, class: 'processing' };
+            statusBadge.textContent = displayStatus.text;
+            statusBadge.className = `status-badge ${displayStatus.class}`;
+            statusIcon.className = `status-icon ${displayStatus.class}`;
+
+            // Update Transaction Summary
+            document.getElementById('transactionId').textContent = data.transaction_id;
+
+            // Format created_at date
+            const createdDate = new Date(data.created_at);
+            const dateStr = createdDate.toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' });
+            const timeStr = createdDate.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
+            document.getElementById('transactionDateTime').textContent = `${dateStr} • ${timeStr}`;
+
+            document.getElementById('transactionType').textContent = 'SIP Investment';
+            document.getElementById('paymentMethod').textContent = 'UPI AutoPay';
+            document.getElementById('folioNumber').textContent = data.folio_number || 'Pending';
+
+            // Update Fund Information
+            const fundCategory = `${data.fund_category} • ${data.fund_sub_category}`;
+            document.querySelector('.fund-name').textContent = `${data.fund_name} - ${data.fund_plan_name} ${data.fund_option_name}`;
+            document.querySelector('.fund-category').textContent = fundCategory;
+            document.querySelector('.fund-icon').textContent = data.fund_amc_name.split(' ')[0].toUpperCase();
+
+            // Update Investment Breakdown
+            document.getElementById('investmentAmount').textContent = `₹${data.amount.toFixed(2)}`;
+
+            // Get first installment data if available
+            const firstInstallment = data.installments && data.installments.length > 0 ? data.installments[0] : null;
+
+            if (firstInstallment && firstInstallment.nav_at_execution) {
+                document.getElementById('navValue').textContent = `₹${firstInstallment.nav_at_execution.toFixed(2)}`;
+
+                if (firstInstallment.units_allotted) {
+                    document.getElementById('unitsAllocated').textContent = `${firstInstallment.units_allotted.toFixed(4)} units`;
+                } else {
+                    document.getElementById('unitsAllocated').textContent = 'Pending';
+                }
+            } else {
+                document.getElementById('navValue').textContent = 'Pending';
+                document.getElementById('unitsAllocated').textContent = 'Pending';
+            }
+
+            document.getElementById('totalAmount').textContent = `₹${data.amount.toFixed(2)}`;
+
+            // Update SIP Details
+            document.getElementById('sipInfo').style.display = 'block';
+            const sipDetailsGrid = document.querySelector('#sipInfo .detail-grid');
+
+            // Calculate next SIP date (SIP start date + 1 month for first installment)
+            const sipStartDate = new Date(data.sip_start_date);
+            const nextSipDate = new Date(sipStartDate);
+            nextSipDate.setMonth(nextSipDate.getMonth() + 1);
+
+            sipDetailsGrid.innerHTML = `
+                <div class="detail-item">
+                    <span class="detail-label">SIP Amount</span>
+                    <span class="detail-value">₹${data.amount.toLocaleString('en-IN')}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Frequency</span>
+                    <span class="detail-value">Monthly</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Start Date</span>
+                    <span class="detail-value">${sipStartDate.toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                </div>
+                <div class="detail-item">
+                    <span class="detail-label">Total Installments</span>
+                    <span class="detail-value">${data.installments_summary.completed} of ${data.installments_summary.total}</span>
+                </div>
+            `;
+
+            // Update Timeline based on API timeline
+            updateTimelineFromAPI(data.timeline, firstInstallment);
+        }
+
+        function updateTimelineFromAPI(timeline, installment) {
+            const timelineContainer = document.querySelector('.timeline');
+            let timelineHTML = '';
+
+            // Order Placed
+            if (timeline.order_placed_at) {
+                const orderDate = new Date(timeline.order_placed_at);
+                timelineHTML += `
+                    <div class="timeline-item completed">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Order Placed</div>
+                            <div class="timeline-time">${orderDate.toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })} • ${orderDate.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Payment Completed
+            if (timeline.payment_completed_at) {
+                const paymentDate = new Date(timeline.payment_completed_at);
+                timelineHTML += `
+                    <div class="timeline-item completed">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Payment Successful</div>
+                            <div class="timeline-time">${paymentDate.toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })} • ${paymentDate.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                timelineHTML += `
+                    <div class="timeline-item pending">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Payment Pending</div>
+                            <div class="timeline-time">Awaiting payment confirmation</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Units Allocated (from installment timeline if available)
+            if (installment && installment.timeline && installment.timeline.units_allotted_at) {
+                const unitsDate = new Date(installment.timeline.units_allotted_at);
+                timelineHTML += `
+                    <div class="timeline-item completed">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Units Allocated</div>
+                            <div class="timeline-time">${unitsDate.toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })} • ${unitsDate.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                timelineHTML += `
+                    <div class="timeline-item pending">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">Units Allocation Pending</div>
+                            <div class="timeline-time">Processing</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // SIP Activated
+            if (timeline.sip_activated_at) {
+                const activatedDate = new Date(timeline.sip_activated_at);
+                timelineHTML += `
+                    <div class="timeline-item completed">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">SIP Activated</div>
+                            <div class="timeline-time">${activatedDate.toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })} • ${activatedDate.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true })}</div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                timelineHTML += `
+                    <div class="timeline-item pending">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <div class="timeline-title">SIP Activation Pending</div>
+                            <div class="timeline-time">Will be activated after payment</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            timelineContainer.innerHTML = timelineHTML;
+        }
+
+        function updateTransactionDetails(type, amount, title, date) {
+            // Update basic transaction info
+            document.getElementById('transactionTitle').textContent = title;
+            document.getElementById('transactionDateTime').textContent = date;
+
+            // Update transaction type specific content
+            const typeMap = {
+                'sip': 'SIP Investment',
+                'lumpsum': 'One Time Investment',
+                'dividend': 'Dividend Credit'
+            };
+
+            document.getElementById('transactionType').textContent = typeMap[type] || 'Investment';
+
+            // Update transaction ID
+            const txnId = 'TXN' + Date.now().toString().slice(-8);
+            document.getElementById('transactionId').textContent = txnId;
+
+            // Show/hide SIP specific information
+            const sipInfo = document.getElementById('sipInfo');
+            if (type === 'sip') {
+                sipInfo.style.display = 'block';
+            } else {
+                sipInfo.style.display = 'none';
+            }
+
+            // Update investment details (only for non-withdrawal transactions)
+            updateInvestmentDetails(type, amount);
+        }
+
+        function updateInvestmentDetails(type, amount) {
+            // For investments (SIP, lumpsum, dividend)
+            document.getElementById('transactionAmount').textContent = `₹${amount}`;
+            document.getElementById('transactionStatus').textContent = 'Completed';
+            document.getElementById('paymentMethod').textContent = 'UPI AutoPay';
+
+            // Generate folio number
+            const folioNumber = 'HDFC' + Math.floor(Math.random() * 90000000 + 10000000);
+            document.getElementById('folioNumber').textContent = folioNumber;
+
+            // Update investment breakdown
+            document.getElementById('investmentAmount').textContent = `₹${amount}.00`;
+            document.getElementById('totalAmount').textContent = `₹${amount}.00`;
+
+            // Calculate units (simplified calculation)
+            const nav = 3245.67;
+            const units = (parseFloat(amount) / nav).toFixed(4);
+            document.getElementById('unitsAllocated').textContent = `${units} units`;
+            document.getElementById('navValue').textContent = `₹${nav.toFixed(2)}`;
+        }
+
+
+
+        function resetInvestmentTimeline() {
+            const timeline = document.querySelector('.timeline');
+            timeline.innerHTML = `
+                <div class="timeline-item completed">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Payment Initiated</div>
+                        <div class="timeline-time">Nov 8, 2024 • 09:30 AM</div>
+                    </div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Payment Successful</div>
+                        <div class="timeline-time">Nov 8, 2024 • 09:31 AM</div>
+                    </div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title" id="timelineUnitsTitle">Units Allocated</div>
+                        <div class="timeline-time">Nov 8, 2024 • 09:45 AM</div>
+                    </div>
+                </div>
+                <div class="timeline-item completed">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-title">Transaction Complete</div>
+                        <div class="timeline-time">Nov 8, 2024 • 09:45 AM</div>
+                    </div>
+
+        <!-- iPhone Home Indicator -->
+        <div class="iphone-home-indicator"></div>
+
+                </div>
+            `;
+        }
+
+    </script>
+    <script src="assets/js/iphone-toggle.js"></script>
+</body>
+</html>

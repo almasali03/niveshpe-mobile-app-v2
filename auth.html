@@ -1,0 +1,1991 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Welcome to NiveshPe</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- iPhone Toggle CSS -->
+    <link rel="stylesheet" href="assets/css/iphone-toggle.css">
+
+    <style>
+        :root {
+            --color-bg-primary: #F5F7FA;
+            --color-blue: #2563EB;
+            --color-blue-dark: #1D4ED8;
+            --color-blue-light: #3B82F6;
+            --color-green: #10B981;
+            --color-green-light: #34D399;
+            --color-purple: #8B5CF6;
+            --color-orange: #F59E0B;
+            --color-red: #EF4444;
+            --color-text-primary: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-text-muted: #9CA3AF;
+            --color-border: #E5E7EB;
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-full: 9999px;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--color-text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .iphone-frame {
+            width: 380px;
+            height: 820px;
+            background: transparent;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .iphone-screen {
+            width: 100%;
+            height: 100%;
+            background: var(--color-bg-primary);
+            overflow: hidden;
+        }
+
+        .mobile-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes growBar {
+            from { transform: scaleY(0); }
+            to { transform: scaleY(1); }
+        }
+
+        @keyframes expandRing {
+            0% { transform: translate(-50%, -50%) scale(0.8); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.2); opacity: 0; }
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%, 0% 0%, 0% 0%; }
+            50% { background-position: 100% 50%, 0% 0%, 0% 0%; }
+            100% { background-position: 0% 50%, 0% 0%, 0% 0%; }
+        }
+
+        /* ==================== STATUS BAR ==================== */
+
+        .status-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            background: white;
+            font-size: 15px;
+            font-weight: 600;
+            height: 44px;
+            flex-shrink: 0;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 6px;
+        }
+
+        /* ==================== BRAND HEADER ==================== */
+
+        .brand-header {
+            text-align: center;
+            padding: 24px 20px 16px;
+            background: #EFF6FF;
+        }
+
+        .brand-logo {
+            font-size: 28px;
+            font-weight: 800;
+            margin: 0 0 4px 0;
+            letter-spacing: -0.5px;
+        }
+
+        .brand-logo .nivesh {
+            color: var(--color-blue);
+        }
+
+        .brand-logo .pe {
+            color: var(--color-green);
+        }
+
+        .brand-tagline {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin: 0;
+        }
+
+        /* ==================== HEADER (COMMENTED OUT) ==================== */
+        /*
+        .header {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background: white;
+            height: 58px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 0 20px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: var(--color-text-primary);
+            cursor: pointer;
+            padding: 8px;
+            margin-left: -8px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .back-button.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-left: 12px;
+        }
+
+        .skip-button {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: var(--color-blue);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 8px 12px;
+        }
+        */
+
+        /* ==================== PROGRESS INDICATOR ==================== */
+
+        .progress-indicator {
+            display: none;
+            justify-content: center;
+            gap: 8px;
+            padding: 16px 0;
+            background: white;
+        }
+
+        .progress-indicator.show {
+            display: flex;
+        }
+
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-border);
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            width: 24px;
+            border-radius: 4px;
+            background: var(--color-blue);
+        }
+
+        /* ==================== MAIN CONTENT ==================== */
+
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .auth-state {
+            display: none;
+            width: 100%;
+            min-height: 100%;
+        }
+
+        .auth-state.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        /* ==================== WELCOME CAROUSEL ==================== */
+
+        .carousel-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.03) 0%, rgba(16, 185, 129, 0.03) 100%);
+        }
+
+        .carousel-slides {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            transform: translateX(100%);
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(0);
+        }
+
+        .carousel-slide.prev {
+            transform: translateX(-100%);
+        }
+
+        .carousel-illustration {
+            width: 240px;
+            height: 240px;
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        /* Slide 1: Growth Illustration */
+        .illustration-growth {
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .growth-chart {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 120px;
+        }
+
+        .chart-bar {
+            position: absolute;
+            bottom: 0;
+            width: 32px;
+            background: linear-gradient(to top, var(--color-blue), var(--color-blue-light));
+            border-radius: 4px 4px 0 0;
+            animation: growBar 1s ease-out forwards;
+            transform-origin: bottom;
+        }
+
+        .chart-bar:nth-child(1) { left: 0; height: 60px; animation-delay: 0.1s; opacity: 0.7; }
+        .chart-bar:nth-child(2) { left: 40px; height: 80px; animation-delay: 0.2s; opacity: 0.8; }
+        .chart-bar:nth-child(3) { left: 80px; height: 100px; animation-delay: 0.3s; opacity: 0.9; }
+        .chart-bar:nth-child(4) { left: 120px; height: 120px; animation-delay: 0.4s; background: linear-gradient(to top, var(--color-green), var(--color-green-light)); }
+
+        .growth-coin {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color-orange), #FCD34D);
+            border-radius: 50%;
+            top: 0;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            animation: bounce 2s ease-in-out infinite;
+            box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+        }
+
+        /* Slide 2: Auto-SIP Illustration */
+        .illustration-sip {
+            position: relative;
+        }
+
+        .sip-circle {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 8px dashed var(--color-blue);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: spin 20s linear infinite;
+        }
+
+        .sip-center {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--color-blue), var(--color-purple));
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            box-shadow: 0 12px 30px rgba(37, 99, 235, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .sip-dot {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: var(--color-green);
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+        }
+
+        .sip-dot:nth-child(2) { top: 0; left: 50%; transform: translateX(-50%); }
+        .sip-dot:nth-child(3) { bottom: 0; left: 50%; transform: translateX(-50%); }
+        .sip-dot:nth-child(4) { top: 50%; left: 0; transform: translateY(-50%); }
+        .sip-dot:nth-child(5) { top: 50%; right: 0; transform: translateY(-50%); }
+
+        /* Slide 3: Security Illustration */
+        .illustration-security {
+            position: relative;
+        }
+
+        .security-shield {
+            position: absolute;
+            width: 140px;
+            height: 160px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, var(--color-green), var(--color-green-light));
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 64px;
+            box-shadow: 0 16px 40px rgba(16, 185, 129, 0.3);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .security-ring {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 3px solid var(--color-green);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0.3;
+            animation: expandRing 2s ease-out infinite;
+        }
+
+        .carousel-headline {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--color-text-primary);
+            text-align: center;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .carousel-subtext {
+            font-size: 16px;
+            color: var(--color-text-secondary);
+            text-align: center;
+            line-height: 1.6;
+            max-width: 300px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 24px 0;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--color-border);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .carousel-dot.active {
+            width: 24px;
+            border-radius: 4px;
+            background: var(--color-blue);
+        }
+
+        .carousel-button {
+            width: calc(100% - 48px);
+            height: 52px;
+            background: var(--color-blue);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0 24px 24px;
+            transition: all 0.2s ease;
+        }
+
+        .carousel-button:active {
+            transform: scale(0.98);
+            background: var(--color-blue-dark);
+        }
+
+        /* ==================== PHONE & OTP STATES ==================== */
+
+        .phone-container,
+        .otp-container {
+            padding: 32px 20px;
+            padding-bottom: 60px;
+            background:
+                /* Layer 1: Primary gradient */
+                linear-gradient(135deg,
+                    rgba(37, 99, 235, 0.12) 0%,
+                    rgba(16, 185, 129, 0.10) 50%,
+                    rgba(245, 158, 11, 0.08) 100%),
+                /* Layer 2: Subtle wave pattern */
+                repeating-linear-gradient(90deg,
+                    transparent 0px,
+                    rgba(37, 99, 235, 0.04) 25px,
+                    transparent 50px),
+                /* Layer 3: Base color */
+                white;
+            background-size: 200% 200%, 100% 100%, 100% 100%;
+            animation: gradientFlow 15s ease-in-out infinite;
+            min-height: 100%;
+            position: relative;
+        }
+
+        /* Corner radial gradient accents */
+        .phone-container::before,
+        .otp-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 0% 0%,
+                    rgba(37, 99, 235, 0.10) 0%,
+                    transparent 50%),
+                radial-gradient(circle at 100% 100%,
+                    rgba(16, 185, 129, 0.08) 0%,
+                    transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Ensure content stays above background */
+        .phone-container > *,
+        .otp-container > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-text {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 8px;
+        }
+
+        .subtitle-text {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .error-message {
+            display: none;
+            padding: 12px 16px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: var(--radius-sm);
+            color: var(--color-red);
+            font-size: 14px;
+            margin-bottom: 16px;
+            animation: shake 0.3s;
+        }
+
+        .error-message.show {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+        }
+
+        .input-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-prefix {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            pointer-events: none;
+        }
+
+        .text-input {
+            width: 100%;
+            height: 52px;
+            padding: 0 16px 0 60px;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--color-text-primary);
+            transition: all 0.2s ease;
+            background: white;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: var(--color-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .text-input.error {
+            border-color: var(--color-red);
+        }
+
+        .text-input::placeholder {
+            color: var(--color-text-muted);
+        }
+
+        /* Trust Badges */
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .trust-badge {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 12px;
+            color: var(--color-text-secondary);
+        }
+
+        .trust-badge::after {
+            content: '•';
+            margin-left: 12px;
+            color: var(--color-border);
+        }
+
+        .trust-badge:last-child::after {
+            content: '';
+            margin-left: 0;
+        }
+
+        /* OTP Input Container */
+        .otp-input-container {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .otp-input {
+            width: 48px;
+            height: 56px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            border: 2px solid var(--color-border);
+            border-radius: var(--radius-md);
+            background: white;
+            color: var(--color-text-primary);
+            transition: all 0.2s ease;
+            outline: none;
+        }
+
+        .otp-input:focus {
+            border-color: var(--color-blue);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .otp-input.error {
+            border-color: var(--color-red);
+            animation: shake 0.3s;
+        }
+
+        .otp-input:disabled {
+            background: var(--color-bg-primary);
+            cursor: not-allowed;
+        }
+
+        .auto-read-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--color-green);
+        }
+
+        .btn-primary {
+            width: 100%;
+            height: 52px;
+            background: var(--color-blue);
+            color: white;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        /* Referral Popup Styles */
+        .referral-popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .referral-popup-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .referral-popup-content {
+            position: relative;
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .referral-popup-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .referral-close-btn {
+            background: none;
+            border: none;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            padding: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .referral-close-btn:hover {
+            color: var(--color-text-primary);
+            background: var(--color-bg-secondary);
+            border-radius: 8px;
+        }
+
+        .referral-popup-body {
+            padding: 20px;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn-primary:active:not(:disabled) {
+            transform: scale(0.98);
+            background: var(--color-blue-dark);
+        }
+
+        .btn-primary:disabled {
+            background: var(--color-border);
+            color: var(--color-text-muted);
+            cursor: not-allowed;
+        }
+
+        .resend-section {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+
+        .timer-text {
+            font-weight: 600;
+            color: var(--color-blue);
+        }
+
+        .btn-text {
+            background: none;
+            border: none;
+            color: var(--color-blue);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: underline;
+            padding: 8px;
+        }
+
+        .btn-text:disabled {
+            color: var(--color-text-muted);
+            cursor: not-allowed;
+            text-decoration: none;
+        }
+
+        .change-number {
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .helper-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: var(--color-text-muted);
+            line-height: 1.5;
+        }
+
+        /* Trust Markers Section */
+        .trust-markers-section {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid var(--color-border);
+        }
+
+        .sebi-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 0;
+            background: none;
+            border: none;
+            margin-bottom: 0;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--color-border);
+        }
+
+        .brand-header {
+            padding-bottom: 0;
+        }
+
+        .sebi-badge-icon {
+            color: var(--color-green);
+            font-size: 18px;
+        }
+
+        .sebi-badge-text {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+        }
+
+        /* Certification Strip */
+        .certification-strip {
+            padding: 12px 16px;
+            margin-bottom: 16px;
+        }
+
+        .certification-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .certification-icon {
+            font-size: 18px;
+            color: #0284C7;
+        }
+
+        .certification-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0C4A6E;
+        }
+
+        .certification-logos {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        .cert-logo-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cert-logo {
+            width: 80px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .cert-name {
+            font-size: 10px;
+            font-weight: 600;
+            color: #0284C7;
+        }
+
+        .amc-carousel-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .amc-carousel-icon {
+            font-size: 18px;
+            color: #0284C7;
+        }
+
+        .amc-carousel-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0C4A6E;
+        }
+
+        .amc-carousel {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding: 8px 4px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .amc-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .amc-logo-wrapper {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            scroll-snap-align: start;
+        }
+
+        .amc-logo {
+            width: 56px;
+            height: 56px;
+            background: white;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .amc-logo:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .amc-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .amc-name {
+            font-size: 10px;
+            color: #0284C7;
+            font-weight: 600;
+            text-align: center;
+            max-width: 60px;
+            line-height: 1.2;
+        }
+
+        /* Referral Code Link */
+        .referral-link {
+            color: var(--color-blue) !important;
+            font-weight: 600 !important;
+            background: none !important;
+            border: none !important;
+            padding: 8px !important;
+            text-decoration: underline !important;
+            text-underline-offset: 2px !important;
+            cursor: pointer !important;
+        }
+
+        .referral-link:hover {
+            color: var(--color-blue-dark) !important;
+        }
+
+        /* ==================== SUCCESS STATE ==================== */
+
+        .success-container {
+            padding: 80px 20px;
+            text-align: center;
+            background: white;
+            min-height: 100%;
+        }
+
+        .success-checkmark {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: var(--color-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            animation: scaleIn 0.5s ease;
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .success-checkmark .material-symbols-outlined {
+            font-size: 48px;
+            color: white;
+        }
+
+        .success-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 8px;
+        }
+
+        .success-subtext {
+            font-size: 14px;
+            color: var(--color-text-secondary);
+        }
+
+        /* ==================== ACCESSIBILITY ==================== */
+
+        /* Disable animations for users who prefer reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .phone-container,
+            .otp-container {
+                animation: none;
+                background-size: 100% 100%, 100% 100%, 100% 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- iPhone Toggle Button -->
+    <button class="frame-toggle-btn" onclick="toggleFrameMode()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+            <line x1="12" y1="18" x2="12.01" y2="18"></line>
+        </svg>
+        <span id="frameToggleText">Normal View</span>
+    </button>
+
+    <div class="iphone-frame">
+        <div class="iphone-notch"></div>
+        <div class="iphone-screen">
+            <div class="mobile-container">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <span>9:41</span>
+                    <div class="status-icons">
+                        <span>📶</span>
+                        <span>📡</span>
+                        <span>🔋</span>
+                    </div>
+                </div>
+
+                <!-- Brand Header -->
+                <div class="brand-header">
+                    <h1 class="brand-logo"><span class="nivesh">Nivesh</span><span class="pe">Pe</span></h1>
+
+                    <!-- SEBI Compliant Badge -->
+                    <div class="sebi-badge" style="margin-top: 12px;">
+                        <span class="material-symbols-outlined sebi-badge-icon">verified</span>
+                        <span class="sebi-badge-text">AMFI Registered & SEBI Compliant</span>
+                    </div>
+                </div>
+
+                <!-- Old Header (COMMENTED OUT)
+                <div class="header">
+                    <button class="back-button" id="backButton" onclick="handleBack()">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                    </button>
+                    <h1 class="header-title" id="headerTitle">Welcome</h1>
+                    <button class="skip-button" id="skipButton" onclick="skipCarousel()" style="display: none;">Skip</button>
+                </div>
+                -->
+
+                <!-- Progress Indicator (COMMENTED OUT)
+                <div class="progress-indicator" id="progressIndicator">
+                    <div class="progress-dot" id="progressDot1"></div>
+                    <div class="progress-dot" id="progressDot2"></div>
+                </div>
+                -->
+
+                <!-- Main Content -->
+                <div class="main-content">
+                    <!-- State 1: Welcome Carousel (COMMENTED OUT - will be used later)
+                    <div class="auth-state" id="carouselState">
+                        <div class="carousel-container">
+                            <div class="carousel-slides">
+                                <div class="carousel-slide active" data-slide="0">
+                                    <h2 class="carousel-headline">Invest Smarter,<br>Grow Faster</h2>
+                                    <p class="carousel-subtext">Build wealth with India's simplest investment app. Start with just ₹100.</p>
+                                </div>
+
+                                <div class="carousel-slide" data-slide="1">
+                                    <h2 class="carousel-headline">Auto-Invest.<br>Zero Hassle.</h2>
+                                    <p class="carousel-subtext">Set it and forget it. Your money grows on autopilot with smart SIPs.</p>
+                                </div>
+
+                                <div class="carousel-slide" data-slide="2">
+                                    <h2 class="carousel-headline">100% Safe<br>& Secure</h2>
+                                    <p class="carousel-subtext">Bank-grade security. SEBI registered. Your investments are always protected.</p>
+                                </div>
+                            </div>
+
+                            <div class="carousel-dots" id="carouselDots">
+                                <div class="carousel-dot active" onclick="goToSlide(0)"></div>
+                                <div class="carousel-dot" onclick="goToSlide(1)"></div>
+                                <div class="carousel-dot" onclick="goToSlide(2)"></div>
+                            </div>
+
+                            <button class="carousel-button" id="carouselButton" onclick="handleCarouselButton()">Next</button>
+                        </div>
+                    </div>
+                    -->
+
+                    <!-- State 2: Phone Entry (Now the initial state) -->
+                    <div class="auth-state active" id="phoneState">
+                        <div class="phone-container">
+                            <h2 class="welcome-text">Welcome!</h2>
+                            <p class="subtitle-text">Enter your mobile number to get started</p>
+
+                            <div id="phoneError" class="error-message">
+                                <span class="material-symbols-outlined">warning</span>
+                                <span id="phoneErrorText">Please enter a valid 10-digit mobile number</span>
+                            </div>
+
+                            <div class="input-group">
+                                <label class="input-label" for="mobileInput">Mobile Number</label>
+                                <div class="input-wrapper">
+                                    <span class="input-prefix">+91</span>
+                                    <input
+                                        type="text"
+                                        id="mobileInput"
+                                        class="text-input"
+                                        placeholder="9876543210"
+                                        maxlength="10"
+                                        inputmode="numeric"
+                                        autocomplete="tel-national"
+                                        oninput="validateMobile()"
+                                        onkeypress="handleMobileKeyPress(event)"
+                                    >
+                                </div>
+                                <div class="trust-badges">
+                                    <div class="trust-badge">
+                                        <span class="material-symbols-outlined">lock</span>
+                                        <span>Secure</span>
+                                    </div>
+                                    <div class="trust-badge">
+                                        <span>🇮🇳</span>
+                                        <span>Made in India</span>
+                                    </div>
+                                    <div class="trust-badge">
+                                        <span>⚡</span>
+                                        <span>2 min signup</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Referral Code CTA (Moved above Continue button) -->
+                            <div style="text-align: center; margin-bottom: 12px;">
+                                <button class="referral-link" style="font-size: 14px;" onclick="toggleReferralInput()">
+                                    Have a referral code?
+                                </button>
+                            </div>
+
+                            <button class="btn-primary" id="continueBtn" disabled onclick="sendOTP()">
+                                Continue
+                            </button>
+
+                            <div class="helper-text" style="margin-top: 12px;">
+                                By continuing, you agree to our<br>Terms of Service & Privacy Policy
+                            </div>
+
+                            <!-- Trust Markers Section -->
+                            <div class="trust-markers-section">
+                                <!-- Official Regulatory Certification -->
+                                <div class="certification-strip">
+                                    <div class="certification-header">
+                                        <span class="material-symbols-outlined certification-icon">verified_user</span>
+                                        <span class="certification-title">Regulated & Certified</span>
+                                    </div>
+                                    <div class="certification-logos">
+                                        <div class="cert-logo-wrapper">
+                                            <img src="AMC-Fund-logo-icons/sebi-logo.png" alt="SEBI Compliant" class="cert-logo">
+                                            <span class="cert-name">SEBI Compliant</span>
+                                        </div>
+                                        <div class="cert-logo-wrapper">
+                                            <img src="AMC-Fund-logo-icons/AMFI-logo.svg" alt="AMFI Registered" class="cert-logo">
+                                            <span class="cert-name">AMFI Registered</span>
+                                        </div>
+                                        <div class="cert-logo-wrapper">
+                                            <img src="AMC-Fund-logo-icons/bse-startmf-logo.png" alt="BSE Certified" class="cert-logo">
+                                            <span class="cert-name">BSE Certified</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- TOP AMC Carousel -->
+                                <div class="amc-carousel-label">
+                                    <span class="material-symbols-outlined amc-carousel-icon">handshake</span>
+                                    <span class="amc-carousel-title">Partnered with Top AMCs</span>
+                                </div>
+                                <div class="amc-carousel">
+                                    <div class="amc-logo-wrapper">
+                                        <div class="amc-logo">
+                                            <img src="AMC-Fund-logo-icons/hdfc.png" alt="HDFC Mutual Fund">
+                                        </div>
+                                        <div class="amc-name">HDFC</div>
+                                    </div>
+                                    <div class="amc-logo-wrapper">
+                                        <div class="amc-logo">
+                                            <img src="AMC-Fund-logo-icons/ICICI.png" alt="ICICI Prudential">
+                                        </div>
+                                        <div class="amc-name">ICICI Pru</div>
+                                    </div>
+                                    <div class="amc-logo-wrapper">
+                                        <div class="amc-logo">
+                                            <img src="AMC-Fund-logo-icons/SBI.png" alt="SBI Mutual Fund">
+                                        </div>
+                                        <div class="amc-name">SBI</div>
+                                    </div>
+                                    <div class="amc-logo-wrapper">
+                                        <div class="amc-logo">
+                                            <img src="AMC-Fund-logo-icons/kotak.jpeg" alt="Kotak Mutual Fund">
+                                        </div>
+                                        <div class="amc-name">Kotak</div>
+                                    </div>
+                                    <div class="amc-logo-wrapper">
+                                        <div class="amc-logo">
+                                            <img src="AMC-Fund-logo-icons/nippon.png" alt="Nippon India">
+                                        </div>
+                                        <div class="amc-name">Nippon</div>
+                                    </div>
+                                    <div class="amc-logo-wrapper">
+                                        <div class="amc-logo">
+                                            <img src="AMC-Fund-logo-icons/tata.jpeg" alt="Tata Mutual Fund">
+                                        </div>
+                                        <div class="amc-name">Tata</div>
+                                    </div>
+                                    <div class="amc-logo-wrapper">
+                                        <div class="amc-logo">
+                                            <img src="AMC-Fund-logo-icons/PPFAS.png" alt="PPFAS Mutual Fund">
+                                        </div>
+                                        <div class="amc-name">PPFAS</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Referral Code Popup Modal -->
+                    <div class="referral-popup-overlay" id="referralPopup" style="display: none;">
+                        <div class="referral-popup-backdrop" onclick="closeReferralPopup()"></div>
+                        <div class="referral-popup-content">
+                            <div class="referral-popup-header">
+                                <h3 style="margin: 0; font-size: 18px; font-weight: 600; color: var(--color-text-primary);">Enter Referral Code</h3>
+                                <button class="referral-close-btn" onclick="closeReferralPopup()">
+                                    <span class="material-symbols-outlined">close</span>
+                                </button>
+                            </div>
+                            
+                            <div class="referral-popup-body">
+                                <div style="margin-bottom: 20px;">
+                                    <label class="input-label" for="popupReferralCode">Referral Code</label>
+                                    <input
+                                        type="text"
+                                        id="popupReferralCode"
+                                        class="text-input"
+                                        placeholder="Enter code"
+                                        maxlength="10"
+                                        style="width: 100%; padding: 0 16px; text-transform: uppercase;"
+                                        oninput="this.value = this.value.toUpperCase(); validateReferralCode()"
+                                    >
+                                </div>
+                                
+                                <div style="display: flex; gap: 12px;">
+                                    <button class="btn-secondary" onclick="closeReferralPopup()" style="flex: 1; height: 44px; background: #F3F4F6; color: var(--color-text-secondary); border: none; border-radius: var(--radius-md); font-weight: 600;">
+                                        Skip
+                                    </button>
+                                    <button class="btn-primary" id="saveReferralBtn" onclick="saveReferralCode()" disabled style="flex: 1; height: 44px;">
+                                        Save Code
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- State 3: OTP Verification -->
+                    <div class="auth-state" id="otpState">
+                        <div class="otp-container">
+                            <h2 class="welcome-text">Enter Verification Code</h2>
+                            <p class="subtitle-text">We've sent a 6-digit code to <strong id="displayMobile"></strong></p>
+
+                            <div id="otpError" class="error-message">
+                                <span class="material-symbols-outlined">warning</span>
+                                <span id="otpErrorText">Invalid code. Please try again.</span>
+                            </div>
+
+                            <div class="input-group">
+                                <label class="input-label">Verification Code</label>
+                                <div class="otp-input-container">
+                                    <input type="text" class="otp-input" maxlength="1" id="otp1" inputmode="numeric">
+                                    <input type="text" class="otp-input" maxlength="1" id="otp2" inputmode="numeric">
+                                    <input type="text" class="otp-input" maxlength="1" id="otp3" inputmode="numeric">
+                                    <input type="text" class="otp-input" maxlength="1" id="otp4" inputmode="numeric">
+                                    <input type="text" class="otp-input" maxlength="1" id="otp5" inputmode="numeric">
+                                    <input type="text" class="otp-input" maxlength="1" id="otp6" inputmode="numeric">
+                                </div>
+                                <div id="autoReadIndicator" class="auto-read-indicator" style="display: none;">
+                                    <span class="material-symbols-outlined" style="font-size: 16px;">check_circle</span>
+                                    <span>Auto-read enabled</span>
+                                </div>
+                            </div>
+
+                            <div class="resend-section">
+                                <span>Didn't receive the code? </span>
+                                <span id="timerSection">
+                                    Resend in <span class="timer-text" id="timer">30</span>s
+                                </span>
+                                <button id="resendBtn" class="btn-text" style="display: none;" onclick="resendOTP()">
+                                    Resend Code
+                                </button>
+                            </div>
+
+                            <div class="change-number">
+                                <button class="btn-text" onclick="changeNumber()">
+                                    Change Mobile Number
+                                </button>
+                            </div>
+
+                            <!-- Trust Markers Section -->
+                            <div class="trust-markers-section">
+                                <!-- Official Regulatory Certification -->
+                                <div class="certification-strip">
+                                    <div class="certification-header">
+                                        <span class="material-symbols-outlined certification-icon">verified_user</span>
+                                        <span class="certification-title">Regulated & Certified</span>
+                                    </div>
+                                    <div class="certification-logos">
+                                        <div class="cert-logo-wrapper">
+                                            <img src="AMC-Fund-logo-icons/sebi-logo.png" alt="SEBI Compliant" class="cert-logo">
+                                            <span class="cert-name">SEBI Compliant</span>
+                                        </div>
+                                        <div class="cert-logo-wrapper">
+                                            <img src="AMC-Fund-logo-icons/AMFI-logo.svg" alt="AMFI Registered" class="cert-logo">
+                                            <span class="cert-name">AMFI Registered</span>
+                                        </div>
+                                        <div class="cert-logo-wrapper">
+                                            <img src="AMC-Fund-logo-icons/bse-startmf-logo.png" alt="BSE Certified" class="cert-logo">
+                                            <span class="cert-name">BSE Certified</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- TOP AMC Carousel -->
+                                <div class="amc-carousel-label">
+                                    <span class="material-symbols-outlined amc-carousel-icon">handshake</span>
+                                    <span class="amc-carousel-title">Partnered with Top AMCs</span>
+                                </div>
+                                <div class="amc-carousel">
+                                    <div class="amc-logo-wrapper">
+                                        <div class="amc-logo">
+                                            <img src="AMC-Fund-logo-icons/hdfc.png" alt="HDFC Mutual Fund">
+                                        </div>
+                                        <div class="amc-name">HDFC</div>
+                                    </div>
+                                    <div class="amc-logo-wrapper">
+                                        <div class="amc-logo">
+                                            <img src="AMC-Fund-logo-icons/ICICI.png" alt="ICICI Prudential">
+                                        </div>
+                                        <div class="amc-name">ICICI Pru</div>
+                                    </div>
+                                    <div class="amc-logo-wrapper">
+                                        <div class="amc-logo">
+                                            <img src="AMC-Fund-logo-icons/SBI.png" alt="SBI Mutual Fund">
+                                        </div>
+                                        <div class="amc-name">SBI</div>
+                                    </div>
+                                    <div class="amc-logo-wrapper">
+                                        <div class="amc-logo">
+                                            <img src="AMC-Fund-logo-icons/kotak.jpeg" alt="Kotak Mutual Fund">
+                                        </div>
+                                        <div class="amc-name">Kotak</div>
+                                    </div>
+                                    <div class="amc-logo-wrapper">
+                                        <div class="amc-logo">
+                                            <img src="AMC-Fund-logo-icons/nippon.png" alt="Nippon India">
+                                        </div>
+                                        <div class="amc-name">Nippon</div>
+                                    </div>
+                                    <div class="amc-logo-wrapper">
+                                        <div class="amc-logo">
+                                            <img src="AMC-Fund-logo-icons/tata.jpeg" alt="Tata Mutual Fund">
+                                        </div>
+                                        <div class="amc-name">Tata</div>
+                                    </div>
+                                    <div class="amc-logo-wrapper">
+                                        <div class="amc-logo">
+                                            <img src="AMC-Fund-logo-icons/PPFAS.png" alt="PPFAS Mutual Fund">
+                                        </div>
+                                        <div class="amc-name">PPFAS</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- State 4: Success -->
+                    <div class="auth-state" id="successState">
+                        <div class="success-container">
+                            <div class="success-checkmark">
+                                <span class="material-symbols-outlined">check</span>
+                            </div>
+                            <div class="success-text">Verification Successful!</div>
+                            <div class="success-subtext">Taking you to your account...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="iphone-home-indicator"></div>
+    </div>
+
+    <!-- iPhone Toggle JS -->
+    <script src="assets/js/iphone-toggle.js"></script>
+
+    <script>
+        // Constants
+        const CORRECT_OTP = '123456';
+        const MAX_ATTEMPTS = 3;
+        const RESEND_TIMER = 30;
+
+        // State variables
+        let currentState = 'phone'; // Changed from 'carousel' to start with phone verification
+        let currentSlide = 0;
+        let mobileNumber = '';
+        let otpAttempts = 0;
+        let timerInterval = null;
+        let timeRemaining = RESEND_TIMER;
+        let webOtpAbortController = null;
+
+        // ==================== CAROUSEL ====================
+
+        function goToSlide(index) {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+
+            slides[currentSlide].classList.remove('active');
+            slides[currentSlide].classList.add('prev');
+            dots[currentSlide].classList.remove('active');
+
+            currentSlide = index;
+
+            slides[currentSlide].classList.remove('prev');
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+
+            updateCarouselButton();
+        }
+
+        function handleCarouselButton() {
+            if (currentSlide < 2) {
+                goToSlide(currentSlide + 1);
+            } else {
+                startAuth();
+            }
+        }
+
+        function updateCarouselButton() {
+            const button = document.getElementById('carouselButton');
+            button.textContent = currentSlide === 2 ? 'Get Started' : 'Next';
+        }
+
+        function skipCarousel() {
+            startAuth();
+        }
+
+        function startAuth() {
+            switchState('phone');
+        }
+
+        // ==================== PHONE ====================
+
+        function validateMobile() {
+            const input = document.getElementById('mobileInput');
+            const value = input.value.replace(/\D/g, '');
+            input.value = value;
+
+            const continueBtn = document.getElementById('continueBtn');
+            const errorMsg = document.getElementById('phoneError');
+
+            errorMsg.classList.remove('show');
+            input.classList.remove('error');
+
+            continueBtn.disabled = value.length !== 10;
+        }
+
+        function handleMobileKeyPress(event) {
+            if (event.key === 'Enter' && !document.getElementById('continueBtn').disabled) {
+                sendOTP();
+            }
+        }
+
+        // Toggle referral code input
+        let showReferralInput = false;
+        
+        function toggleReferralInput() {
+            // Show the referral popup
+            const popup = document.getElementById('referralPopup');
+            if (popup) {
+                popup.style.display = 'flex';
+                setTimeout(() => {
+                    document.getElementById('popupReferralCode').focus();
+                }, 100);
+            }
+        }
+        
+        function validateReferralCode() {
+            const input = document.getElementById('popupReferralCode');
+            const saveBtn = document.getElementById('saveReferralBtn');
+            
+            // Enable save button if code is at least 4 characters
+            if (input && saveBtn) {
+                saveBtn.disabled = input.value.trim().length < 4;
+            }
+        }
+        
+        function saveReferralCode() {
+            const input = document.getElementById('popupReferralCode');
+            const code = input ? input.value.trim() : '';
+            
+            if (code.length >= 4) {
+                // Don't persist the referral code - just keep it for this session
+                // localStorage.setItem('referral_code', code);
+                window.referralCode = code; // Store in memory only
+                
+                // Show success message briefly
+                const saveBtn = document.getElementById('saveReferralBtn');
+                if (saveBtn) {
+                    saveBtn.innerHTML = '✓ Saved';
+                    saveBtn.style.background = '#10B981';
+                }
+                
+                // Close popup after delay
+                setTimeout(() => {
+                    closeReferralPopup();
+                    
+                    // Update the CTA to show code was saved
+                    const referralCTA = document.querySelector('[onclick="toggleReferralInput()"]');
+                    if (referralCTA) {
+                        referralCTA.style.color = '#10B981';
+                        referralCTA.innerHTML = `✓ Code: ${code}`;
+                        referralCTA.disabled = true;
+                    }
+                }, 500);
+            }
+        }
+        
+        function closeReferralPopup() {
+            const popup = document.getElementById('referralPopup');
+            if (popup) {
+                popup.style.display = 'none';
+            }
+            
+            // Reset the input
+            const input = document.getElementById('popupReferralCode');
+            if (input) {
+                input.value = '';
+            }
+            
+            // Reset save button
+            const saveBtn = document.getElementById('saveReferralBtn');
+            if (saveBtn) {
+                saveBtn.innerHTML = 'Save Code';
+                saveBtn.style.background = '';
+                saveBtn.disabled = true;
+            }
+        }
+
+        function sendOTP() {
+            const input = document.getElementById('mobileInput');
+            mobileNumber = input.value;
+
+            if (mobileNumber.length !== 10) {
+                showError('phone', 'Please enter a valid 10-digit mobile number');
+                input.classList.add('error');
+                return;
+            }
+
+            localStorage.setItem('niveshpe_mobile', mobileNumber);
+
+            const maskedNumber = `+91 ${mobileNumber.slice(0, 2)}****${mobileNumber.slice(-4)}`;
+            document.getElementById('displayMobile').textContent = maskedNumber;
+
+
+            switchState('otp');
+            startResendTimer();
+            initWebOTP();
+
+            setTimeout(() => {
+                otpInputs[0].focus();
+            }, 100);
+
+            console.log('📱 Sending OTP to:', mobileNumber);
+        }
+
+        // ==================== OTP ====================
+
+        const otpInputs = document.querySelectorAll('.otp-input');
+
+        // Auto-focus and auto-advance OTP inputs
+        function setupOtpInputs() {
+            otpInputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    const value = e.target.value.replace(/\D/g, '');
+                    e.target.value = value;
+
+                    hideError('otp');
+                    otpInputs.forEach(inp => inp.classList.remove('error'));
+
+                    if (value.length === 1 && index < otpInputs.length - 1) {
+                        otpInputs[index + 1].focus();
+                    }
+
+                    if (index === otpInputs.length - 1 && value.length === 1) {
+                        const otp = Array.from(otpInputs).map(inp => inp.value).join('');
+                        if (otp.length === 6) {
+                            setTimeout(() => verifyOTP(), 300);
+                        }
+                    }
+                });
+
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        otpInputs[index - 1].focus();
+                        otpInputs[index - 1].value = '';
+                    }
+                });
+
+                input.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const pastedData = e.clipboardData.getData('text').replace(/\D/g, '');
+                    const digits = pastedData.slice(0, 6).split('');
+
+                    digits.forEach((digit, i) => {
+                        if (otpInputs[i]) {
+                            otpInputs[i].value = digit;
+                        }
+                    });
+
+                    if (digits.length === 6) {
+                        otpInputs[5].focus();
+                        setTimeout(() => verifyOTP(), 300);
+                    } else if (digits.length > 0) {
+                        otpInputs[Math.min(digits.length, 5)].focus();
+                    }
+                });
+            });
+        }
+
+        function verifyOTP() {
+            const enteredOTP = Array.from(otpInputs).map(input => input.value).join('');
+
+            if (enteredOTP.length !== 6) return;
+
+            if (enteredOTP === CORRECT_OTP) {
+                // Save referral code if provided
+                const referralCodeInput = document.getElementById('referralCodeInput');
+                if (referralCodeInput && referralCodeInput.value) {
+                    const referralCode = referralCodeInput.value.toUpperCase().trim();
+                    localStorage.setItem('niveshpe_referral_code', referralCode);
+                    console.log('💰 Referral code saved:', referralCode);
+                }
+                
+                clearInterval(timerInterval);
+                if (webOtpAbortController) {
+                    webOtpAbortController.abort();
+                }
+                
+                // Clear the referral input flag
+                localStorage.removeItem('show_referral_input');
+                
+                checkUserAndRedirect();
+            } else {
+                otpAttempts++;
+
+                if (otpAttempts >= MAX_ATTEMPTS) {
+                    showError('otp', 'Maximum attempts reached. Please request a new code.');
+                    otpInputs.forEach(input => {
+                        input.value = '';
+                        input.classList.add('error');
+                    });
+                    otpAttempts = 0;
+                } else {
+                    const attemptsLeft = MAX_ATTEMPTS - otpAttempts;
+                    showError('otp', `Invalid code. ${attemptsLeft} attempt${attemptsLeft > 1 ? 's' : ''} remaining.`);
+                    otpInputs.forEach(input => {
+                        input.value = '';
+                        input.classList.add('error');
+                    });
+                    otpInputs[0].focus();
+                }
+            }
+        }
+
+        function resendOTP() {
+            otpAttempts = 0;
+
+            otpInputs.forEach(input => {
+                input.value = '';
+                input.classList.remove('error');
+            });
+            hideError('otp');
+
+            timeRemaining = RESEND_TIMER;
+            document.getElementById('timerSection').style.display = 'inline';
+            document.getElementById('resendBtn').style.display = 'none';
+            startResendTimer();
+
+            initWebOTP();
+            otpInputs[0].focus();
+
+            console.log('🔄 Resending OTP to:', mobileNumber);
+        }
+
+        function changeNumber() {
+            clearInterval(timerInterval);
+            if (webOtpAbortController) {
+                webOtpAbortController.abort();
+            }
+            otpAttempts = 0;
+            hideError('otp');
+            otpInputs.forEach(input => {
+                input.value = '';
+            });
+            
+            // Reset referral CTA
+            const referralCTA = document.querySelector('[onclick="toggleReferralInput()"]');
+            if (referralCTA) {
+                referralCTA.style.color = '#6B7280';
+                referralCTA.innerHTML = 'Have a referral code?';
+                referralCTA.disabled = false;
+            }
+
+            switchState('phone');
+            document.getElementById('mobileInput').focus();
+        }
+
+        // ==================== TIMER ====================
+
+        function startResendTimer() {
+            clearInterval(timerInterval);
+            timeRemaining = RESEND_TIMER;
+
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                document.getElementById('timer').textContent = timeRemaining;
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById('timerSection').style.display = 'none';
+                    document.getElementById('resendBtn').style.display = 'inline-block';
+                }
+            }, 1000);
+        }
+
+        // ==================== WEBОTP ====================
+
+        async function initWebOTP() {
+            if ('OTPCredential' in window) {
+                try {
+                    webOtpAbortController = new AbortController();
+                    document.getElementById('autoReadIndicator').style.display = 'flex';
+
+                    const credential = await navigator.credentials.get({
+                        otp: { transport: ['sms'] },
+                        signal: webOtpAbortController.signal
+                    });
+
+                    if (credential && credential.code) {
+                        const digits = credential.code.slice(0, 6).split('');
+                        digits.forEach((digit, i) => {
+                            if (otpInputs[i]) {
+                                otpInputs[i].value = digit;
+                            }
+                        });
+                        setTimeout(() => verifyOTP(), 500);
+                    }
+                } catch (error) {
+                    console.log('WebOTP error:', error);
+                    document.getElementById('autoReadIndicator').style.display = 'none';
+                }
+            }
+        }
+
+        // ==================== USER DETECTION ====================
+
+        function checkUserAndRedirect() {
+            switchState('success');
+
+            setTimeout(() => {
+                const isNewUser = mobileNumber.charAt(0) === '8';
+
+                localStorage.setItem('niveshpe_logged_in', 'true');
+                localStorage.setItem('niveshpe_session_token', 'demo_token_' + Date.now());
+                localStorage.setItem('niveshpe_user_type', isNewUser ? 'new' : 'existing');
+
+                window.location.href = 'pan-entry.html';
+            }, 1500);
+        }
+
+        // ==================== STATE MANAGEMENT ====================
+
+        function switchState(state) {
+            document.querySelectorAll('.auth-state').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Header replaced with brand header - no dynamic updates needed
+            // Navigation handled via "Change Mobile Number" link in OTP state
+
+            if (state === 'phone') {
+                document.getElementById('phoneState').classList.add('active');
+                currentState = 'phone';
+            } else if (state === 'otp') {
+                document.getElementById('otpState').classList.add('active');
+                currentState = 'otp';
+            } else if (state === 'success') {
+                document.getElementById('successState').classList.add('active');
+                currentState = 'success';
+            }
+        }
+
+        // handleBack is no longer needed - navigation handled via "Change Mobile Number" link
+
+        // ==================== ERROR HANDLING ====================
+
+        function showError(type, message) {
+            if (type === 'phone') {
+                const errorEl = document.getElementById('phoneError');
+                const errorText = document.getElementById('phoneErrorText');
+                errorText.textContent = message;
+                errorEl.classList.add('show');
+            } else if (type === 'otp') {
+                const errorEl = document.getElementById('otpError');
+                const errorText = document.getElementById('otpErrorText');
+                errorText.textContent = message;
+                errorEl.classList.add('show');
+            }
+        }
+
+        function hideError(type) {
+            if (type === 'phone') {
+                document.getElementById('phoneError').classList.remove('show');
+            } else if (type === 'otp') {
+                document.getElementById('otpError').classList.remove('show');
+            }
+        }
+
+        // ==================== CLEANUP ====================
+
+        window.addEventListener('beforeunload', () => {
+            clearInterval(timerInterval);
+            if (webOtpAbortController) {
+                webOtpAbortController.abort();
+            }
+        });
+
+        // ==================== INITIALIZATION ====================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize with phone state - header replaced with brand header
+            // Old header references removed
+            setupOtpInputs();
+
+            // Handle keyboard visibility on mobile
+            const mobileInput = document.getElementById('mobileInput');
+            if (mobileInput) {
+                mobileInput.addEventListener('focus', () => {
+                    setTimeout(() => {
+                        mobileInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                });
+            }
+
+            // Handle OTP inputs keyboard visibility
+            otpInputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    setTimeout(() => {
+                        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                });
+            });
+        });
+
+        // Touch swipe for carousel
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.querySelector('.carousel-slides')?.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.querySelector('.carousel-slides')?.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX && currentSlide < 2) {
+                goToSlide(currentSlide + 1);
+            }
+            if (touchEndX > touchStartX && currentSlide > 0) {
+                goToSlide(currentSlide - 1);
+            }
+        }
+    </script>
+</body>
+</html>
