@@ -460,6 +460,11 @@
             color: white;
             line-height: 1.2;
             text-shadow: 0 1px 6px rgba(0,0,0,0.2);
+            display: flex; align-items: center; gap: 2px;
+        }
+        .hero-basket-name .chevron {
+            font-size: 18px; font-variation-settings: 'FILL' 0, 'wght' 600;
+            opacity: 0.85; flex-shrink: 0;
         }
 
         /* Bottom row: CAGR + liquidity chips */
@@ -2835,7 +2840,7 @@
                         <div class="hero-icon-badge">
                             <span class="material-symbols-outlined">${g.icon}</span>
                         </div>
-                        <div class="hero-basket-name">${b.name}</div>
+                        <div class="hero-basket-name">${b.name}<span class="material-symbols-outlined chevron">chevron_right</span></div>
                     </div>
                     <!-- bottom: chips -->
                     <div class="hero-chips-row">
