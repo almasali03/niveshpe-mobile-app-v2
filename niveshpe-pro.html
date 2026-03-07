@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NiveshPe Pro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="assets/css/iphone-toggle.css">
+
+    <style>
+        :root {
+            --color-bg: #F5F7FA;
+            --color-surface: #FFFFFF;
+            --color-border: #E5E7EB;
+            --color-blue: #2563EB;
+            --color-blue-light: #EFF6FF;
+            --color-green: #10B981;
+            --color-emerald: #059669;
+            --color-text-primary: #1F2937;
+            --color-text-secondary: #6B7280;
+            --color-text-muted: #9CA3AF;
+            --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius-md: 10px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font);
+            background: #779def;
+            color: var(--color-text-primary);
+            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 20px 40px;
+        }
+
+        /* ── iPhone Frame ── */
+        .iphone-frame { width: 380px; height: 820px; background: transparent; position: relative; flex-shrink: 0; }
+        .iphone-screen {
+            width: 100%; height: 100%; background: var(--color-bg);
+            overflow: hidden; position: relative; display: flex; flex-direction: column;
+        }
+
+        /* ── Status Bar ── */
+        .status-bar {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 20px; background: transparent; color: white; font-size: 13px; font-weight: 600;
+            height: 44px; flex-shrink: 0; z-index: 10; position: relative;
+        }
+        .status-bar .status-right { display: flex; gap: 5px; align-items: center; font-size: 12px; color: white; }
+
+        /* ── App Header ── */
+        .app-header {
+            display: flex; align-items: center; padding: 12px 16px;
+            background: transparent;
+            flex-shrink: 0; z-index: 10; position: relative;
+        }
+        .app-header .back-btn {
+            width: 36px; height: 36px; border-radius: 10px; background: rgba(255,255,255,0.18);
+            border: 1px solid rgba(255,255,255,0.28); display: flex; align-items: center; justify-content: center; cursor: pointer;
+        }
+        .app-header .back-btn .material-symbols-outlined { font-size: 20px; color: white; }
+        .app-header .page-title { flex: 1; text-align: center; font-size: 16px; font-weight: 700; color: var(--color-text-primary); }
+        .app-header .header-right { width: 36px; height: 36px; }
+        .hero-page-title { flex: 1; text-align: center; font-size: 28px; font-weight: 700; color: white; letter-spacing: 0.3px; white-space: nowrap; }
+        .hero-page-title .brand-nivesh,
+        .hero-page-title .brand-pe { color: white; }
+        .pro-badge {
+            display: inline-flex; align-items: center; justify-content: center;
+            background: #D1FAE5;
+            color: #065F46; font-size: 16px; font-weight: 800;
+            padding: 2px 6px; border-radius: 5px; letter-spacing: 0.4px;
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 1px 4px rgba(0,0,0,0.35);
+            vertical-align: middle; margin-left: 1px;
+        }
+
+        .pro-badge-anim {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 56px; height: 34px; border-radius: 8px;
+            border: 1.5px solid #BC4B0F;
+            background: linear-gradient(135deg, #FFE8DC 0%, #FFCBAA 40%, #FFD4B5 60%, #FFE8DC 100%);
+            background-size: 300% 300%;
+            color: #BC4B0F; font-size: 18px; font-weight: 800;
+            position: relative; overflow: hidden; vertical-align: middle;
+            margin-left: 4px; margin-bottom: 4px;
+            animation: proBgSheen 2s ease-in-out infinite;
+        }
+        .pro-badge-anim::after {
+            content: ''; position: absolute; width: 40%; height: 200%;
+            top: 80%; right: -60%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent);
+            transform: rotate(-25deg);
+            animation: proSheen 2s ease-in-out infinite;
+        }
+        @keyframes proBgSheen { 0%, 100% { background-position: 100% 100%; } 50% { background-position: 0% 0%; } }
+        @keyframes proSheen { 0% { right: -60%; top: 80%; } 100% { right: 120%; top: -120%; } }
+
+        .hero-badge {
+            text-align: center;
+            display: inline-block;
+            margin: 4px auto 10px;
+            width: 100%;
+            font-size: 10px; font-weight: 800; letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: #FDE68A;
+            position: relative; z-index: 1;
+        }
+
+        /* ── Sub-header tagline ── */
+        .sub-tagline {
+            background: white;
+            border-bottom: 1px solid var(--color-border);
+            padding: 8px 16px;
+            text-align: center;
+            font-size: 11.5px;
+            color: var(--color-text-muted);
+            font-weight: 500;
+            flex-shrink: 0;
+        }
+
+        /* ── Screen Content ── */
+        .screen-content {
+            flex: 1; overflow-y: auto; scrollbar-width: none;
+            padding-bottom: 80px;
+            position: relative;
+        }
+        .screen-content::-webkit-scrollbar { display: none; }
+
+        /* ── Hero Banner ── */
+        .hero-banner {
+            background: linear-gradient(to bottom, #065F46 0%, #059669 60%, #10B981 100%);
+            padding: 0 16px 22px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            width: 160px; height: 160px; border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            top: -50px; right: -40px; pointer-events: none;
+        }
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            width: 90px; height: 90px; border-radius: 50%;
+            background: rgba(255,255,255,0.04);
+            bottom: -30px; left: -20px; pointer-events: none;
+        }
+
+        .hero-title {
+            font-size: 22px; font-weight: 800; color: white; letter-spacing: -0.3px;
+            line-height: 1.25; margin-bottom: 14px; position: relative; z-index: 1;
+        }
+        .hero-bullets { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; position: relative; z-index: 1; }
+        .hero-bullet {
+            display: flex; align-items: flex-start; gap: 10px;
+            background: rgba(255,255,255,0.14);
+            border: 1px solid rgba(255,255,255,0.22);
+            border-radius: 10px;
+            padding: 10px 12px;
+        }
+        .hero-bullet .check {
+            width: 28px; height: 28px; border-radius: 50%;
+            background: linear-gradient(135deg, #FDE68A 0%, #F59E0B 100%); box-shadow: 0 1px 4px rgba(245,158,11,0.4); color: #065F46;
+            font-size: 16px; font-weight: 900;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; margin-top: 1px;
+        }
+        .bullet-content { display: flex; flex-direction: column; gap: 2px; }
+        .bullet-title { font-size: 13px; font-weight: 700; color: white; line-height: 1.3; }
+        .bullet-desc { font-size: 11px; color: rgba(255,255,255,0.68); line-height: 1.4; }
+
+        /* ── Hero CTA ── */
+        .hero-cta-btn {
+            display: block; width: 100%;
+            background: white; color: #065F46;
+            border: none;
+            border-radius: 12px;
+            padding: 13px 16px; font-size: 14px; font-weight: 800;
+            text-align: center; cursor: pointer;
+            position: relative; z-index: 1;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+        }
+        .hero-microcopy {
+            text-align: center; font-size: 10.5px;
+            color: rgba(255,255,255,0.7); position: relative; z-index: 1;
+        }
+
+        /* ── Hero → Page separator ── */
+        .page-content {
+            background: var(--color-bg);
+            border-radius: 20px 20px 0 0;
+            margin-top: -16px;
+            position: relative;
+            z-index: 2;
+            padding-top: 8px;
+        }
+
+        /* ── Pie chart comparison (single card) ── */
+        .pie-section { padding: 14px 16px 4px; }
+        .pie-section-label {
+            font-size: 10.5px; font-weight: 700; color: var(--color-text-primary);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .pie-outer-card {
+            background: white; border-radius: 14px;
+            padding: 12px 10px 14px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        .pie-row {
+            display: flex; align-items: center; gap: 8px;
+        }
+        .pie-card {
+            flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px;
+        }
+        .pie-card-label { font-size: 9.5px; font-weight: 700; color: #374151; }
+        .pie-chart { width: 56px; height: 56px; border-radius: 50%; }
+        .pie-current { background: conic-gradient(#2563EB 0% 90%, #EF4444 90% 100%); }
+        .pie-optimised { background: conic-gradient(#0D9488 0% 60%, #F97316 60% 90%, #10B981 90% 100%); }
+        .pie-legend { display: flex; flex-direction: column; gap: 2px; width: 100%; }
+        .pie-leg-row { display: flex; align-items: center; gap: 4px; }
+        .pie-leg-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+        .pie-leg-text { font-size: 8.5px; color: #374151; }
+        .warning-badge {
+            background: #FEF3C7; color: #92400E;
+            font-size: 8px; font-weight: 700; padding: 2px 6px;
+            border-radius: 20px; border: 1px solid #FDE68A;
+        }
+        .pie-arrow { flex-shrink: 0; display: flex; align-items: center; }
+        .pie-arrow .material-symbols-outlined { font-size: 40px; color: #10B981; font-variation-settings: 'FILL' 0, 'wght' 700, 'opsz' 48; }
+
+        /* ── Portfolio Health Card ── */
+        .health-card {
+            margin: 14px 16px;
+            background: white; border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        .health-card-title {
+            font-size: 14px; font-weight: 800; color: var(--color-text-primary);
+            margin-bottom: 14px;
+        }
+        .health-body { display: flex; gap: 12px; align-items: flex-start; }
+        .health-warnings { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+        .health-warn-row { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #F3F4F6; }
+        .health-warn-row:last-child { border-bottom: none; padding-bottom: 0; }
+        .health-warn-row:first-child { padding-top: 0; }
+        .warn-icon { font-size: 20px; flex-shrink: 0; color: #F59E0B; line-height: 1; }
+        .warn-icon .material-symbols-outlined { font-size: 20px; }
+        .warn-text { font-size: 11.5px; color: #374151; line-height: 1.4; }
+        .health-gauge { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+        .gauge-score { font-size: 18px; font-weight: 800; color: #F97316; margin-top: -8px; }
+        .gauge-of { font-size: 10px; color: var(--color-text-muted); }
+        .gauge-badge {
+            margin-top: 4px; background: #FEF3C7; color: #92400E;
+            font-size: 8.5px; font-weight: 700; padding: 3px 7px;
+            border-radius: 20px; text-align: center;
+        }
+        .health-cta-btn {
+            display: block; width: 100%;
+            background: var(--color-blue); color: white;
+            border: none; border-radius: 10px;
+            padding: 11px; font-size: 12.5px; font-weight: 700;
+            text-align: center; cursor: pointer;
+            margin-top: 14px;
+        }
+
+        /* ── Locked Features ── */
+        .locked-heading {
+            text-align: center; font-size: 11px;
+            color: var(--color-text-primary); font-weight: 600;
+            margin: 4px 16px 10px; line-height: 1.4;
+        }
+        .locked-row {
+            display: flex; gap: 8px; margin: 0 16px;
+        }
+        .locked-card {
+            flex: 1; background: white; border: 1px solid var(--color-border);
+            border-radius: 12px; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center;
+            text-align: center;
+        }
+        .locked-content {
+            flex: 1; width: 100%;
+            padding: 12px 8px 10px;
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+            filter: saturate(0.35);
+        }
+        .locked-emoji { font-size: 24px; }
+        .locked-title { font-size: 10px; font-weight: 700; color: #374151; line-height: 1.3; }
+        .locked-tag {
+            width: 100%;
+            border-top: 1px solid #FDE68A;
+            background: #FFFBEB;
+            padding: 7px 4px;
+            font-size: 9.5px; font-weight: 800; color: #B45309;
+            display: flex; align-items: center; justify-content: center; gap: 3px;
+        }
+        .locked-tag .material-symbols-outlined { font-size: 12px; color: #B45309; }
+
+        /* ── Comparison Table ── */
+        .compare-card {
+            margin: 12px 16px;
+            background: white; border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .compare-heading {
+            font-size: 11.5px; font-weight: 700; color: var(--color-text-primary);
+            padding: 12px 14px 6px; text-align: center;
+        }
+        .compare-table { width: 100%; border-collapse: collapse; }
+        .compare-table th, .compare-table td {
+            padding: 9px 10px; font-size: 11px; text-align: center;
+        }
+        .compare-table th { background: #F9FAFB; font-weight: 700; color: #374151; }
+        .compare-table th:first-child, .compare-table td:first-child {
+            text-align: left; font-weight: 600;
+        }
+        .compare-table th.pro-col { color: var(--color-blue); }
+        .compare-table tr:not(:last-child) td { border-bottom: 1px solid #F3F4F6; }
+        .check-circle {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 18px; height: 18px; border-radius: 50%;
+            font-size: 10px; font-weight: 800;
+        }
+        .check-circle .material-symbols-outlined { font-size: 12px; }
+        .pricing-feat-dot .material-symbols-outlined { font-size: 10px; }
+        .check-yes { background: #DCFCE7; color: #16A34A; }
+        .check-no  { background: #FEE2E2; color: #DC2626; }
+        .check-text { font-size: 10px; font-weight: 600; color: var(--color-text-secondary); }
+        .check-full { font-size: 10px; font-weight: 700; color: var(--color-blue); }
+
+        /* ── Pricing Card ── */
+        .pricing-card {
+            margin: 0 16px 16px;
+            background: white; border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        .pricing-top {
+            display: flex; gap: 16px; align-items: flex-start;
+        }
+        .pricing-left { flex: 0 0 auto; text-align: right; }
+        .pricing-name { font-size: 13px; font-weight: 800; color: var(--color-text-primary); margin-bottom: 2px; }
+        .pricing-amount { font-size: 20px; font-weight: 800; color: var(--color-blue); }
+        .pricing-per { font-size: 11px; color: var(--color-text-muted); margin-top: 2px; }
+        .pricing-features { display: flex; flex-direction: column; gap: 8px; flex: 1; }
+        .pricing-feat-row { display: flex; align-items: flex-start; gap: 6px; }
+        .pricing-feat-dot {
+            width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 9px; font-weight: 800;
+            margin-top: 1px;
+        }
+        .dot-teal { background: #CCFBF1; color: #0F766E; }
+        .dot-blue { background: #DBEAFE; color: #1D4ED8; }
+        .dot-amber { background: #FEF3C7; color: #B45309; }
+        .pricing-feat-text { font-size: 11.5px; color: #374151; font-weight: 500; line-height: 1.35; }
+
+        /* ── Sticky CTA ── */
+        .sticky-cta {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: white;
+            border-top: 1px solid #E5E7EB;
+            box-shadow: 0 -4px 24px rgba(0,0,0,0.10);
+            padding: 12px 16px 20px;
+            z-index: 20;
+            transform: translateY(100%);
+            transition: transform 0.25s ease;
+        }
+        .sticky-cta.visible {
+            transform: translateY(0);
+        }
+        .sticky-cta-btn {
+            display: block; width: 100%;
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            padding: 14px 16px;
+            font-size: 14px; font-weight: 800;
+            text-align: center; cursor: pointer;
+            letter-spacing: 0.2px;
+            box-shadow: 0 4px 16px rgba(16,185,129,0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <button class="frame-toggle-btn" onclick="toggleFrameMode()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+            <line x1="12" y1="18" x2="12.01" y2="18"/>
+        </svg>
+        <span id="frameToggleText">iPhone View</span>
+    </button>
+
+    <div class="iphone-frame">
+        <div class="iphone-notch"></div>
+        <div class="iphone-home-indicator"></div>
+        <div class="iphone-screen">
+
+            <!-- Screen Content -->
+            <div class="screen-content">
+
+                <!-- 1. Hero Banner -->
+                <div class="hero-banner">
+
+                    <!-- Status Bar -->
+                    <div class="status-bar">
+                        <span>9:41</span>
+                        <div class="status-right">
+                            <span class="material-symbols-outlined" style="font-size:14px;color:white;">signal_cellular_alt</span>
+                            <span class="material-symbols-outlined" style="font-size:14px;color:white;">wifi</span>
+                            <span class="material-symbols-outlined" style="font-size:14px;color:white;">battery_full</span>
+                        </div>
+                    </div>
+
+                    <!-- App Header -->
+                    <div class="app-header">
+                        <button class="back-btn" onclick="history.back()">
+                            <span class="material-symbols-outlined">chevron_left</span>
+                        </button>
+                        <span class="hero-page-title"><span class="brand-nivesh">Nivesh</span><span class="brand-pe">Pe</span><span class="pro-badge-anim">Pro</span></span>
+                        <div style="width:36px;flex-shrink:0;"></div>
+                    </div>
+
+                    <div class="hero-title" style="text-align:center; margin-top:16px;">Your Personal Wealth Manager</div>
+
+                    <div class="hero-bullets">
+                        <div class="hero-bullet">
+                            <div class="check"><span class="material-symbols-outlined">tune</span></div>
+                            <div class="bullet-content">
+                                <div class="bullet-title">Personalised investment plan</div>
+                                <div class="bullet-desc">A fund strategy built around your goals, not a template</div>
+                            </div>
+                        </div>
+                        <div class="hero-bullet">
+                            <div class="check"><span class="material-symbols-outlined">autorenew</span></div>
+                            <div class="bullet-content">
+                                <div class="bullet-title">Portfolio rebalancing every 6 months</div>
+                                <div class="bullet-desc">We keep your allocation on track as markets move</div>
+                            </div>
+                        </div>
+                        <div class="hero-bullet">
+                            <div class="check"><span class="material-symbols-outlined">support_agent</span></div>
+                            <div class="bullet-content">
+                                <div class="bullet-title">Dedicated mutual fund advisor</div>
+                                <div class="bullet-desc">One expert who knows your full financial picture</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="hero-cta-btn" id="hero-cta">Upgrade to NiveshPe Pro <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;line-height:1;">chevron_right</span></button>
+                </div>
+
+                <!-- Hero → page separator -->
+                <div class="page-content">
+
+                <!-- Portfolio comparison: Current vs Optimised -->
+                <div class="pie-section">
+                    <div class="pie-section-label">See the difference Pro makes</div>
+                    <div class="pie-outer-card">
+                    <div class="pie-row">
+                        <div class="pie-card">
+                            <div class="pie-card-label">Current Portfolio</div>
+                            <div class="pie-chart pie-current"></div>
+                            <div class="pie-legend">
+                                <div class="pie-leg-row">
+                                    <div class="pie-leg-dot" style="background:#2563EB;"></div>
+                                    <span class="pie-leg-text">Equity 90%</span>
+                                </div>
+                                <div class="pie-leg-row">
+                                    <div class="pie-leg-dot" style="background:#EF4444;"></div>
+                                    <span class="pie-leg-text">Other 10%</span>
+                                </div>
+                            </div>
+                            <span class="warning-badge"><span class="material-symbols-outlined" style="font-size:10px;vertical-align:middle;">warning</span> High Risk</span>
+                        </div>
+                        <div class="pie-arrow"><span class="material-symbols-outlined">arrow_forward</span></div>
+                        <div class="pie-card">
+                            <div class="pie-card-label">Optimised Portfolio</div>
+                            <div class="pie-chart pie-optimised"></div>
+                            <div class="pie-legend">
+                                <div class="pie-leg-row">
+                                    <div class="pie-leg-dot" style="background:#0D9488;"></div>
+                                    <span class="pie-leg-text">Equity 60%</span>
+                                </div>
+                                <div class="pie-leg-row">
+                                    <div class="pie-leg-dot" style="background:#F97316;"></div>
+                                    <span class="pie-leg-text">Debt 30%</span>
+                                </div>
+                                <div class="pie-leg-row">
+                                    <div class="pie-leg-dot" style="background:#10B981;"></div>
+                                    <span class="pie-leg-text">Gold 10%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div><!-- /pie-outer-card -->
+                </div>
+
+                <!-- 2. Portfolio Health Card -->
+                <div class="health-card">
+                    <div class="health-card-title">Your Portfolio Health</div>
+                    <div class="health-body">
+                        <div class="health-warnings">
+                            <div class="health-warn-row">
+                                <span class="warn-icon"><span class="material-symbols-outlined">warning</span></span>
+                                <span class="warn-text">Overexposed to equity</span>
+                            </div>
+                            <div class="health-warn-row">
+                                <span class="warn-icon"><span class="material-symbols-outlined">warning</span></span>
+                                <span class="warn-text">Missing diversification</span>
+                            </div>
+                            <div class="health-warn-row">
+                                <span class="warn-icon"><span class="material-symbols-outlined">warning</span></span>
+                                <span class="warn-text">No rebalancing strategy</span>
+                            </div>
+                        </div>
+                        <div class="health-gauge">
+                            <!-- Semicircle gauge SVG -->
+                            <svg width="90" height="54" viewBox="0 0 90 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <!-- Horizontal gradient: red (left/low) → orange → yellow → green (right/high) -->
+                                    <linearGradient id="gaugeGrad" x1="8" y1="0" x2="82" y2="0" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%"   stop-color="#EF4444"/>
+                                        <stop offset="35%"  stop-color="#F97316"/>
+                                        <stop offset="62%"  stop-color="#FBBF24"/>
+                                        <stop offset="100%" stop-color="#22C55E"/>
+                                    </linearGradient>
+                                </defs>
+                                <!-- Coloured track: red → green -->
+                                <path d="M 8 48 A 37 37 0 0 1 82 48" stroke="url(#gaugeGrad)" stroke-width="9" stroke-linecap="round" fill="none"/>
+                                <!-- Needle at 72% (angle 129.6° from positive x-axis) -->
+                                <line x1="45" y1="48" x2="68.6" y2="19.5" stroke="#F97316" stroke-width="2" stroke-linecap="round"/>
+                                <!-- Pivot dot -->
+                                <circle cx="45" cy="48" r="3.5" fill="#F97316"/>
+                                <!-- Indicator ring on arc -->
+                                <circle cx="68.6" cy="19.5" r="4" fill="white" stroke="#F97316" stroke-width="2"/>
+                            </svg>
+                            <div class="gauge-score">72<span class="gauge-of">/100</span></div>
+                            <div class="gauge-badge">Needs Improvement</div>
+                        </div>
+                    </div>
+                    <button class="health-cta-btn">Improve with NiveshPe Pro <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;line-height:1;">chevron_right</span></button>
+                </div>
+
+                <!-- 3. Locked Features -->
+                <div class="locked-heading">Unlock advanced portfolio insights</div>
+                <div class="locked-row">
+                    <div class="locked-card">
+                        <div class="locked-content">
+                            <div class="locked-emoji"><span class="material-symbols-outlined">donut_large</span></div>
+                            <div class="locked-title">Asset Allocation Recommendation</div>
+                        </div>
+                        <div class="locked-tag"><span class="material-symbols-outlined">lock</span> Unlock with Pro</div>
+                    </div>
+                    <div class="locked-card">
+                        <div class="locked-content">
+                            <div class="locked-emoji"><span class="material-symbols-outlined">bolt</span></div>
+                            <div class="locked-title">Risk Analysis</div>
+                        </div>
+                        <div class="locked-tag"><span class="material-symbols-outlined">lock</span> Unlock with Pro</div>
+                    </div>
+                    <div class="locked-card">
+                        <div class="locked-content">
+                            <div class="locked-emoji"><span class="material-symbols-outlined">sync</span></div>
+                            <div class="locked-title">Fund Replacement Suggestions</div>
+                        </div>
+                        <div class="locked-tag"><span class="material-symbols-outlined">lock</span> Unlock with Pro</div>
+                    </div>
+                </div>
+
+                <!-- 4. Comparison Table -->
+                <div class="compare-card">
+                    <div class="compare-heading">Free vs Pro</div>
+                    <table class="compare-table">
+                        <thead>
+                            <tr>
+                                <th style="width:46%;">Feature</th>
+                                <th>Free</th>
+                                <th class="pro-col">Pro</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>MF Investing</td>
+                                <td><span class="check-circle check-yes"><span class="material-symbols-outlined">check</span></span></td>
+                                <td><span class="check-circle check-yes"><span class="material-symbols-outlined">check</span></span></td>
+                            </tr>
+                            <tr>
+                                <td>Health Score</td>
+                                <td><span class="check-text">Limited</span></td>
+                                <td><span class="check-full">Full</span></td>
+                            </tr>
+                            <tr>
+                                <td>Personalised Plan</td>
+                                <td><span class="check-circle check-no"><span class="material-symbols-outlined">close</span></span></td>
+                                <td><span class="check-circle check-yes"><span class="material-symbols-outlined">check</span></span></td>
+                            </tr>
+                            <tr>
+                                <td>Rebalancing</td>
+                                <td><span class="check-circle check-no"><span class="material-symbols-outlined">close</span></span></td>
+                                <td><span class="check-circle check-yes"><span class="material-symbols-outlined">check</span></span></td>
+                            </tr>
+                            <tr>
+                                <td>Dedicated Advisor</td>
+                                <td><span class="check-circle check-no"><span class="material-symbols-outlined">close</span></span></td>
+                                <td><span class="check-circle check-yes"><span class="material-symbols-outlined">check</span></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 5. Pricing Card -->
+                <div class="pricing-card">
+                    <div class="pricing-top">
+                        <div class="pricing-features">
+                            <div class="pricing-feat-row">
+                                <div class="pricing-feat-dot dot-teal"><span class="material-symbols-outlined">check</span></div>
+                                <span class="pricing-feat-text">Expert-backed portfolios</span>
+                            </div>
+                            <div class="pricing-feat-row">
+                                <div class="pricing-feat-dot dot-blue"><span class="material-symbols-outlined">check</span></div>
+                                <span class="pricing-feat-text">Human advisor support</span>
+                            </div>
+                            <div class="pricing-feat-row">
+                                <div class="pricing-feat-dot dot-amber"><span class="material-symbols-outlined">check</span></div>
+                                <span class="pricing-feat-text">Built for long-term investors</span>
+                            </div>
+                        </div>
+                        <div class="pricing-left">
+                            <div class="pricing-name">NiveshPe Pro</div>
+                            <div class="pricing-amount">₹999<span style="font-size:13px;font-weight:600;color:#374151;">/year</span></div>
+                            <div class="pricing-per">Less than ₹3 per day</div>
+                        </div>
+                    </div>
+                </div>
+
+                </div><!-- /page-content -->
+            </div><!-- /screen-content -->
+
+            <!-- 6. Sticky Bottom CTA -->
+            <div class="sticky-cta">
+                <button class="sticky-cta-btn">Upgrade to Pro @ ₹999/year + GST</button>
+            </div>
+
+        </div>
+    </div>
+
+
+
+<script>
+    const heroCta = document.getElementById('hero-cta');
+    const stickyCta = document.querySelector('.sticky-cta');
+    const scrollRoot = document.querySelector('.screen-content');
+
+    const observer = new IntersectionObserver(
+        ([entry]) => {
+            stickyCta.classList.toggle('visible', !entry.isIntersecting);
+        },
+        { root: scrollRoot, threshold: 0 }
+    );
+
+    observer.observe(heroCta);
+</script>
+
+    <script src="assets/js/iphone-toggle.js"></script>
+</body>
+</html>
