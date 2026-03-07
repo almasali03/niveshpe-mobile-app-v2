@@ -133,6 +133,7 @@
         }
         .app-header .back-btn .material-symbols-outlined { font-size: 20px; color: var(--color-text-primary); }
         .app-header .page-title { flex: 1; text-align: center; font-size: 16px; font-weight: 700; color: var(--color-text-primary); }
+        .app-header .icon-btn { background: none; border: none; padding: 0; cursor: pointer; display: flex; align-items: center; }
         .app-header .header-right {
             width: 36px; height: 36px; display: flex;
             align-items: center; justify-content: center; cursor: pointer;
@@ -747,30 +748,125 @@
         .goal-icon-blob .material-symbols-outlined { font-size: 22px; color: white; font-variation-settings: 'FILL' 1; }
         .goal-card-name { font-size: 11px; font-weight: 600; color: var(--color-text-primary); text-align: center; line-height: 1.35; }
 
-        /* ── Tab Switcher ── */
-        .mf-tabs {
+        /* ── Tab Bar (inside header) ── */
+        .mf-tab-bar {
             display: flex;
-            gap: 8px;
-            padding: 12px 16px 4px;
-        }
-        .mf-tab {
             flex: 1;
-            padding: 9px 0;
-            border-radius: 10px;
-            border: none;
-            font-family: var(--font);
-            font-size: 13.5px;
-            font-weight: 600;
-            cursor: pointer;
-            background: #F3F4F6;
-            color: var(--color-text-secondary);
-            transition: background 0.2s, color 0.2s;
+            gap: 4px;
         }
-        .mf-tab.active {
-            background: var(--color-blue);
-            color: white;
+        .mf-tab-btn {
+            padding: 7px 20px;
+            border: none;
+            border-bottom: 2.5px solid transparent;
+            background: transparent;
+            font-family: var(--font);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+            cursor: pointer;
+            transition: color 0.2s, border-color 0.2s;
+        }
+        .mf-tab-btn.active {
+            color: var(--color-blue);
+            border-bottom-color: var(--color-blue);
         }
         .mf-panel { }
+
+        /* ── NiveshPe Pro CTA ── */
+        .pro-cta-card {
+            margin: 16px 16px 8px;
+            padding: 20px 20px 18px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #059669 0%, #065F46 100%);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        .pro-cta-card::after {
+            content: '';
+            position: absolute;
+            width: 55%;
+            height: 220%;
+            top: 60%;
+            right: -70%;
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(255,255,255,0.08) 35%,
+                rgba(255,255,255,0.18) 50%,
+                rgba(255,255,255,0.08) 65%,
+                transparent
+            );
+            transform: rotate(-30deg);
+            animation: proSheen 2.6s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes proSheen {
+            0%   { right: -70%; top: 60%; }
+            100% { right: 130%; top: -160%; }
+        }
+        .pro-cta-icon { font-size: 22px; margin-bottom: 2px; }
+        .pro-cta-headline {
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.35;
+        }
+        .pro-cta-sub {
+            font-size: 12.5px;
+            font-weight: 400;
+            line-height: 1.5;
+            opacity: 0.85;
+        }
+        .pro-cta-btn {
+            align-self: flex-start;
+            margin-top: 6px;
+            padding: 9px 20px;
+            border-radius: 50px;
+            border: none;
+            background: white;
+            color: #059669;
+            font-family: var(--font);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex; align-items: center; gap: 4px;
+        }
+        .pro-cta-title { display: flex; align-items: center; gap: 0; }
+        .pro-cta-title .brand-nivesh { color: white; font-size: 20px; font-weight: 800; }
+        .pro-cta-title .brand-pe     { color: white; font-size: 20px; font-weight: 800; }
+        .pro-badge-anim {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 56px; height: 34px;
+            border-radius: 8px;
+            border: 1.5px solid #BC4B0F;
+            background: linear-gradient(135deg, #FFE8DC 0%, #FFCBAA 40%, #FFD4B5 60%, #FFE8DC 100%);
+            background-size: 300% 300%;
+            color: #BC4B0F; font-size: 14px; font-weight: 800; letter-spacing: 0.3px;
+            vertical-align: middle; margin-left: 4px; margin-bottom: 4px;
+            position: relative; overflow: hidden;
+            animation: proBgSheen 2s ease-in-out infinite;
+        }
+        .pro-badge-anim::after {
+            content: '';
+            position: absolute;
+            width: 40%; height: 200%;
+            top: 80%; right: -60%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.5), transparent);
+            transform: rotate(-25deg);
+            animation: proSheen 2s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes proBgSheen {
+            0%, 100% { background-position: 100% 100%; }
+            50%       { background-position: 0% 0%; }
+        }
+        @keyframes proSheen {
+            0%   { right: -60%; top: 80%; }
+            100% { right: 120%; top: -120%; }
+        }
 
         /* ── All Funds Panel ── */
         .af-search-row {
@@ -949,18 +1045,20 @@
             </div>
 
             <div class="app-header">
-                <button class="back-btn"><span class="material-symbols-outlined">arrow_back</span></button>
-                <div class="page-title">My Baskets</div>
-                <div class="header-right"><span class="material-symbols-outlined">tune</span></div>
+                <div class="mf-tab-bar">
+                    <button class="mf-tab-btn active" id="tabBaskets" onclick="showMfTab('baskets')">Baskets</button>
+                    <button class="mf-tab-btn" id="tabAllFunds" onclick="showMfTab('all-funds')">All Funds</button>
+                </div>
+                <button class="icon-btn" onclick="window.location.href='menu.html'">
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="44" height="44" rx="12" fill="#F1F5F9"/>
+                        <circle cx="22" cy="18" r="5" stroke="#2563EB" stroke-width="2" fill="none"/>
+                        <path d="M14 32C14 28 17 25 22 25C27 25 30 28 30 32" stroke="#2563EB" stroke-width="2" stroke-linecap="round" fill="none"/>
+                    </svg>
+                </button>
             </div>
 
             <div class="screen-content">
-
-                <!-- TAB SWITCHER -->
-                <div class="mf-tabs">
-                    <button class="mf-tab active" id="tabBaskets" onclick="showMfTab('baskets')">Baskets</button>
-                    <button class="mf-tab" id="tabAllFunds" onclick="showMfTab('all-funds')">All Funds</button>
-                </div>
 
                 <!-- BASKETS PANEL -->
                 <div id="panelBaskets" class="mf-panel">
@@ -1005,6 +1103,16 @@
                             <span class="material-symbols-outlined">play_arrow</span>
                         </div>
                     </button>
+                </div>
+
+                <!-- NiveshPe Pro CTA -->
+                <div class="pro-cta-card">
+                    <div class="pro-cta-title">
+                        <span class="brand-nivesh">Nivesh</span><span class="brand-pe">Pe</span><span class="pro-badge-anim">Pro</span>
+                    </div>
+                    <div class="pro-cta-headline">Want a portfolio built just for you?</div>
+                    <div class="pro-cta-sub"><span class="brand-nivesh">Nivesh</span><span class="brand-pe">Pe</span> Pro gives you a personalised investment plan crafted by experts — not algorithms.</div>
+                    <button class="pro-cta-btn" onclick="window.location.href='niveshpe-pro.html'">Explore Pro <span class="material-symbols-outlined" style="font-size:15px;">chevron_right</span></button>
                 </div>
 
                 </div><!-- /panelBaskets -->
