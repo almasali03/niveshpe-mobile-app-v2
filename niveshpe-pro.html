@@ -393,6 +393,49 @@
             letter-spacing: 0.2px;
             box-shadow: 0 4px 16px rgba(16,185,129,0.4);
         }
+        /* ── Waitlist Modal ── */
+        .waitlist-overlay {
+            display: none; position: absolute; inset: 0;
+            background: rgba(0,0,0,0.45); z-index: 200;
+            align-items: flex-end; justify-content: center;
+        }
+        .waitlist-overlay.open { display: flex; }
+        .waitlist-sheet {
+            background: white; width: 100%; border-radius: 20px 20px 0 0;
+            padding: 24px 20px 36px; text-align: center;
+            animation: slideUp 0.28s ease;
+        }
+        @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .waitlist-handle {
+            width: 36px; height: 4px; background: #E5E7EB;
+            border-radius: 2px; margin: 0 auto 20px;
+        }
+        .waitlist-icon {
+            font-size: 40px; margin-bottom: 12px;
+        }
+        .waitlist-title {
+            font-size: 18px; font-weight: 800; color: #1F2937; margin-bottom: 6px;
+        }
+        .waitlist-sub {
+            font-size: 13px; color: #6B7280; margin-bottom: 24px; line-height: 1.5;
+        }
+        .waitlist-confirm-btn {
+            display: block; width: 100%;
+            background: linear-gradient(135deg, #059669 0%, #10B981 100%);
+            color: white; border: none; border-radius: 14px;
+            font-size: 15px; font-weight: 700; padding: 14px;
+            cursor: pointer; margin-bottom: 10px;
+            font-family: var(--font);
+        }
+        .waitlist-cancel-btn {
+            display: block; width: 100%; background: none;
+            border: none; color: #9CA3AF; font-size: 14px;
+            cursor: pointer; padding: 8px; font-family: var(--font);
+        }
+        .waitlist-success { display: none; }
+        .waitlist-success .success-icon {
+            font-size: 48px; color: #10B981; margin-bottom: 12px;
+        }
     </style>
 </head>
 <body>
@@ -461,7 +504,7 @@
                         </div>
                     </div>
 
-                    <button class="hero-cta-btn" id="hero-cta">Upgrade to NiveshPe Pro <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;line-height:1;">chevron_right</span></button>
+                    <button class="hero-cta-btn" id="hero-cta" onclick="openWaitlist()">Upgrade to NiveshPe Pro <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;line-height:1;">chevron_right</span></button>
                 </div>
 
                 <!-- Hero → page separator -->
@@ -553,7 +596,7 @@
                             <div class="gauge-badge">Needs Improvement</div>
                         </div>
                     </div>
-                    <button class="health-cta-btn">Improve with NiveshPe Pro <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;line-height:1;">chevron_right</span></button>
+                    <button class="health-cta-btn" onclick="openWaitlist()">Improve with NiveshPe Pro <span class="material-symbols-outlined" style="font-size:16px;vertical-align:middle;line-height:1;">chevron_right</span></button>
                 </div>
 
                 <!-- 3. Locked Features -->
@@ -653,8 +696,30 @@
 
             <!-- 6. Sticky Bottom CTA -->
             <div class="sticky-cta">
-                <button class="sticky-cta-btn">Upgrade to Pro @ ₹999/year + GST</button>
+                <button class="sticky-cta-btn" onclick="openWaitlist()">Upgrade to Pro @ ₹999/year + GST</button>
             </div>
+
+        <!-- Waitlist Modal -->
+        <div class="waitlist-overlay" id="waitlistOverlay">
+            <div class="waitlist-sheet">
+                <div class="waitlist-handle"></div>
+                <!-- Default state -->
+                <div id="waitlistDefault">
+                    <div class="waitlist-icon">🚀</div>
+                    <div class="waitlist-title">Join the Waitlist</div>
+                    <div class="waitlist-sub">NiveshPe Pro is coming soon.<br>Be the first to know when it launches.</div>
+                    <button class="waitlist-confirm-btn" onclick="confirmWaitlist()">Add Me to Waitlist</button>
+                    <button class="waitlist-cancel-btn" onclick="closeWaitlist()">Maybe later</button>
+                </div>
+                <!-- Success state -->
+                <div id="waitlistSuccess" class="waitlist-success">
+                    <div class="success-icon"><span class="material-symbols-outlined" style="font-size:48px;color:#10B981;font-variation-settings:'FILL' 1;">check_circle</span></div>
+                    <div class="waitlist-title">You're on the list!</div>
+                    <div class="waitlist-sub">We'll notify you as soon as NiveshPe Pro is ready.</div>
+                    <button class="waitlist-confirm-btn" onclick="closeWaitlist()">Done</button>
+                </div>
+            </div>
+        </div>
 
         </div>
     </div>
@@ -674,6 +739,22 @@
     );
 
     observer.observe(heroCta);
+
+    function openWaitlist() {
+        document.getElementById('waitlistDefault').style.display = 'block';
+        document.getElementById('waitlistSuccess').style.display = 'none';
+        document.getElementById('waitlistOverlay').classList.add('open');
+    }
+    function closeWaitlist() {
+        document.getElementById('waitlistOverlay').classList.remove('open');
+    }
+    function confirmWaitlist() {
+        document.getElementById('waitlistDefault').style.display = 'none';
+        document.getElementById('waitlistSuccess').style.display = 'block';
+    }
+    document.getElementById('waitlistOverlay').addEventListener('click', function(e) {
+        if (e.target === this) closeWaitlist();
+    });
 </script>
 
     <script src="assets/js/iphone-toggle.js"></script>
