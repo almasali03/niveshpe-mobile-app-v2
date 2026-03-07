@@ -998,6 +998,15 @@
             color: #9CA3AF;
             font-weight: 300;
         }
+        /* ── Mobile: hide desktop chrome, fill viewport ── */
+        @media (max-width: 600px) {
+            .group-panel { display: none !important; }
+            .frame-toggle-btn { display: none !important; }
+            .state-toggle { display: none; }
+            body { padding: 0; background: var(--color-bg); }
+            .iphone-frame { width: 100vw; height: 100svh; }
+            .iphone-screen { border-radius: 0; }
+        }
     </style>
 </head>
 <body>
