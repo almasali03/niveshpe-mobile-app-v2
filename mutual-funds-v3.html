@@ -3036,8 +3036,11 @@
     function renderGoalGrid() {
         document.getElementById('goalGrid').innerHTML = GOALS.map((g, i) => `
             <div class="goal-card ${i === activeIndex ? 'selected' : ''}" onclick="selectGoalFromOverlay(${i})">
-                <div class="goal-icon-blob" style="background:${g.color}">
-                    <span class="material-symbols-outlined">${g.icon}</span>
+                <div class="goal-icon-blob" style="background:${g.id === 'wealth_building' ? 'transparent' : g.color}; overflow:hidden;">
+                    ${g.id === 'wealth_building'
+                        ? `<dotlottie-player src="assets/dotlottie/Growing%20Money.lottie" autoplay loop style="width:48px;height:48px;margin:-4px;"></dotlottie-player>`
+                        : `<span class="material-symbols-outlined">${g.icon}</span>`
+                    }
                 </div>
                 <div class="goal-card-name">${g.name}</div>
             </div>`
@@ -3050,8 +3053,11 @@
     function renderGoalStrip() {
         document.getElementById('goalStrip').innerHTML = GOALS.map((g, i) => `
             <div class="goal-mini-card ${i === activeIndex ? 'active' : ''}" onclick="selectGoalFromStrip(${i})">
-                <div class="goal-icon-circle" style="background:${g.color}">
-                    <span class="material-symbols-outlined">${g.icon}</span>
+                <div class="goal-icon-circle" style="background:${g.id === 'wealth_building' ? 'transparent' : g.color}; overflow:hidden;">
+                    ${g.id === 'wealth_building'
+                        ? `<dotlottie-player src="assets/dotlottie/Growing%20Money.lottie" autoplay loop style="width:38px;height:38px;margin:-3px;"></dotlottie-player>`
+                        : `<span class="material-symbols-outlined">${g.icon}</span>`
+                    }
                 </div>
                 <div class="goal-mini-name">${g.name}</div>
             </div>`
