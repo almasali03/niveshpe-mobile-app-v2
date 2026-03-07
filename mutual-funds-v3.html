@@ -746,6 +746,157 @@
         }
         .goal-icon-blob .material-symbols-outlined { font-size: 22px; color: white; font-variation-settings: 'FILL' 1; }
         .goal-card-name { font-size: 11px; font-weight: 600; color: var(--color-text-primary); text-align: center; line-height: 1.35; }
+
+        /* ── Tab Switcher ── */
+        .mf-tabs {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px 4px;
+        }
+        .mf-tab {
+            flex: 1;
+            padding: 9px 0;
+            border-radius: 10px;
+            border: none;
+            font-family: var(--font);
+            font-size: 13.5px;
+            font-weight: 600;
+            cursor: pointer;
+            background: #F3F4F6;
+            color: var(--color-text-secondary);
+            transition: background 0.2s, color 0.2s;
+        }
+        .mf-tab.active {
+            background: var(--color-blue);
+            color: white;
+        }
+        .mf-panel { }
+
+        /* ── All Funds Panel ── */
+        .af-search-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            padding: 12px 16px 8px;
+        }
+        .af-search-wrap {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #F3F4F6;
+            border-radius: 10px;
+            padding: 8px 12px;
+            border: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        .af-search-wrap:focus-within { border-color: var(--color-blue); }
+        .af-search-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            font-family: var(--font);
+            font-size: 13px;
+            color: var(--color-text-primary);
+            outline: none;
+        }
+        .af-search-input::placeholder { color: var(--color-text-muted); }
+        .af-filters-row {
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            padding: 0 16px 8px;
+            scrollbar-width: none;
+        }
+        .af-filters-row::-webkit-scrollbar { display: none; }
+        .af-filter-btn {
+            flex-shrink: 0;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid #E5E7EB;
+            background: #F8F9FA;
+            font-family: var(--font);
+            font-size: 12px;
+            font-weight: 600;
+            color: #6B7280;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+        .af-filter-btn.active {
+            background: var(--color-blue);
+            border-color: var(--color-blue);
+            color: white;
+        }
+        .af-sort-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 16px 12px;
+        }
+        .af-sort-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--color-text-secondary);
+        }
+        .af-sort-btn {
+            padding: 5px 14px;
+            border-radius: 20px;
+            border: 1px solid #E5E7EB;
+            background: #F8F9FA;
+            font-family: var(--font);
+            font-size: 12px;
+            font-weight: 600;
+            color: #6B7280;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+        .af-sort-btn.active {
+            background: #10B981;
+            border-color: #10B981;
+            color: white;
+        }
+        .af-fund-list { padding: 0 16px 16px; }
+        .af-category-section { margin-bottom: 20px; }
+        .af-category-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--color-text-primary);
+            margin-bottom: 12px;
+        }
+        .fund-card-tappable {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+        }
+        .fund-card-tappable:active {
+            transform: scale(0.98);
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+        }
+        .save-fund-btn {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            width: 24px; height: 24px;
+            border: none;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            padding: 0;
+            z-index: 10;
+            transition: transform 0.2s;
+        }
+        .save-fund-btn:active { transform: scale(0.9); }
+        .save-fund-btn .heart-icon { color: #9CA3AF; opacity: 0.5; transition: all 0.2s; }
+        .save-fund-btn.saved .heart-icon { fill: #EF4444; color: #EF4444; opacity: 1; }
+        .chevron-icon {
+            position: absolute;
+            top: 14px; right: 14px;
+            font-size: 20px;
+            color: #9CA3AF;
+            font-weight: 300;
+        }
     </style>
 </head>
 <body>
@@ -805,6 +956,15 @@
 
             <div class="screen-content">
 
+                <!-- TAB SWITCHER -->
+                <div class="mf-tabs">
+                    <button class="mf-tab active" id="tabBaskets" onclick="showMfTab('baskets')">Baskets</button>
+                    <button class="mf-tab" id="tabAllFunds" onclick="showMfTab('all-funds')">All Funds</button>
+                </div>
+
+                <!-- BASKETS PANEL -->
+                <div id="panelBaskets" class="mf-panel">
+
                 <!-- DEPTH CAROUSEL -->
                 <div class="carousel-section" id="carouselSection">
                     <div class="carousel-viewport" id="carouselViewport">
@@ -847,6 +1007,194 @@
                     </button>
                 </div>
 
+                </div><!-- /panelBaskets -->
+
+                <!-- ALL FUNDS PANEL -->
+                <div id="panelAllFunds" class="mf-panel" style="display:none;">
+
+                    <!-- Search -->
+                    <div class="af-search-row">
+                        <div class="af-search-wrap">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            <input type="text" class="af-search-input" id="afSearchInput" placeholder="Search funds...">
+                        </div>
+                    </div>
+
+                    <!-- Category filters -->
+                    <div class="af-filters-row">
+                        <button class="af-filter-btn active" onclick="filterFunds('all')">All</button>
+                        <button class="af-filter-btn" onclick="filterFunds('equity')">Equity</button>
+                        <button class="af-filter-btn" onclick="filterFunds('debt')">Debt</button>
+                        <button class="af-filter-btn" onclick="filterFunds('solution')">Solution</button>
+                        <button class="af-filter-btn" onclick="filterFunds('hybrid')">Hybrid</button>
+                        <button class="af-filter-btn" onclick="filterFunds('others')">Others</button>
+                    </div>
+
+                    <!-- Sort -->
+                    <div class="af-sort-row">
+                        <span class="af-sort-label">Sort by returns:</span>
+                        <button class="af-sort-btn active" onclick="sortFunds('5y')">5Y</button>
+                        <button class="af-sort-btn" onclick="sortFunds('3y')">3Y</button>
+                        <button class="af-sort-btn" onclick="sortFunds('1y')">1Y</button>
+                    </div>
+
+                    <!-- Fund list -->
+                    <div class="af-fund-list">
+
+                        <!-- Equity Funds -->
+                        <div class="af-category-section" data-category="equity">
+                            <div class="af-category-title">Equity Funds</div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-large-cap" data-1y="18" data-3y="19" data-5y="21" onclick="viewFundDetails('hdfc-large-cap')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #2563EB;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-large-cap')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Large Cap Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div class="return-value" style="font-size:20px;font-weight:700;color:#059669;line-height:1;">21%</div><div class="return-label" style="font-size:10px;color:#6B7280;margin-top:2px;">5Y CAGR</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. SIP</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#E0F2FE;color:#075985;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Growth Focused</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">5+ years</div></div>
+                            </div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-mid-cap" data-1y="25" data-3y="28" data-5y="30" onclick="viewFundDetails('hdfc-mid-cap')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #2563EB;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-mid-cap')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Mid Cap Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div class="return-value" style="font-size:20px;font-weight:700;color:#059669;line-height:1;">30%</div><div class="return-label" style="font-size:10px;color:#6B7280;margin-top:2px;">5Y CAGR</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. SIP</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#E0F2FE;color:#075985;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Growth Focused</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">5+ years</div></div>
+                            </div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-small-cap" data-1y="35" data-3y="32" data-5y="28" onclick="viewFundDetails('hdfc-small-cap')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #2563EB;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-small-cap')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Small Cap Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:20px;font-weight:700;color:#059669;line-height:1;">39%</div><div style="font-size:10px;color:#6B7280;margin-top:2px;">5Y CAGR</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. SIP</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#E0F2FE;color:#075985;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">High Growth Potential</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">7+ years</div></div>
+                            </div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-flexi-cap" onclick="viewFundDetails('hdfc-flexi-cap')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #2563EB;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-flexi-cap')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Flexi Cap Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:20px;font-weight:700;color:#059669;line-height:1;">34%</div><div style="font-size:10px;color:#6B7280;margin-top:2px;">5Y CAGR</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. SIP</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#E0F2FE;color:#075985;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Growth Focused</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">5+ years</div></div>
+                            </div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-multi-cap" onclick="viewFundDetails('hdfc-multi-cap')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #2563EB;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-multi-cap')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Multi Cap Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:20px;font-weight:700;color:#059669;line-height:1;">25%</div><div style="font-size:10px;color:#6B7280;margin-top:2px;">3Y CAGR</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. SIP</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#E0F2FE;color:#075985;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Growth Focused</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">5+ years</div></div>
+                            </div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-focused-30" onclick="viewFundDetails('hdfc-focused-30')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #2563EB;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-focused-30')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Focused 30 Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:20px;font-weight:700;color:#059669;line-height:1;">31%</div><div style="font-size:10px;color:#6B7280;margin-top:2px;">5Y CAGR</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. SIP</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#E0F2FE;color:#075985;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">High Growth Potential</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">5+ years</div></div>
+                            </div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-elss-tax-saver" onclick="viewFundDetails('hdfc-elss-tax-saver')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #2563EB;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-elss-tax-saver')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC ELSS Tax Saver</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:20px;font-weight:700;color:#059669;line-height:1;">26%</div><div style="font-size:10px;color:#6B7280;margin-top:2px;">5Y CAGR</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹500</div><div>Min. SIP</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#E0F2FE;color:#075985;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Growth Focused</div><div style="display:inline-block;background:#DBEAFE;color:#1E40AF;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Tax Benefit (80C)</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">Lock-in: 3 years</div></div>
+                            </div>
+                        </div>
+
+                        <!-- Debt Funds -->
+                        <div class="af-category-section" data-category="debt">
+                            <div class="af-category-title">Debt Funds</div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-liquid-fund" onclick="viewFundDetails('hdfc-liquid-fund')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #10B981;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-liquid-fund')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Liquid Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div class="return-value" style="font-size:20px;font-weight:700;color:#059669;line-height:1;">7%</div><div class="return-label" style="font-size:10px;color:#6B7280;margin-top:2px;">1Y Returns</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. Inv.</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#D1FAE5;color:#065F46;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Stable Returns</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">Anytime</div></div>
+                            </div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-ultra-short-term" onclick="viewFundDetails('hdfc-ultra-short-term')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #10B981;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-ultra-short-term')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Ultra Short Term Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div class="return-value" style="font-size:20px;font-weight:700;color:#059669;line-height:1;">7.5%</div><div class="return-label" style="font-size:10px;color:#6B7280;margin-top:2px;">1Y Returns</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. Inv.</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#D1FAE5;color:#065F46;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Stable Returns</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">3-6 months</div></div>
+                            </div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-short-term-debt" onclick="viewFundDetails('hdfc-short-term-debt')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #10B981;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-short-term-debt')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Short Term Debt Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div class="return-value" style="font-size:20px;font-weight:700;color:#059669;line-height:1;">7.5%</div><div class="return-label" style="font-size:10px;color:#6B7280;margin-top:2px;">1Y Returns</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. Inv.</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#D1FAE5;color:#065F46;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Stable Returns</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">1-3 years</div></div>
+                            </div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-floating-rate-debt" onclick="viewFundDetails('hdfc-floating-rate-debt')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #10B981;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-floating-rate-debt')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Floating Rate Debt Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div class="return-value" style="font-size:20px;font-weight:700;color:#059669;line-height:1;">8.5%</div><div class="return-label" style="font-size:10px;color:#6B7280;margin-top:2px;">1Y Returns</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. Inv.</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#D1FAE5;color:#065F46;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Stable Returns</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">1-3 years</div></div>
+                            </div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-corporate-bond" onclick="viewFundDetails('hdfc-corporate-bond')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #10B981;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-corporate-bond')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Corporate Bond Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div class="return-value" style="font-size:20px;font-weight:700;color:#059669;line-height:1;">8%</div><div class="return-label" style="font-size:10px;color:#6B7280;margin-top:2px;">1Y Returns</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. Inv.</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#D1FAE5;color:#065F46;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Steady & Secure</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">3+ years</div></div>
+                            </div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-banking-psu-debt" onclick="viewFundDetails('hdfc-banking-psu-debt')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #10B981;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-banking-psu-debt')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Banking & PSU Debt Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div class="return-value" style="font-size:20px;font-weight:700;color:#059669;line-height:1;">7.5%</div><div class="return-label" style="font-size:10px;color:#6B7280;margin-top:2px;">1Y Returns</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. Inv.</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#D1FAE5;color:#065F46;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Stable Returns</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">2-3 years</div></div>
+                            </div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-gilt-fund" onclick="viewFundDetails('hdfc-gilt-fund')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #10B981;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-gilt-fund')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Gilt Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div class="return-value" style="font-size:20px;font-weight:700;color:#059669;line-height:1;">7%</div><div class="return-label" style="font-size:10px;color:#6B7280;margin-top:2px;">1Y Returns</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. Inv.</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#D1FAE5;color:#065F46;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Stable Returns</div><div style="display:inline-block;background:#DBEAFE;color:#1E40AF;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Government Backed</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">3+ years</div></div>
+                            </div>
+                        </div>
+
+                        <!-- Solution Oriented -->
+                        <div class="af-category-section" data-category="solution">
+                            <div class="af-category-title">Solution Oriented Funds</div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-childrens-fund" onclick="viewFundDetails('hdfc-childrens-fund')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #F97316;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-childrens-fund')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Children's Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:20px;font-weight:700;color:#059669;line-height:1;">18%</div><div style="font-size:10px;color:#6B7280;margin-top:2px;">5Y CAGR</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. SIP</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#E0F2FE;color:#075985;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Growth Focused</div><div style="display:inline-block;background:#FED7AA;color:#9A3412;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Child's Future</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">Lock-in: 5 yrs</div></div>
+                            </div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-retirement-savings-equity" onclick="viewFundDetails('hdfc-retirement-savings-equity')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #F97316;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-retirement-savings-equity')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Retirement Savings Fund - Equity</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:20px;font-weight:700;color:#059669;line-height:1;">28%</div><div style="font-size:10px;color:#6B7280;margin-top:2px;">5Y CAGR</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. SIP</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#E0F2FE;color:#075985;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">High Growth Potential</div><div style="display:inline-block;background:#FED7AA;color:#9A3412;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Retirement Plan</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">Lock-in: 5 yrs</div></div>
+                            </div>
+                        </div>
+
+                        <!-- Hybrid -->
+                        <div class="af-category-section" data-category="hybrid">
+                            <div class="af-category-title">Hybrid Funds</div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-balanced-advantage" onclick="viewFundDetails('hdfc-balanced-advantage')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #8B5CF6;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-balanced-advantage')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC Balanced Advantage Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:20px;font-weight:700;color:#059669;line-height:1;">25%</div><div style="font-size:10px;color:#6B7280;margin-top:2px;">5Y CAGR</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. SIP</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#E9D5FF;color:#6B21A6;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Balanced Growth</div><div style="display:inline-block;background:#DDD6FE;color:#5B21B6;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Dynamic Allocation</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">3+ years</div></div>
+                            </div>
+                        </div>
+
+                        <!-- Others -->
+                        <div class="af-category-section" data-category="others">
+                            <div class="af-category-title">Other Funds</div>
+                            <div class="fund-card-tappable" data-fund-id="hdfc-nifty50-equal-weight" onclick="viewFundDetails('hdfc-nifty50-equal-weight')" style="background:white;border-radius:12px;padding:14px;border:1px solid #E5E7EB;border-left:4px solid #6B7280;margin-bottom:10px;position:relative;">
+                                <button class="save-fund-btn" onclick="toggleSaveFund(event,'hdfc-nifty50-equal-weight')"><svg class="heart-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                                <span class="chevron-icon">›</span>
+                                <h4 style="font-size:14px;font-weight:700;color:#1F2937;margin-bottom:10px;">HDFC NIFTY50 Equal Weight Index Fund</h4>
+                                <div style="background:#ECFDF5;border-radius:8px;padding:10px;margin-bottom:10px;"><div style="display:flex;justify-content:space-between;align-items:center;"><div><div style="font-size:20px;font-weight:700;color:#059669;line-height:1;">17%</div><div style="font-size:10px;color:#6B7280;margin-top:2px;">3Y CAGR</div></div><div style="text-align:right;font-size:10px;color:#6B7280;"><div style="font-weight:600;color:#1F2937;">₹100</div><div>Min. SIP</div></div></div></div>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;"><div style="display:inline-block;background:#E0F2FE;color:#075985;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Moderate Growth</div><div style="display:inline-block;background:#E5E7EB;color:#374151;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:600;">Passive Index</div><div style="display:inline-block;background:#F8F9FA;color:#6B7280;padding:4px 10px;border-radius:10px;font-size:10px;font-weight:500;">5+ years</div></div>
+                            </div>
+                        </div>
+
+                    </div><!-- /af-fund-list -->
+                </div><!-- /panelAllFunds -->
+
             </div>
 
             <!-- Bottom Navigation -->
@@ -863,7 +1211,7 @@
                     </div>
                     <span class="nav-label">My Funds</span>
                 </a>
-                <a href="mutual-funds.html" class="nav-item active">
+                <a href="mutual-funds-v3.html" class="nav-item active">
                     <div class="nav-icon">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.5 20V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18.5 20V4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.5 20V16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     </div>
@@ -2357,7 +2705,7 @@
                     <span class="fund-alloc-badge" style="background:${g.color}">${f.alloc}</span>
                 </div>`).join('');
             return `
-            <div class="ccard ${getCardState(i)}" data-index="${i}">
+            <div class="ccard ${getCardState(i)}" data-index="${i}" onclick="gotoBasket('${g.id}')">
 
                 <!-- ── HERO ── -->
                 <div class="ccard-hero" style="background:${heroBg}">
@@ -2412,7 +2760,7 @@
                 </div>
                 <div class="ccard-cta">
                     <div class="ccard-cta-sep"></div>
-                    <button class="ccard-btn" onclick="event.stopPropagation()">Invest Now</button>
+                    <button class="ccard-btn" onclick="event.stopPropagation(); window.location.href='basket-details.html?id=${g.id}'">Invest Now</button>
                 </div>
             </div>`;
         }).join('');
@@ -2588,13 +2936,110 @@
     // ─────────────────────────────────────────────────────────────
     // INIT + TOUCH SWIPE
     // ─────────────────────────────────────────────────────────────
+    function gotoBasket(id) {
+        window.location.href = 'basket-details.html?id=' + id;
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // TAB SWITCHER
+    // ─────────────────────────────────────────────────────────────
+    function showMfTab(tab) {
+        document.getElementById('panelBaskets').style.display = tab === 'baskets' ? '' : 'none';
+        document.getElementById('panelAllFunds').style.display = tab === 'all-funds' ? '' : 'none';
+        document.getElementById('tabBaskets').classList.toggle('active', tab === 'baskets');
+        document.getElementById('tabAllFunds').classList.toggle('active', tab === 'all-funds');
+    }
+
+    // ─────────────────────────────────────────────────────────────
+    // ALL FUNDS — FILTER, SORT, NAVIGATE, SAVE
+    // ─────────────────────────────────────────────────────────────
+    function filterFunds(category) {
+        document.querySelectorAll('#panelAllFunds [data-category]').forEach(section => {
+            section.style.display = category === 'all' || section.getAttribute('data-category') === category ? '' : 'none';
+        });
+        document.querySelectorAll('.af-filter-btn').forEach(btn => {
+            const match = (category === 'all' && btn.textContent === 'All') ||
+                          btn.textContent.toLowerCase() === category;
+            btn.classList.toggle('active', match);
+        });
+    }
+
+    function sortFunds(period) {
+        document.querySelectorAll('#panelAllFunds [data-category]').forEach(section => {
+            if (section.style.display === 'none') return;
+            const cards = Array.from(section.querySelectorAll('.fund-card-tappable'));
+            cards.sort((a, b) => (parseFloat(b.getAttribute('data-' + period)) || 0) - (parseFloat(a.getAttribute('data-' + period)) || 0));
+            const parent = cards[0]?.parentNode;
+            if (parent) cards.forEach(c => parent.appendChild(c));
+            cards.forEach(card => {
+                const v = card.getAttribute('data-' + period);
+                if (v) {
+                    const rv = card.querySelector('.return-value');
+                    const rl = card.querySelector('.return-label');
+                    if (rv) rv.textContent = v + '%';
+                    if (rl) rl.textContent = (period === '1y' ? '1Y' : period === '3y' ? '3Y' : '5Y') + ' CAGR';
+                }
+            });
+        });
+        document.querySelectorAll('.af-sort-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.textContent.toLowerCase() === period);
+        });
+    }
+
+    function viewFundDetails(fundSlug) {
+        window.location.href = 'fund-detail.html?fund=' + fundSlug;
+    }
+
+    function navigateToFund(event, fundSlug) {
+        event.stopPropagation();
+        window.location.href = 'fund-detail.html?fund=' + fundSlug;
+    }
+
+    let savedFunds = JSON.parse(localStorage.getItem('savedFunds') || '[]');
+
+    function toggleSaveFund(event, fundId) {
+        event.stopPropagation();
+        const btn = event.currentTarget;
+        if (savedFunds.includes(fundId)) {
+            savedFunds = savedFunds.filter(id => id !== fundId);
+            btn.classList.remove('saved');
+        } else {
+            savedFunds.push(fundId);
+            btn.classList.add('saved');
+        }
+        localStorage.setItem('savedFunds', JSON.stringify(savedFunds));
+    }
+
+    function initSavedFunds() {
+        savedFunds.forEach(fundId => {
+            const card = document.querySelector(`[data-fund-id="${fundId}"]`);
+            if (card) { const btn = card.querySelector('.save-fund-btn'); if (btn) btn.classList.add('saved'); }
+        });
+    }
+
+    function initAfSearch() {
+        const input = document.getElementById('afSearchInput');
+        if (!input) return;
+        input.addEventListener('input', function() {
+            const q = this.value.toLowerCase().trim();
+            document.querySelectorAll('#panelAllFunds .fund-card-tappable').forEach(card => {
+                const name = card.querySelector('h4')?.textContent.toLowerCase() || '';
+                card.style.display = !q || name.includes(q) ? '' : 'none';
+            });
+        });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
         buildCarousel();
         renderGoalStrip();
         renderGoalGrid();
         updateStripHeader(activeIndex);
+        initSavedFunds();
+        initAfSearch();
 
-        // Navigation is goal-selection only (strip + overlay)
+        // Handle ?tab= URL param for deep links
+        const urlTab = new URLSearchParams(location.search).get('tab');
+        if (urlTab === 'all-funds') showMfTab('all-funds');
     });
     </script>
 </body>
