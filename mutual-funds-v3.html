@@ -1425,6 +1425,54 @@
     // Cyclic palette: Royal Blue, Purple, Emerald, Hot Pink, Cyan, Lime
     const PALETTE = ['#2563EB', '#7C3AED', '#10B981', '#EC4899', '#06B6D4', '#84CC16'];
 
+    // Lottie animation file map — add new entries as files are provided
+    const LOTTIE_MAP = {
+        // ── Universal ──
+        wealth_building:    'dotLottie-baskets/WEALTH_BUILDING.lottie',
+        emergency_fund:     'dotLottie-baskets/EMERGENCY_FUND.lottie',
+        dream_car:          'dotLottie-baskets/DREAM_CAR.lottie',
+        vacation:           'dotLottie-baskets/VACATION.lottie',
+        land_purchase:      'dotLottie-baskets/LAND_PURCHASE.lottie',
+        wedding_fund:       'dotLottie-baskets/WEDDING_FUND.lottie',
+        // ── Salaried ──
+        job_loss_buffer:    'dotLottie-baskets/SAL_JOB_LOSS_BUFFER.lottie',
+        parents_healthcare: 'dotLottie-baskets/SAL_PARENTS_HEALTH.lottie',
+        side_business:      'dotLottie-baskets/SAL_SIDE_BUSINESS.lottie',
+        // ── Shared across groups ──
+        child_education:    'dotLottie-baskets/NP_CHILD_EDUCATION.lottie',
+        child_marriage:     'dotLottie-baskets/NP_CHILD_MARRIAGE.lottie',
+        buy_house:          'dotLottie-baskets/NP_FUTURE_HOUSE.lottie',
+        early_retirement:   'dotLottie-baskets/NP_FIRE.lottie',
+        tax_saving:         'dotLottie-baskets/NP_ELSS.lottie',
+        gold_investment:    'dotLottie-baskets/NP_PRECIOUS_METAL.lottie',
+        fd_alternative:     'dotLottie-baskets/NP_FD_ALTERNATIVE.lottie',
+        freelancer_portfolio:'dotLottie-baskets/NP_FREELANCERS.lottie',
+        // ── Business ──
+        business_expansion: 'dotLottie-baskets/BUS_BUSINESS_GROWTH.lottie',
+        inventory_fund:     'dotLottie-baskets/BUS_INVENTORY_SAVINGS.lottie',
+        shop_renovation:    'dotLottie-baskets/BUS_SHOP_RENOVATION.lottie',
+        rent_to_own_shop:   'dotLottie-baskets/BUS_RENT_TO_OWN_SHOP.lottie',
+        // ── Farmer ──
+        crop_emergency:     'dotLottie-baskets/AGR_CROP_EMERGENCY.lottie',
+        tractor_equipment:  'dotLottie-baskets/AGR_TRACTOR_EQUIPMENT.lottie',
+        irrigation_setup:   'dotLottie-baskets/AGR_IRRIGATION_SETUP.lottie',
+        solar_pump:         'dotLottie-baskets/AGR_SOLAR_PUMP.lottie',
+        // ── Homemaker ──
+        home_business:      'dotLottie-baskets/HM_HOME_BUSINESS.lottie',
+        gold_jewellery:     'dotLottie-baskets/HM_JEWELLERY_FUND.lottie',
+        family_vacation:    'dotLottie-baskets/HM_FAMILY_VACATION.lottie',
+        // ── Student ──
+        higher_education:   'dotLottie-baskets/STU_HIGHER_EDUCATION.lottie',
+        laptop_gadgets:     'dotLottie-baskets/STU_LAPTOP_GADGETS.lottie',
+        college_startup:    'dotLottie-baskets/STU_STARTUP_IDEA.lottie',
+        first_bike:         'dotLottie-baskets/STU_BIKE_FUND.lottie',
+        // ── Retired ──
+        healthcare_reserve: 'dotLottie-baskets/RET_HEALTHCARE_RESERVE.lottie',
+        grandchildren_gift: 'dotLottie-baskets/RET_GRANDCHILDREN_GIFT.lottie',
+        pilgrimage:         'dotLottie-baskets/RET_PILGRIMAGE.lottie',
+        legacy_planning:    'dotLottie-baskets/RET_LEGACY_PLANNING.lottie',
+    };
+
     const GOALS_BY_GROUP = {
 
       salaried: [
@@ -2871,12 +2919,9 @@
         const stage = document.getElementById('carouselStage');
         stage.innerHTML = GOALS.map((g, i) => {
             const b = g.basket;
-            // Hero background: subtle for lottie cards, rich gradient for others
-            const heroBg = g.id === 'wealth_building'
-                ? `linear-gradient(148deg, #EEF3FF 0%, #E4EDFF 100%)`
-                : `linear-gradient(148deg, ${g.color} 0%, ${hexToRgba(g.color, 0.72)} 100%)`;
-            // Large radial glow behind the icon
-            const glowBg = `radial-gradient(circle, ${hexToRgba('#ffffff', 0.18)} 0%, transparent 68%)`;
+            const lottieSrc = LOTTIE_MAP[g.id] || null;
+            // Light-mode hero tinted with basket color
+            const heroBg = `linear-gradient(148deg, ${hexToRgba(g.color, 0.07)} 0%, ${hexToRgba(g.color, 0.13)} 100%)`;
             const fundsHtml = b.funds.map(f => `
                 <div class="fund-row">
                     <span class="fund-row-name">${f.name}</span>
@@ -2887,38 +2932,32 @@
 
                 <!-- ── HERO ── -->
                 <div class="ccard-hero" style="background:${heroBg}">
-                    <!-- glow + rings -->
-                    <div class="hero-glow" style="background:${glowBg}; width:190px;height:190px;"></div>
-                    <div class="hero-ring" style="width:110px;height:110px;"></div>
-                    <div class="hero-ring" style="width:78px;height:78px;border-color:rgba(255,255,255,0.1);"></div>
-                    <!-- sparkles -->
-                    <div class="hero-sp" style="width:5px;height:5px;top:22%;right:18%;animation-delay:0s;"></div>
-                    <div class="hero-sp" style="width:4px;height:4px;top:30%;left:16%;animation-delay:1.1s;"></div>
-                    <div class="hero-sp" style="width:6px;height:6px;bottom:28%;right:22%;animation-delay:2s;"></div>
-                    <div class="hero-sp" style="width:3px;height:3px;bottom:32%;left:20%;animation-delay:0.6s;"></div>
-                    <!-- center floating icon -->
-                    ${g.id !== 'wealth_building'
-                        ? `<div class="hero-icon-wrap"><span class="material-symbols-outlined">${g.icon}</span></div>`
+                    <!-- sparkles — use basket color (white invisible on light bg) -->
+                    <div class="hero-sp" style="width:5px;height:5px;top:22%;right:18%;animation-delay:0s;background:${hexToRgba(g.color,0.4)};"></div>
+                    <div class="hero-sp" style="width:4px;height:4px;top:30%;left:16%;animation-delay:1.1s;background:${hexToRgba(g.color,0.4)};"></div>
+                    <div class="hero-sp" style="width:6px;height:6px;bottom:28%;right:22%;animation-delay:2s;background:${hexToRgba(g.color,0.4)};"></div>
+                    <div class="hero-sp" style="width:3px;height:3px;bottom:32%;left:20%;animation-delay:0.6s;background:${hexToRgba(g.color,0.4)};"></div>
+                    <!-- lottie animation (if mapped) -->
+                    ${lottieSrc
+                        ? `<dotlottie-player src="${lottieSrc}" autoplay loop data-fallback-id="icon-${g.id}" style="position:absolute;bottom:-10px;right:4px;z-index:3;width:160px;height:160px;pointer-events:none;"></dotlottie-player>`
                         : ''
                     }
-                    <!-- animation: right side for wealth_building -->
-                    ${g.id === 'wealth_building'
-                        ? `<dotlottie-player src="assets/dotLottie/Wealth-building.lottie" autoplay loop style="position:absolute;bottom:-10px;right:4px;z-index:3;width:160px;height:160px;pointer-events:none;"></dotlottie-player>`
-                        : ''
-                    }
-                    <!-- top: name -->
-                    <div class="hero-name-row">
-                        ${g.id !== 'wealth_building' ? `<div class="hero-icon-badge"><span class="material-symbols-outlined">${g.icon}</span></div>` : ''}
-                        <div class="hero-basket-name" style="${g.id === 'wealth_building' ? 'color:#1E3A8A;text-shadow:none;' : ''}">${b.name}<span class="material-symbols-outlined chevron">chevron_right</span></div>
+                    <!-- icon fallback — same slot as lottie (bottom-right 160×160) -->
+                    <div id="icon-${g.id}" style="position:absolute;bottom:-10px;right:4px;z-index:3;width:160px;height:160px;display:${lottieSrc ? 'none' : 'flex'};align-items:center;justify-content:center;pointer-events:none;">
+                        <span class="material-symbols-outlined" style="font-size:72px;color:${g.color};opacity:0.85;font-variation-settings:'FILL' 1;filter:drop-shadow(0 4px 12px ${hexToRgba(g.color,0.25)});">${g.icon}</span>
                     </div>
-                    <!-- bottom: chips (left-aligned, vertical stack for wealth_building) -->
-                    <div class="hero-chips-row" style="${g.id === 'wealth_building' ? 'flex-direction:column;align-items:flex-start;gap:6px;padding-right:120px;' : ''}">
-                        <div class="hero-chip" style="${g.id === 'wealth_building' ? 'background:rgba(37,99,235,0.1);border-color:rgba(37,99,235,0.2);' : ''}">
-                            <span class="hero-chip-text" style="${g.id === 'wealth_building' ? 'color:#2563EB;' : ''}">${b.cagr}</span>
+                    <!-- top: name (no icon badge — matches light-mode style) -->
+                    <div class="hero-name-row">
+                        <div class="hero-basket-name" style="color:${g.color};text-shadow:none;">${b.name}<span class="material-symbols-outlined chevron">chevron_right</span></div>
+                    </div>
+                    <!-- bottom: chips — vertical stack, color-tinted -->
+                    <div class="hero-chips-row" style="flex-direction:column;align-items:flex-start;gap:6px;padding-right:${lottieSrc ? '120px' : '100px'};">
+                        <div class="hero-chip" style="background:${hexToRgba(g.color,0.1)};border-color:${hexToRgba(g.color,0.2)};">
+                            <span class="hero-chip-text" style="color:${g.color};">${b.cagr}</span>
                         </div>
-                        <div class="hero-chip" style="${g.id === 'wealth_building' ? 'background:rgba(37,99,235,0.1);border-color:rgba(37,99,235,0.2);' : ''}">
-                            <span class="material-symbols-outlined" style="${g.id === 'wealth_building' ? 'color:#2563EB;' : ''}">${b.liquidityIcon}</span>
-                            <span class="hero-chip-text" style="${g.id === 'wealth_building' ? 'color:#2563EB;' : ''}">${b.liquidity}</span>
+                        <div class="hero-chip" style="background:${hexToRgba(g.color,0.1)};border-color:${hexToRgba(g.color,0.2)};">
+                            <span class="material-symbols-outlined" style="color:${g.color};font-size:13px;">${b.liquidityIcon}</span>
+                            <span class="hero-chip-text" style="color:${g.color};">${b.liquidity}</span>
                         </div>
                     </div>
                 </div>
@@ -2937,7 +2976,6 @@
                     <span class="proj-arrow">→</span>
                     <span class="proj-value" style="color:${g.color}">${b.projection}</span>
                     <span class="proj-suffix">in 10 yrs</span>
-
                 </div>
                 <div class="ccard-cta">
                     <div class="ccard-cta-sep"></div>
@@ -2949,6 +2987,21 @@
         buildDots();
         updateGlow();
         updateTagline(activeIndex);
+        wireLottieFallbacks();
+    }
+
+    function wireLottieFallbacks() {
+        document.querySelectorAll('dotlottie-player[data-fallback-id]').forEach(player => {
+            const fallback = document.getElementById(player.getAttribute('data-fallback-id'));
+            if (!fallback) return;
+            const showFallback = () => {
+                player.style.display = 'none';
+                fallback.style.display = 'flex';
+            };
+            player.addEventListener('error', showFallback);
+            // Handle CDN offline — custom element never registers
+            if (!customElements.get('dotlottie-player')) showFallback();
+        });
     }
 
     // ─────────────────────────────────────────────────────────────
