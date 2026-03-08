@@ -3125,7 +3125,9 @@
     function scrollStripToActive() {
         const strip = document.getElementById('goalStrip');
         const active = strip.querySelector('.goal-mini-card.active');
-        if (active) active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        if (!active) return;
+        // Scroll the active card to the left extent of the strip viewport
+        strip.scrollTo({ left: active.offsetLeft - 8, behavior: 'smooth' });
     }
 
     function selectGoalFromOverlay(index) {
@@ -3137,6 +3139,7 @@
         updateTagline(index);
         updateStripHeader(index);
         scrollCarouselIntoView();
+        scrollStripToActive();
     }
 
     function selectGoalFromStrip(index) {
@@ -3146,6 +3149,7 @@
         updateTagline(index);
         updateStripHeader(index);
         scrollCarouselIntoView();
+        scrollStripToActive();
     }
 
     function closeOverlay() { document.getElementById('goalOverlay').classList.remove('visible'); }
