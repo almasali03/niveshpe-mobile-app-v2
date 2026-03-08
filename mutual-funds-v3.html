@@ -3276,6 +3276,11 @@
         // Handle ?tab= URL param for deep links
         const urlTab = new URLSearchParams(location.search).get('tab');
         if (urlTab === 'all-funds') showMfTab('all-funds');
+
+        // Auto-open goal selector when arriving from onboarding
+        if (new URLSearchParams(location.search).get('openGoals') === 'true') {
+            openOverlay();
+        }
     });
     </script>
 </body>
